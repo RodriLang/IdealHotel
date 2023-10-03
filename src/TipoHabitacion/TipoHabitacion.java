@@ -1,13 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
-package entidades;
 
-class TipoHabitacion {
+package TipoHabitacion;
+
+import entidades.*;
+
+public class TipoHabitacion {
     
-    private int idTipoHabitacion;
+    private int tipoHabitacion;
     private String nombreHabitacion;
     private int tipoCama;
     private int cantCamas;
@@ -25,7 +24,7 @@ class TipoHabitacion {
     }
 
     public TipoHabitacion(int idTipoHabitacion, String nombreHabitacion, int tipoCama, int cantCamas, int cantMaxPersonas, int precioXnoche) {
-        this.idTipoHabitacion = idTipoHabitacion;
+        this.tipoHabitacion = idTipoHabitacion;
         this.nombreHabitacion = nombreHabitacion;
         this.tipoCama = tipoCama;
         this.cantCamas = cantCamas;
@@ -34,11 +33,11 @@ class TipoHabitacion {
     }
 
     public int getIdTipoHabitacion() {
-        return idTipoHabitacion;
+        return tipoHabitacion;
     }
 
     public void setIdTipoHabitacion(int idTipoHabitacion) {
-        this.idTipoHabitacion = idTipoHabitacion;
+        this.tipoHabitacion = idTipoHabitacion;
     }
 
     public String getNombreHabitacion() {

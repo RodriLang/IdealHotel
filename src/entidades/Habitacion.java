@@ -4,27 +4,28 @@
  */
 
 package entidades;
+import TipoHabitacion.*;
 
 public class Habitacion {
     
     private int idHabitacion;
-    private TipoHabitacion idTipoHabitacion;
+    private TipoHabitacion tipoHabitacion;
     private int piso;
     private boolean ocupada;
     private boolean habilitada;
 
     public Habitacion() {}
 
-    public Habitacion(TipoHabitacion idTipoHabitacion, int piso, boolean ocupada, boolean habilitada) {
-        this.idTipoHabitacion = idTipoHabitacion;
+    public Habitacion(TipoHabitacion tipoHabitacion, int piso, boolean ocupada, boolean habilitada) {
+        this.tipoHabitacion = tipoHabitacion;
         this.piso = piso;
         this.ocupada = ocupada;
         this.habilitada = habilitada;
     }
 
-    public Habitacion(int idHabitacion, TipoHabitacion idTipoHabitacion, int piso, boolean ocupada, boolean habilitada) {
+    public Habitacion(int idHabitacion, TipoHabitacion tipoHabitacion, int piso, boolean ocupada, boolean habilitada) {
         this.idHabitacion = idHabitacion;
-        this.idTipoHabitacion = idTipoHabitacion;
+        this.tipoHabitacion = tipoHabitacion;
         this.piso = piso;
         this.ocupada = ocupada;
         this.habilitada = habilitada;
@@ -38,12 +39,12 @@ public class Habitacion {
         this.idHabitacion = idHabitacion;
     }
 
-    public TipoHabitacion getIdTipoHabitacion() {
-        return idTipoHabitacion;
+    public TipoHabitacion gettipoHabitacion() {
+        return tipoHabitacion;
     }
 
-    public void setIdTipoHabitacion(TipoHabitacion idTipoHabitacion) {
-        this.idTipoHabitacion = idTipoHabitacion;
+    public void setIdTipoHabitacion(TipoHabitacion tipoHabitacion) {
+        this.tipoHabitacion = tipoHabitacion;
     }
 
     public int getPiso() {
