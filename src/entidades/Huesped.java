@@ -5,7 +5,7 @@
 
 package entidades;
 
-public class Huesped {
+public class Huesped implements Comparable<Huesped>{
     
     private int idHuesped;
     private String nombre;
@@ -13,24 +13,27 @@ public class Huesped {
     private String domicilio;
     private String correo;
     private String celular;
+    private boolean alojado;
 
     public Huesped() {}
 
-    public Huesped(String nombre, int dni, String domicilio, String correo, String celular) {
+    public Huesped(String nombre, int dni, String domicilio, String correo, String celular, boolean alojado) {
         this.nombre = nombre;
         this.dni = dni;
         this.domicilio = domicilio;
         this.correo = correo;
         this.celular = celular;
+        this.alojado = alojado;
     }
 
-    public Huesped(int idHuesped, String nombre, int dni, String domicilio, String correo, String celular) {
+    public Huesped(int idHuesped, String nombre, int dni, String domicilio, String correo, String celular, boolean alojado) {
         this.idHuesped = idHuesped;
         this.nombre = nombre;
         this.dni = dni;
         this.domicilio = domicilio;
         this.correo = correo;
         this.celular = celular;
+        this.alojado = alojado;
     }
 
     public int getIdHuesped() {
@@ -81,6 +84,24 @@ public class Huesped {
         this.celular = celular;
     }
     
-    
+    public boolean isAlojado() {
+        return alojado;
+    }
 
+    public void setAlojado(boolean alojado) {
+        this.alojado = alojado;
+    }
+
+    @Override
+    public String toString() {
+        return "Huesped: "+idHuesped+ "\n"+nombre + "\n"+ dni + "\n"+ domicilio + "\n"+ correo + "\n"+ celular + "\n"+ alojado+"\n";
+    }
+
+    @Override
+    public int compareTo(Huesped huesped) {
+        return this.idHuesped - huesped.getIdHuesped();
+    }
+    
+    
+    
 }
