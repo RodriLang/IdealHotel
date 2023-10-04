@@ -1,89 +1,77 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 
 package entidades;
 
-class TipoHabitacion {
-    
-    private int idTipoHabitacion;
-    private String nombreHabitacion;
-    private int tipoCama;
-    private int cantCamas;
-    private int cantMaxPersonas;
-    private int precioXnoche;
 
-    public TipoHabitacion() {}
+public enum TipoHabitacion {
+    ESTANDAR_SIMPLE("Descripción", 1, 1, "Individual", 1),
+    ESTANDAR_SIMPLE_KING("Descripción",1, 1,"King Size",1.5),
+    ESTANDAR_DOBLE_TWIN("Descripción",1, 2, "Individual",2),
+    ESTANDAR_TRIPLE("Descripción", 2, 3, "Queen + Individual", 2),
+    ESTANDAR_TRIPLE_TWIN("Descripción", 3, 3, "Individual",3),
+    SUITE_DE_LUJO("Descripción", 3, 3, "King Size + Queen", 5);
 
-    public TipoHabitacion(String nombreHabitacion, int tipoCama, int cantCamas, int cantMaxPersonas, int precioXnoche) {
-        this.nombreHabitacion = nombreHabitacion;
+    private String descripcion;
+    private int cantidadCamas;
+    private int cantidadMaxPax;
+    private String tipoCama;
+    private double indicePrecio;
+
+    private TipoHabitacion(String descripcion, int cantidadCamas, int cantidadMaxPax, String tipoCama, double indicePrecio) {
+        this.descripcion = descripcion;
+        this.cantidadCamas = cantidadCamas;
+        this.cantidadMaxPax = cantidadMaxPax;
         this.tipoCama = tipoCama;
-        this.cantCamas = cantCamas;
-        this.cantMaxPersonas = cantMaxPersonas;
-        this.precioXnoche = precioXnoche;
+        this.indicePrecio = indicePrecio;
     }
 
-    public TipoHabitacion(int idTipoHabitacion, String nombreHabitacion, int tipoCama, int cantCamas, int cantMaxPersonas, int precioXnoche) {
-        this.idTipoHabitacion = idTipoHabitacion;
-        this.nombreHabitacion = nombreHabitacion;
-        this.tipoCama = tipoCama;
-        this.cantCamas = cantCamas;
-        this.cantMaxPersonas = cantMaxPersonas;
-        this.precioXnoche = precioXnoche;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public int getIdTipoHabitacion() {
-        return idTipoHabitacion;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public void setIdTipoHabitacion(int idTipoHabitacion) {
-        this.idTipoHabitacion = idTipoHabitacion;
+    public int getCantidadCamas() {
+        return cantidadCamas;
     }
 
-    public String getNombreHabitacion() {
-        return nombreHabitacion;
+    public void setCantidadCamas(int cantidadCamas) {
+        this.cantidadCamas = cantidadCamas;
     }
 
-    public void setNombreHabitacion(String nombreHabitacion) {
-        this.nombreHabitacion = nombreHabitacion;
+    public int getCantidadMaxPax() {
+        return cantidadMaxPax;
     }
 
-    public int getTipoCama() {
+    public void setCantidadMaxPax(int cantidadMaxPax) {
+        this.cantidadMaxPax = cantidadMaxPax;
+    }
+
+    public String getTipoCama() {
         return tipoCama;
     }
 
-    public void setTipoCama(int tipoCama) {
+    public void setTipoCama(String tipoCama) {
         this.tipoCama = tipoCama;
     }
 
-    public int getCantCamas() {
-        return cantCamas;
+    public double getIndicePrecio() {
+        return indicePrecio;
     }
 
-    public void setCantCamas(int cantCamas) {
-        this.cantCamas = cantCamas;
+    public void setIndicePrecio(double indicePrecio) {
+        this.indicePrecio = indicePrecio;
     }
 
-    public int getCantMaxPersonas() {
-        return cantMaxPersonas;
+    @Override
+    public String toString() {
+        return "Tipo de Habitación: " + descripcion +
+               "\nCantidad de Camas: " + cantidadCamas +
+               "\nCantidad Máxima de Personas: " + cantidadMaxPax +
+               "\nTipo de Cama: " + tipoCama +
+               "\nÍndice de Precio: " + indicePrecio;
     }
-
-    public void setCantMaxPersonas(int cantMaxPersonas) {
-        this.cantMaxPersonas = cantMaxPersonas;
-    }
-
-    public int getPrecioXnoche() {
-        return precioXnoche;
-    }
-
-    public void setPrecioXnoche(int precioXnoche) {
-        this.precioXnoche = precioXnoche;
-    }
-    
-    
-    
-    
-    
-
+  
 }
