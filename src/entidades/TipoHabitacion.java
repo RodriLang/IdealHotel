@@ -5,11 +5,12 @@ package entidades;
 
 public enum TipoHabitacion {
     ESTANDAR_SIMPLE("Descripción", 1, 1, "Individual", 1),
-    ESTANDAR_SIMPLE_KING("Descripción",1, 1,"King Size",1.5),
-    ESTANDAR_DOBLE_TWIN("Descripción",1, 2, "Individual",2),
-    ESTANDAR_TRIPLE("Descripción", 2, 3, "Queen + Individual", 2),
+    ESTANDAR_SIMPLE_QUEEN("Descripción",1, 1,"Queen", 1.5),
+    ESTANDAR_DOBLE_TWIN("Descripción",2, 2, "Individual", 2),
+    ESTANDAR_DOBLE_MAT("Descripción", 1, 2, "King Size", 2),
     ESTANDAR_TRIPLE_TWIN("Descripción", 3, 3, "Individual",3),
-    SUITE_DE_LUJO("Descripción", 3, 3, "King Size + Queen", 5);
+    ESTANDAR_TRIPLE_MAT("Descripción", 2, 3, "Queen + Individual", 2),
+    SUITE_DE_LUJO("Descripción", 2, 3, "King Size + Queen", 5);
 
     private String descripcion;
     private int cantidadCamas;
