@@ -66,13 +66,5 @@ public enum TipoHabitacion {
         this.indicePrecio = indicePrecio;
     }
 
-    @Override
-    public String toString() {
-        return "Tipo de Habitación: " + descripcion +
-               "\nCantidad de Camas: " + cantidadCamas +
-               "\nCantidad Máxima de Personas: " + cantidadMaxPax +
-               "\nTipo de Cama: " + tipoCama +
-               "\nÍndice de Precio: " + indicePrecio;
-    }
   
 }
