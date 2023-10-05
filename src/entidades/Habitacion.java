@@ -85,22 +85,13 @@ public class Habitacion {
         this.precio = calcularPrecio(precio);
     }
 
-    private int calcularPrecio(int precio) {//retorna el precio ingresado multiplicado por el indice de aumento del tipo
-
-//        switch (var) {
-//            case val:
-//                
-//                break;
-//            default:
-//                throw new AssertionError();
-//        }
-        return 0;
+    //retorna el precio ingresado multiplicado por el indice de aumento del tipoHabitacion
+    private int calcularPrecio(int precio) {
+        return precio *= tipoHabitacion.getIndicePrecio();
     }
 
     @Override
     public String toString() {
         return "Habitacion{" + "idHabitacion=" + idHabitacion + ", tipoHabitacion=" + tipoHabitacion + ", piso=" + piso + ", precio=" + precio + ", ocupada=" + ocupada + ", habilitada=" + habilitada + '}';
     }
-    
-
 }

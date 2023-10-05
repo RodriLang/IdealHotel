@@ -319,4 +319,19 @@ public class HabitacionData {
         return habitaciones;
     }
 
+    public void modificarPrecio(TipoHabitacion tipo, int precio) {
+        String sql = "UPDATE habitacion SET precio = ? WHERE tipoHabitacion = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, precio);
+            ps.setObject(2, tipo.toString());
+            if (ps.executeUpdate(sql) == 1) {
+                JOptionPane.showMessageDialog(null, "Se actualizó el precio por noche de las habitaciones del tipo: "+tipo);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en la sentencia SQL modificarPrecio\n" + ex.getMessage(), ex.getSQLState(), JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 }
