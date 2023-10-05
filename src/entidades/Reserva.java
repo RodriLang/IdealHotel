@@ -5,13 +5,14 @@
 
 package entidades;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class Reserva {
     
     private int idReserva;
-    private Huesped idHuesped;
-    private Habitacion idHabitacion;
+    private Huesped huesped;
+    private Habitacion habitacion;
     private int cantPax;
     private LocalDate fechaInn;
     private LocalDate fechaOut;
@@ -19,23 +20,21 @@ public class Reserva {
 
     public Reserva() {}
 
-    public Reserva(Huesped idHuesped, Habitacion idHabitacion, int cantPax, LocalDate fechaInn, LocalDate fechaOut, int importe) {
-        this.idHuesped = idHuesped;
-        this.idHabitacion = idHabitacion;
+    public Reserva(Huesped huesped, Habitacion habitacion, int cantPax, LocalDate fechaInn, LocalDate fechaOut) {
+        this.huesped = huesped;
+        this.habitacion = habitacion;
         this.cantPax = cantPax;
         this.fechaInn = fechaInn;
         this.fechaOut = fechaOut;
-        this.importe = importe;
     }
 
-    public Reserva(int idReserva, Huesped idHuesped, Habitacion idHabitacion, int cantPax, LocalDate fechaInn, LocalDate fechaOut, int importe) {
+    public Reserva(int idReserva, Huesped huesped, Habitacion habitacion, int cantPax, LocalDate fechaInn, LocalDate fechaOut) {
         this.idReserva = idReserva;
-        this.idHuesped = idHuesped;
-        this.idHabitacion = idHabitacion;
+        this.huesped = huesped;
+        this.habitacion = habitacion;
         this.cantPax = cantPax;
         this.fechaInn = fechaInn;
         this.fechaOut = fechaOut;
-        this.importe = importe;
     }
 
     public int getIdReserva() {
@@ -46,20 +45,20 @@ public class Reserva {
         this.idReserva = idReserva;
     }
 
-    public Huesped getIdHuesped() {
-        return idHuesped;
+    public Huesped getHuesped() {
+        return huesped;
     }
 
-    public void setIdHuesped(Huesped idHuesped) {
-        this.idHuesped = idHuesped;
+    public void setHuesped(Huesped huesped) {
+        this.huesped = huesped;
     }
 
-    public Habitacion getIdHabitacion() {
-        return idHabitacion;
+    public Habitacion getHabitacion() {
+        return habitacion;
     }
 
-    public void setIdHabitacion(Habitacion idHabitacion) {
-        this.idHabitacion = idHabitacion;
+    public void setHabitacion(Habitacion habitacion) {
+        this.habitacion = habitacion;
     }
 
     public int getCantPax() {
@@ -87,6 +86,7 @@ public class Reserva {
     }
 
     public int getImporte() {
+        calcularImporte();
         return importe;
     }
 
@@ -94,7 +94,17 @@ public class Reserva {
         this.importe = importe;
     }
     
+    public void calcularImporte(){
+    Date fecha1=Date.valueOf(fechaInn);
+    Date fecha2=Date.valueOf(fechaOut);
+    this.importe = habitacion.getPrecio()*((int)(fecha2.getTime()-fecha1.getTime())/1000/60/60/24);
     
+    }
+
+    @Override
+    public String toString() {
+        return "Reserva{" + "idReserva=" + idReserva + ", huesped=" + huesped + ", habitacion=" + habitacion + ", cantPax=" + cantPax + ", fechaInn=" + fechaInn + ", fechaOut=" + fechaOut + ", importe=" + importe + '}';
+    }
     
     
 
