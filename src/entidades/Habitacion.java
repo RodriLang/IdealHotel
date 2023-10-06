@@ -4,7 +4,9 @@
  */
 package entidades;
 
-public class Habitacion {
+import java.util.Objects;
+
+public class Habitacion implements Comparable<Habitacion>{
 
     private int idHabitacion;
     private TipoHabitacion tipoHabitacion;
@@ -92,6 +94,44 @@ public class Habitacion {
 
     @Override
     public String toString() {
-        return "Habitacion{" + "idHabitacion=" + idHabitacion + ", tipoHabitacion=" + tipoHabitacion + ", piso=" + piso + ", precio=" + precio + ", ocupada=" + ocupada + ", habilitada=" + habilitada + '}';
+        return "\nHabitacion N° " + idHabitacion
+                +"\n"+ tipoHabitacion
+                +"\n"+ "Piso: " + piso+"\n";
     }
+
+    @Override
+    public int compareTo(Habitacion t) {
+        return this.idHabitacion -t.getIdHabitacion();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + this.idHabitacion;
+        hash = 67 * hash + Objects.hashCode(this.tipoHabitacion);
+        hash = 67 * hash + this.piso;
+        hash = 67 * hash + this.precio;
+        hash = 67 * hash + (this.ocupada ? 1 : 0);
+        hash = 67 * hash + (this.habilitada ? 1 : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Habitacion other = (Habitacion) obj;
+        if (this.idHabitacion != other.idHabitacion) {
+            return false;
+        }
+        return true;
+    }
+    
 }

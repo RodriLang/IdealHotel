@@ -2,11 +2,16 @@ package AccesoADatos;
 
 import entidades.TipoHabitacion;
 import entidades.Habitacion;
+import entidades.Reserva;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,10 +21,13 @@ import org.mariadb.jdbc.Statement;
 public class HabitacionData {
 
     private Connection con = null;
-    private TipoHabitacionData tipoHabData;
+    private ReservaData resData;
+    private HuespedData huesData;
 
     public HabitacionData() {
         con = Conexion.getConexion();
+        huesData = new HuespedData();
+        resData = new ReservaData(huesData, this);
     }
 
     public void guardarHabitacion(Habitacion habitacion) {
@@ -136,7 +144,7 @@ public class HabitacionData {
     }
 
     public void dehabilitarHabitacion(int idHabitacion) {
-        String sql = "UPDATE habitacion SET habilitada = 0 WHERE idHabitacion = ?";
+        String sql = "UPDATE habitacion SET habilitada = 0, ocupada = 0 WHERE idHabitacion = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idHabitacion);
@@ -247,26 +255,31 @@ public class HabitacionData {
         return habitaciones;
     }
 
-    public List<Habitacion> listarHabitacionesDisponibles() {
-        List<Habitacion> habitaciones = new ArrayList<>();
-        String sql = "SELECT * FROM habitacion WHERE ocupada = 0";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Habitacion habitacion = new Habitacion();
-                habitacion.setIdHabitacion(rs.getInt("idHabitacion"));
-                habitacion.setPiso(rs.getInt("piso"));
-                habitacion.setTipoHabitacion(TipoHabitacion.valueOf(rs.getString("tipoHabitacion")));
-                habitacion.setOcupada(false);
-                habitacion.setHabilitada(rs.getBoolean("habilitada"));
-                habitacion.setPrecioFinal(rs.getInt("precio"));
-                habitaciones.add(habitacion);
+    public List<Habitacion> listarHabitacionesDisponibles(List<LocalDate> fechas) {
+        List<Habitacion> habitaciones = listarHabitacionesHabilitadas();
+        for (LocalDate fecha : fechas) {
+            for (Reserva reserva : resData.buscarReservaPorFecha(fecha, huesData, this)) {
+                habitaciones.remove(reserva.getHabitacion());
             }
-            ps.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(HabitacionData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return habitaciones;
+    }
+
+    public List<Habitacion> listarHabitacionesDisponibles(LocalDate fecha) {
+        List<Habitacion> habitaciones = listarHabitacionesHabilitadas();
+        for (Reserva reserva : resData.buscarReservaPorFecha(fecha, huesData, this)) {
+            habitaciones.remove(reserva.getHabitacion());
+        }
+        return habitaciones;
+    }
+
+    public List<Habitacion> listarHabitacionesDisponibles(LocalDate fechaInn, LocalDate fechaOut) {
+        List<Habitacion> habitaciones = listarHabitacionesHabilitadas();
+        int dias = (int) ChronoUnit.DAYS.between(fechaOut, fechaOut);
+        for (int i = 0; i < dias; i++) {
+            for (Reserva reserva : resData.buscarReservaPorFecha(fechaInn.plusDays(i), huesData, this)) {
+                habitaciones.remove(reserva.getHabitacion());
+            }
         }
         return habitaciones;
     }
@@ -297,7 +310,7 @@ public class HabitacionData {
 
     public List<Habitacion> listarHabitacionesDeshabilitadas() {
         List<Habitacion> habitaciones = new ArrayList<>();
-        String sql = "SELECT * FROM habitacion WHERE habilitada = 1";
+        String sql = "SELECT * FROM habitacion WHERE habilitada = 0";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -319,14 +332,28 @@ public class HabitacionData {
         return habitaciones;
     }
 
-    public void modificarPrecio(TipoHabitacion tipo, int precio) {
+    public void modificarPrecioPotTipo(TipoHabitacion tipo, int precio) {
         String sql = "UPDATE habitacion SET precio = ? WHERE tipoHabitacion = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, precio);
             ps.setObject(2, tipo.toString());
             if (ps.executeUpdate(sql) == 1) {
-                JOptionPane.showMessageDialog(null, "Se actualizó el precio por noche de las habitaciones del tipo: "+tipo);
+                JOptionPane.showMessageDialog(null, "Se actualizó el precio por noche de las habitaciones del tipo: " + tipo);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en la sentencia SQL modificarPrecio\n" + ex.getMessage(), ex.getSQLState(), JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void modificarPrecioGeneral(int precio) {
+        String sql = "UPDATE habitacion SET precio = ? WHERE tipoHabitacion = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, precio);
+            if (ps.executeUpdate(sql) == 1) {
+                JOptionPane.showMessageDialog(null, "Se actualizó el precio base por noche de todas las habitaciones");
             }
             ps.close();
         } catch (SQLException ex) {
