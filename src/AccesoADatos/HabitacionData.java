@@ -33,8 +33,7 @@ public class HabitacionData {
     public void guardarHabitacion(Habitacion habitacion) {
         String sql = "INSERT INTO habitacion (tipoHabitacion, piso, precio, ocupada, habilitada)"
                 + "VALUES (?,?,?,?,?)";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setObject(1, habitacion.getTipoHabitacion().toString());
             ps.setInt(2, habitacion.getPiso());
             ps.setInt(3, habitacion.getPrecio());
@@ -49,7 +48,6 @@ public class HabitacionData {
                 JOptionPane.showMessageDialog(null, "Habitación guardada con el id N°: "
                         + habitacion.getIdHabitacion());
             }
-            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la sentencia SQL guardarHabitacion\n" + ex.getMessage(), ex.getSQLState(), JOptionPane.ERROR_MESSAGE);
         }
@@ -58,8 +56,7 @@ public class HabitacionData {
     public Habitacion buscarHabitacion(int idHabitacion) {
         Habitacion habitacion = new Habitacion();
         String sql = "SELECT * FROM habitacion WHERE idHabitacion = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idHabitacion);
             ResultSet rs = ps.executeQuery();
 
@@ -81,9 +78,7 @@ public class HabitacionData {
     public void modificarHabitacion(Habitacion habitacion) {
         String sql = "UPDATE habitacion SET idTipoHabitacion = ?, piso = ?, precio = ?, tipoHabitacion = ?, ocupada = ?,"
                 + " habilitada = ? WHERE idHabitacion = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, habitacion.getIdHabitacion());
             ps.setInt(2, habitacion.getPiso());
             ps.setInt(3, habitacion.getPrecio());
@@ -94,7 +89,6 @@ public class HabitacionData {
             if (ps.executeUpdate(sql) == 1) {
                 JOptionPane.showMessageDialog(null, "Habitacion modificada");
             }
-            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la sentencia SQL modificarHabitacion\n" + ex.getMessage(), ex.getSQLState(), JOptionPane.ERROR_MESSAGE);
         }
@@ -102,13 +96,11 @@ public class HabitacionData {
 
     public void ocuparHabitacion(int idHabitacion) {
         String sql = "UPDATE habitacion SET ocupada = 1 WHERE idHabitacion = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idHabitacion);
             if (ps.executeUpdate(sql) == 1) {
                 JOptionPane.showMessageDialog(null, "Habitacion marcada como OCUPADA");
             }
-            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la sentencia SQL ocuparHabitacion\n" + ex.getMessage(), ex.getSQLState(), JOptionPane.ERROR_MESSAGE);
         }
@@ -116,13 +108,11 @@ public class HabitacionData {
 
     public void liberarHabitacion(int idHabitacion) {
         String sql = "UPDATE habitacion SET ocupada = 0 WHERE idHabitacion = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idHabitacion);
             if (ps.executeUpdate(sql) == 1) {
                 JOptionPane.showMessageDialog(null, "Habitacion marcada como LIBRE");
             }
-            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la sentencia SQL liberarHabitacion\n" + ex.getMessage(), ex.getSQLState(), JOptionPane.ERROR_MESSAGE);
         }
@@ -131,13 +121,11 @@ public class HabitacionData {
     public void habilitarHabitacion(int idHabitacion) {
         String sql = "UPDATE habitacion SET habilitada = 1 WHERE idHabitacion = ?";
 
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idHabitacion);
             if (ps.executeUpdate(sql) == 1) {
                 JOptionPane.showMessageDialog(null, "Habitacion marcada como HABILITADA");
             }
-            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la sentencia SQL habilitarHabitacion\n" + ex.getMessage(), ex.getSQLState(), JOptionPane.ERROR_MESSAGE);
         }
@@ -145,13 +133,11 @@ public class HabitacionData {
 
     public void dehabilitarHabitacion(int idHabitacion) {
         String sql = "UPDATE habitacion SET habilitada = 0, ocupada = 0 WHERE idHabitacion = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idHabitacion);
             if (ps.executeUpdate(sql) == 1) {
                 JOptionPane.showMessageDialog(null, "Habitacion marcada como DESHABILITADA");
             }
-            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la sentencia SQL deshabilitarHabitacion\n" + ex.getMessage(), ex.getSQLState(), JOptionPane.ERROR_MESSAGE);
         }
@@ -160,8 +146,7 @@ public class HabitacionData {
     public List<Habitacion> listarHabitaciones() {
         List<Habitacion> habitaciones = new ArrayList<>();
         String sql = "SELECT * FROM habitacion";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -183,8 +168,7 @@ public class HabitacionData {
     public List<Habitacion> listarHabitacionesPorPiso(int piso) {
         List<Habitacion> habitaciones = new ArrayList<>();
         String sql = "SELECT * FROM habitacion WHERE piso = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, piso);
             ResultSet rs = ps.executeQuery();
 
@@ -198,7 +182,6 @@ public class HabitacionData {
                 habitacion.setPrecioFinal(rs.getInt("precio"));
                 habitaciones.add(habitacion);
             }
-            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la sentencia SQL listarHabitacionesPorPiso\n" + ex.getMessage(), ex.getSQLState(), JOptionPane.ERROR_MESSAGE);
         }
@@ -209,8 +192,7 @@ public class HabitacionData {
         List<Habitacion> habitaciones = new ArrayList<>();
         String sql = "SELECT * FROM habitacion WHERE tipoHabitacion = ?";
 
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, tipo.toString());
             ResultSet rs = ps.executeQuery();
 
@@ -224,7 +206,6 @@ public class HabitacionData {
                 habitacion.setPrecioFinal(rs.getInt("precio"));
                 habitaciones.add(habitacion);
             }
-            ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(HabitacionData.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -234,8 +215,7 @@ public class HabitacionData {
     public List<Habitacion> listarHabitacionesOcupadas() {
         List<Habitacion> habitaciones = new ArrayList<>();
         String sql = "SELECT * FROM habitacion WHERE ocupada = 1";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -248,7 +228,6 @@ public class HabitacionData {
                 habitacion.setPrecioFinal(rs.getInt("precio"));
                 habitaciones.add(habitacion);
             }
-            ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(HabitacionData.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -287,8 +266,7 @@ public class HabitacionData {
     public List<Habitacion> listarHabitacionesHabilitadas() {
         List<Habitacion> habitaciones = new ArrayList<>();
         String sql = "SELECT * FROM habitacion WHERE habilitada = 1";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -301,7 +279,6 @@ public class HabitacionData {
                 habitacion.setPrecioFinal(rs.getInt("precio"));
                 habitaciones.add(habitacion);
             }
-            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la sentencia SQL listarHabitacionesHabilitadas\n" + ex.getMessage(), ex.getSQLState(), JOptionPane.ERROR_MESSAGE);
         }
@@ -311,8 +288,7 @@ public class HabitacionData {
     public List<Habitacion> listarHabitacionesDeshabilitadas() {
         List<Habitacion> habitaciones = new ArrayList<>();
         String sql = "SELECT * FROM habitacion WHERE habilitada = 0";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -325,7 +301,6 @@ public class HabitacionData {
                 habitacion.setPrecioFinal(rs.getInt("precio"));
                 habitaciones.add(habitacion);
             }
-            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la sentencia SQL listarHabitacionesDeshabilitadas\n" + ex.getMessage(), ex.getSQLState(), JOptionPane.ERROR_MESSAGE);
         }
@@ -334,14 +309,12 @@ public class HabitacionData {
 
     public void modificarPrecioPotTipo(TipoHabitacion tipo, int precio) {
         String sql = "UPDATE habitacion SET precio = ? WHERE tipoHabitacion = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, precio);
             ps.setObject(2, tipo.toString());
             if (ps.executeUpdate(sql) == 1) {
                 JOptionPane.showMessageDialog(null, "Se actualizó el precio por noche de las habitaciones del tipo: " + tipo);
             }
-            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la sentencia SQL modificarPrecio\n" + ex.getMessage(), ex.getSQLState(), JOptionPane.ERROR_MESSAGE);
         }
@@ -349,13 +322,11 @@ public class HabitacionData {
 
     public void modificarPrecioGeneral(int precio) {
         String sql = "UPDATE habitacion SET precio = ? WHERE tipoHabitacion = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, precio);
             if (ps.executeUpdate(sql) == 1) {
                 JOptionPane.showMessageDialog(null, "Se actualizó el precio base por noche de todas las habitaciones");
             }
-            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la sentencia SQL modificarPrecio\n" + ex.getMessage(), ex.getSQLState(), JOptionPane.ERROR_MESSAGE);
         }
