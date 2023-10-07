@@ -23,6 +23,10 @@ public class HuespedData {
     }
 
     public void agregarHuesped(Huesped huesped) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> fb0cabcca066bbf8fa4e365084862ce6c6e46b98
         String sql = "INSERT INTO huesped (nombre, dni, domicilio, correo, celular, alojado) "
                 + " VALUES (?,?,?,?,?,?)";
         try (PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -117,7 +121,12 @@ public class HuespedData {
 
     public List<Huesped> listarHuespedes() {
         List<Huesped> hd = new ArrayList<>();
+<<<<<<< HEAD
         String sql = "SELECT * FROM huesped";
+=======
+
+        String sql = "SELECT * FROM huesped WHERE alojado=1";
+>>>>>>> fb0cabcca066bbf8fa4e365084862ce6c6e46b98
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
