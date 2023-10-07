@@ -21,11 +21,11 @@ public class Main {
         //Huesped hs2 = hd.buscarHuespedId(2);
         //System.out.println("Nombre: "+hs2.getNombre());
         List<Huesped> huespedes = hd.listarHuespedes();
-        for (Object hue : huespedes){
+        for (Object hue : huespedes) {
             System.out.println(hue);
         }
         
-        List<Huesped> huespedesAlojados = hd.listarHuespedesAlojados();
+         List<Huesped> huespedesAlojados = hd.listarHuespedesAlojados();
         for (Object hue : huespedesAlojados) {
             System.out.println(hue);
         }
