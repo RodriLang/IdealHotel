@@ -20,8 +20,13 @@ public class Main {
         //System.out.println("Nombre: " + hs.getNombre());
         //Huesped hs2 = hd.buscarHuespedId(2);
         //System.out.println("Nombre: "+hs2.getNombre());
-        List<Huesped> huesped = hd.listarHuesped();
-        for (Object hue : huesped) {
+        List<Huesped> huespedes = hd.listarHuespedes();
+        for (Object hue : huespedes){
+            System.out.println(hue);
+        }
+        
+        List<Huesped> huespedesAlojados = hd.listarHuespedesAlojados();
+        for (Object hue : huespedesAlojados) {
             System.out.println(hue);
         }
         

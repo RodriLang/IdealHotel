@@ -23,23 +23,21 @@ public class HuespedData {
     }
 
     public void agregarHuesped(Huesped huesped) {
-        try {
-            String sql = "INSERT INTO huesped (nombre, dni, domicilio, correo, celular, alojado) "
-                    + " VALUES (?,?,?,?,?,?)";
-            PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+        String sql = "INSERT INTO huesped (nombre, dni, domicilio, correo, celular, alojado) "
+                + " VALUES (?,?,?,?,?,?)";
+        try (PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, huesped.getNombre());
             ps.setInt(2, huesped.getDni());
             ps.setString(3, huesped.getDomicilio());
             ps.setString(4, huesped.getCorreo());
             ps.setString(5, huesped.getCelular());
-            ps.setBoolean(6, true);
+            ps.setBoolean(6, false);
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 huesped.setIdHuesped(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Huésped guardado. ID: " + huesped.getIdHuesped());
             }
-            ps.close();
         } catch (SQLException ex) {
             if (ex.getSQLState().equals("23000") && ex.getErrorCode() == 1062) {
                 JOptionPane.showMessageDialog(null, "El Dni ingresado ya existe");
@@ -52,30 +50,27 @@ public class HuespedData {
     public void modificarHuesped(Huesped huesped) {
         String sql = "UPDATE huesped SET nombre=?, dni=?, domicilio=?, correo=?, celular=?, alojado=?"
                 + " WHERE idHuesped=?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, huesped.getNombre());
             ps.setInt(2, huesped.getDni());
             ps.setString(3, huesped.getDomicilio());
             ps.setString(4, huesped.getCorreo());
             ps.setString(5, huesped.getCelular());
-            ps.setBoolean(6, true);
+            ps.setBoolean(6, huesped.isAlojado());
             ps.setInt(7, huesped.getIdHuesped());
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Huesped modificado exitosamente");
             }
-            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en el método modificarHuesped" + ex.getMessage());
         }
     }
 
     public Huesped buscarHuespedId(int id) {
-        String sql = "SELECT nombre, dni, domicilio, correo, celular FROM huesped WHERE idHuesped=? AND alojado = 1";
+        String sql = "SELECT nombre, dni, domicilio, correo, celular FROM huesped WHERE idHuesped=?";
         Huesped huesped = null;
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -97,10 +92,9 @@ public class HuespedData {
     }
 
     public Huesped buscarHuespedDni(int dni) {
-        String sql = "SELECT idHuesped, nombre, dni, domicilio, correo, celular FROM huesped WHERE dni=? AND alojado = 1";
+        String sql = "SELECT idHuesped, nombre, dni, domicilio, correo, celular FROM huesped WHERE dni=?";
         Huesped huesped = null;
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, dni);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -121,11 +115,10 @@ public class HuespedData {
         return huesped;
     }
 
-    public List<Huesped> listarHuesped() {
+    public List<Huesped> listarHuespedes() {
         List<Huesped> hd = new ArrayList<>();
-        try {
-            String sql = "SELECT * FROM huesped WHERE alojado=1";
-            PreparedStatement ps = con.prepareStatement(sql);
+        String sql = "SELECT * FROM huesped";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Huesped huesped = new Huesped();
@@ -138,9 +131,30 @@ public class HuespedData {
                 huesped.setAlojado(rs.getBoolean("alojado"));
                 hd.add(huesped);
             }
-            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, " Error en el método listarHuesped. " + ex.getMessage());
+        }
+        return hd;
+    }
+
+    public List<Huesped> listarHuespedesAlojados() {
+        List<Huesped> hd = new ArrayList<>();
+        String sql = "SELECT idHuesped, nombre, dni, domicilio, correo, celular FROM huesped WHERE alojado=true";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Huesped huesped = new Huesped();
+                huesped.setIdHuesped(rs.getInt("idHuesped"));
+                huesped.setNombre(rs.getString("nombre"));
+                huesped.setDni(rs.getInt("dni"));
+                huesped.setDomicilio(rs.getString("domicilio"));
+                huesped.setCorreo(rs.getString("correo"));
+                huesped.setCelular(rs.getString("celular"));
+                huesped.setAlojado(true);
+                hd.add(huesped);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, " Error en el método listarHuespedAlojados. " + ex.getMessage());
         }
         return hd;
     }
