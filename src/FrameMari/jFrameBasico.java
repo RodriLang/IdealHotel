@@ -600,10 +600,10 @@ public class jFrameBasico extends javax.swing.JFrame {
             //(List<LocalDate> fechasDeLaTemporada)
         
        ArrayList<LocalDate> fechas = new ArrayList<>();
-        LocalDate fechaActual = LocalDate.now();
+        LocalDate fechaActual =fecha1;
         modelo.addColumn("HAB");
-
-        while (!fechaActual.isAfter(fechaActual.plusDays(20))) {
+        
+        while (!fechaActual.isAfter(fecha2)) {
             fechas.add(fechaActual);
             fechaActual = fechaActual.plusDays(1);
         }
