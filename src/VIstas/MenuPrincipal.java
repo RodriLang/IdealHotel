@@ -1,9 +1,24 @@
 package VIstas;
 
-import java.awt.Color;
+import AccesoADatos.HabitacionData;
+import AccesoADatos.HuespedData;
+import AccesoADatos.ReservaData;
 import javax.swing.JInternalFrame;
 
 public class MenuPrincipal extends javax.swing.JFrame {
+
+    private HabitacionData habData;
+    private HuespedData huesData;
+    private ReservaData reserData;
+
+    public MenuPrincipal(HabitacionData habData, HuespedData huesData, ReservaData reserData) {
+        this.habData = habData;
+        this.huesData = huesData;
+        this.reserData = reserData;
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+    }
 
     public MenuPrincipal() {
         initComponents();
@@ -169,7 +184,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCerrarActionPerformed
-        this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_botonCerrarActionPerformed
 
     private void botonNosotrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNosotrosActionPerformed
@@ -178,8 +193,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_botonNosotrosActionPerformed
 
     private void botonAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAdminActionPerformed
+        mostrarVentana(new AdministracionView(habData, huesData, reserData));
         VentanaLogin login = new VentanaLogin();
-        
+
     }//GEN-LAST:event_botonAdminActionPerformed
     private void mostrarVentana(JInternalFrame ventana) {
         ventana.setVisible(true);
@@ -189,6 +205,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jDesktopPane1.add(labelFondo);
         jDesktopPane1.moveToFront(this);
         ventana.setSize(jDesktopPane1.getSize());
+        ventana.setResizable(false);
     }
 
     public static void main(String args[]) {
@@ -221,11 +238,70 @@ public class MenuPrincipal extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuPrincipal().setVisible(true);
+                HabitacionData habData = new HabitacionData();
+                HuespedData huesData =  new HuespedData();
+                ReservaData reserData = new ReservaData(huesData, habData);
+                new MenuPrincipal(habData, huesData, reserData).setVisible(true);
             }
         });
     }

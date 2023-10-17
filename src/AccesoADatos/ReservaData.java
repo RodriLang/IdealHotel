@@ -33,7 +33,7 @@ public class ReservaData {
         Boolean puede=true;
         System.out.println(fechas);
         for (LocalDate fecha : fechas) {
-            for (Reserva reserva : buscarReservaPorHabitacion(res.getHabitacion().getIdHabitacion(), huesData, habData)) {
+            for (Reserva reserva : buscarReservaPorHabitacion(res.getHabitacion().getIdHabitacion())) {
              if (fecha.equals(reserva.getFechaInn())||fecha.equals(reserva.getFechaOut())) {
                puede = false;
                break;
@@ -223,7 +223,7 @@ public class ReservaData {
     List<Habitacion> habitaciones = habData.listarHabitaciones();
     List<Reserva> ocupadas = new ArrayList<>();
      for (LocalDate fecha : fechas) {
-         for (Reserva ocupada : buscarReservaPorFecha(fecha, huesData, habData)) {
+         for (Reserva ocupada : buscarReservaPorFecha(fecha)) {
              ocupadas.add(ocupada);
          }        
      }

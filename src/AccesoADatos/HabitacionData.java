@@ -74,7 +74,7 @@ public class HabitacionData {
     }
 
     public void modificarHabitacion(Habitacion habitacion) {
-        String sql = "UPDATE habitacion SET idTipoHabitacion = ?, piso = ?, precio = ?, tipoHabitacion = ?, ocupada = ?,"
+        String sql = "UPDATE habitacion SET tipoHabitacion = ?, piso = ?, precio = ?, tipoHabitacion = ?, ocupada = ?,"
                 + " habilitada = ? WHERE idHabitacion = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, habitacion.getIdHabitacion());
@@ -83,8 +83,9 @@ public class HabitacionData {
             ps.setObject(4, habitacion.getTipoHabitacion().toString());
             ps.setBoolean(5, habitacion.isOcupada());
             ps.setBoolean(6, habitacion.isHabilitada());
+            ps.setInt(7, habitacion.getIdHabitacion());
 
-            if (ps.executeUpdate(sql) == 1) {
+            if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Habitacion modificada");
             }
         } catch (SQLException ex) {
@@ -96,7 +97,7 @@ public class HabitacionData {
         String sql = "UPDATE habitacion SET ocupada = 1 WHERE idHabitacion = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idHabitacion);
-            if (ps.executeUpdate(sql) == 1) {
+            if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Habitacion marcada como OCUPADA");
             }
         } catch (SQLException ex) {
@@ -108,7 +109,7 @@ public class HabitacionData {
         String sql = "UPDATE habitacion SET ocupada = 0 WHERE idHabitacion = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idHabitacion);
-            if (ps.executeUpdate(sql) == 1) {
+            if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Habitacion marcada como LIBRE");
             }
         } catch (SQLException ex) {
@@ -121,7 +122,7 @@ public class HabitacionData {
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idHabitacion);
-            if (ps.executeUpdate(sql) == 1) {
+            if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Habitacion marcada como HABILITADA");
             }
         } catch (SQLException ex) {
@@ -133,7 +134,7 @@ public class HabitacionData {
         String sql = "UPDATE habitacion SET habilitada = 0, ocupada = 0 WHERE idHabitacion = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idHabitacion);
-            if (ps.executeUpdate(sql) == 1) {
+            if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Habitacion marcada como DESHABILITADA");
             }
         } catch (SQLException ex) {
@@ -197,7 +198,7 @@ public class HabitacionData {
             while (rs.next()) {
                 Habitacion habitacion = new Habitacion();
                 habitacion.setIdHabitacion(rs.getInt("idHabitacion"));
-                habitacion.setPiso(rs.getInt("idTipoHabitacion"));
+                habitacion.setPiso(rs.getInt("piso"));
                 habitacion.setTipoHabitacion(tipo);
                 habitacion.setOcupada(rs.getBoolean("ocupada"));
                 habitacion.setHabilitada(rs.getBoolean("habilitada"));
@@ -232,31 +233,24 @@ public class HabitacionData {
         return habitaciones;
     }
 
-    public List<Habitacion> listarHabitacionesDisponibles(List<LocalDate> fechas) {
-        List<Habitacion> habitaciones = listarHabitacionesHabilitadas();
-        for (LocalDate fecha : fechas) {
-            for (Reserva reserva : resData.buscarReservaPorFecha(fecha, huesData, this)) {
-                habitaciones.remove(reserva.getHabitacion());
-            }
-        }
-        return habitaciones;
-    }
+    public List<Habitacion> listarHabitacionesDisponibles() {
+        List<Habitacion> habitaciones = new ArrayList<>();
+        String sql = "SELECT * FROM habitacion WHERE ocupada = 0";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
 
-    public List<Habitacion> listarHabitacionesDisponibles(LocalDate fecha) {
-        List<Habitacion> habitaciones = listarHabitacionesHabilitadas();
-        for (Reserva reserva : resData.buscarReservaPorFecha(fecha, huesData, this)) {
-            habitaciones.remove(reserva.getHabitacion());
-        }
-        return habitaciones;
-    }
-
-    public List<Habitacion> listarHabitacionesDisponibles(LocalDate fechaInn, LocalDate fechaOut) {
-        List<Habitacion> habitaciones = listarHabitacionesHabilitadas();
-        int dias = (int) ChronoUnit.DAYS.between(fechaOut, fechaOut);
-        for (int i = 0; i < dias; i++) {
-            for (Reserva reserva : resData.buscarReservaPorFecha(fechaInn.plusDays(i), huesData, this)) {
-                habitaciones.remove(reserva.getHabitacion());
+            while (rs.next()) {
+                Habitacion habitacion = new Habitacion();
+                habitacion.setIdHabitacion(rs.getInt("idHabitacion"));
+                habitacion.setPiso(rs.getInt("piso"));
+                habitacion.setTipoHabitacion(TipoHabitacion.valueOf(rs.getString("tipoHabitacion")));
+                habitacion.setOcupada(false);
+                habitacion.setHabilitada(rs.getBoolean("habilitada"));
+                habitacion.setPrecioFinal(rs.getInt("precio"));
+                habitaciones.add(habitacion);
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(HabitacionData.class.getName()).log(Level.SEVERE, null, ex);
         }
         return habitaciones;
     }
@@ -310,7 +304,7 @@ public class HabitacionData {
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, precio);
             ps.setObject(2, tipo.toString());
-            if (ps.executeUpdate(sql) == 1) {
+            if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Se actualizó el precio por noche de las habitaciones del tipo: " + tipo);
             }
         } catch (SQLException ex) {
@@ -322,7 +316,7 @@ public class HabitacionData {
         String sql = "UPDATE habitacion SET precio = ? WHERE tipoHabitacion = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, precio);
-            if (ps.executeUpdate(sql) == 1) {
+            if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Se actualizó el precio base por noche de todas las habitaciones");
             }
         } catch (SQLException ex) {
@@ -330,4 +324,60 @@ public class HabitacionData {
         }
     }
 
+    public List<Habitacion> listarHabitacionesPorFiltros(int ocupada, int habilitada, int piso, TipoHabitacion tipo) {
+        List<Habitacion> habitaciones = new ArrayList<>();
+        String estadoString = "NOT ocupada = " + ocupada + " AND ";
+        if (ocupada <= 1) {
+            System.out.println("muestras Ocupadas");
+            estadoString = "ocupada = " + ocupada + " AND ";
+        }
+        String condicionString = "NOT habilitada = " + habilitada + " AND ";
+        if (habilitada <= 1) {
+            condicionString = "habilitada = " + habilitada + " AND ";
+        }
+        String pisosString = "NOT piso = " + piso + " AND ";
+        if (piso != 0) {
+            pisosString = "piso = " + piso + " AND ";
+        }
+        String tipoString = "NOT tipoHabitacion = 'SIN_TIPO';";
+        if (tipo != null) {
+            tipoString = "tipoHabitacion = \'" + tipo.name() + "\';";
+        }
+        String sql = "SELECT * FROM habitacion Where " + estadoString + condicionString + pisosString + tipoString;
+        System.out.println(sql);
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Habitacion habitacion = new Habitacion();
+                habitacion.setIdHabitacion(rs.getInt("idHabitacion"));
+                habitacion.setPiso(rs.getInt("piso"));
+                habitacion.setTipoHabitacion(TipoHabitacion.valueOf(rs.getString("tipoHabitacion")));
+                habitacion.setOcupada(rs.getBoolean("ocupada"));
+                habitacion.setHabilitada(rs.getBoolean("habilitada"));
+                habitacion.setPrecioFinal(rs.getInt("precio"));
+                habitaciones.add(habitacion);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en la sentencia SQL listarHabitacionesPorFiltro\n" + ex.getMessage(), ex.getSQLState(), JOptionPane.ERROR_MESSAGE);
+        }
+        return habitaciones;
+    }
+
+    public List<Integer> listarIDhabitacionesHabilitadasPorPiso(int piso) {
+        List<Integer> habitacionesHabilitadasPorPiso = new ArrayList<>();
+        String sql = "SELECT idHabitacion FROM habitacion WHERE piso = ? AND habilitada= ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, piso);
+            ps.setBoolean(2, true);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                habitacionesHabilitadasPorPiso.add((Integer) rs.getInt("idHabitacion"));
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en la sentencia SQL listarHabitacionesHabilitadasPorPiso\n" + ex.getMessage(), ex.getSQLState(), JOptionPane.ERROR_MESSAGE);
+        }
+        return habitacionesHabilitadasPorPiso;
+    }
 }
