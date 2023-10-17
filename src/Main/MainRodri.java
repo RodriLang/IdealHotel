@@ -3,8 +3,6 @@ package Main;
 import AccesoADatos.HabitacionData;
 import AccesoADatos.HuespedData;
 import AccesoADatos.ReservaData;
-import TipoHabitacion.TipoHabitacion;
-import entidades.Habitacion;
 import entidades.Reserva;
 import java.time.LocalDate;
 import java.time.Month;
