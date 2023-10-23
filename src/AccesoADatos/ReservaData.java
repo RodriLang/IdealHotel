@@ -252,31 +252,34 @@ public class ReservaData {
         } 
         return fechas;
  }
- public int buscarIdReservasPorIDHabitacionyFecha(LocalDate fecha, int ID){
-        int idReserva=0;
-        String sql = "SELECT idReserva FROM `reserva` WHERE ? BETWEEN fechaInn AND fechaOut AND idHabitacion=?";
+ public Reserva buscarReservasPorIDHabitacionYfecha(LocalDate fecha, int ID) {
+
+        Reserva reserva = new Reserva();
+        String sql = "SELECT idReserva, idHuesped, idHabitacion, cantPax, fechaInn, fechaOut, importe FROM `reserva` WHERE idHabitacion=? AND ? BETWEEN fechaInn AND fechaOut";
+        Reserva res = null;
         PreparedStatement ps;
-        
+
         try {
             ps = con.prepareStatement(sql);
-            ps.setDate(1, Date.valueOf(fecha));
-            ps.setInt(2,ID);
+            ps.setInt(1, ID);
+            ps.setDate(2, Date.valueOf(fecha));
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                idReserva = rs.getInt("idReserva");
-                System.out.println(idReserva + "-ok");
-            } else {
-                idReserva=0;
-                System.out.println(idReserva+"-Casi ok");
+            while (rs.next()) {
+                res = new Reserva();
+                res.setIdReserva(rs.getInt("idReserva"));
+                res.setHuesped(huesData.buscarHuespedId(rs.getInt("idHuesped")));
+                res.setHabitacion(habData.buscarHabitacion(rs.getInt("idHabitacion")));
+                res.setCantPax(rs.getInt("cantPax"));
+                res.setFechaInn(rs.getDate("fechaInn").toLocalDate());
+                res.setFechaOut(rs.getDate("fechaOut").toLocalDate());
+                res.setImporte(rs.getInt("importe"));
+                reserva=res;
             }
-
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en el método listarReservaPorIDyPorFecha" + ex.getMessage());
-        }catch (NullPointerException ex){
-             System.out.println(idReserva+"- no ok");
+            JOptionPane.showMessageDialog(null, "Error en el método buscarReservaPorIdHabitaciónyFecha" + ex.getMessage());
         }
-       
-        return idReserva;
+
+        return reserva;
  }
  
  public Reserva buscarReservaId(int idReserva){
