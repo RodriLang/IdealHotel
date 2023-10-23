@@ -173,8 +173,8 @@ public class MenuPrincipalViejo extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCerrarActionPerformed
 
     private void botonNosotrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNosotrosActionPerformed
-        SobreNosotrosView ventana = new SobreNosotrosView();
-        mostrarVentana(ventana);
+//        SobreNosotrosView ventana = new SobreNosotrosView();
+//        mostrarVentana(ventana);
     }//GEN-LAST:event_botonNosotrosActionPerformed
 
     private void botonAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAdminActionPerformed
