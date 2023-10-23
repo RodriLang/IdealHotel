@@ -5,17 +5,30 @@
  */
 package VIstas.Administracion;
 
-/**
- *
- * @author Rodri
- */
+import AccesoADatos.HuespedData;
+import entidades.Huesped;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
+
 public class PanelAdminHuespedes extends javax.swing.JPanel {
 
-    /**
-     * Creates new form panelAdminHabitaciones
-     */
+    private DefaultTableModel modelo=new DefaultTableModel(){
+        public boolean isCellEditable(int f, int c){
+            return false;//ninguna celda es editable
+        } 
+    };
+    private HuespedData huespedData;
+    private Huesped huesped;
+    private List<Huesped> huespedes;
+    
     public PanelAdminHuespedes() {
+        this.huespedes=new ArrayList<>();
+        this.huespedData=huespedData;
+        this.huesped=huesped;
         initComponents();
+        armarCabecera();
         this.setVisible(false);
     }
 
@@ -28,32 +41,544 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        panelOpciones = new javax.swing.JPanel();
+        ComboId = new javax.swing.JComboBox<>();
+        BotonLimpiar = new javax.swing.JButton();
+        panelOpcionEstado = new javax.swing.JPanel();
+        BotonEstadoAlojados = new javax.swing.JRadioButton();
+        BotonEstadoTodos = new javax.swing.JRadioButton();
+        labelOpcionEstado = new javax.swing.JLabel();
+        ComboDni = new javax.swing.JComboBox<>();
+        labelOpcionFiltrar = new javax.swing.JLabel();
+        ComboNombre = new javax.swing.JComboBox<>();
+        BotonModificar = new javax.swing.JButton();
+        BotonEliminar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TablaHuespedes = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        DetNombre = new javax.swing.JTextField();
+        DetDni = new javax.swing.JTextField();
+        DetTelefono = new javax.swing.JTextField();
+        DetDomicilio = new javax.swing.JTextField();
+        DetIdHuesped = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        DetCorreo = new javax.swing.JTextField();
+        DetAlojado = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(27, 118, 134));
+        setPreferredSize(new java.awt.Dimension(1007, 573));
 
-        jLabel1.setText("Huespedes");
+        panelOpciones.setOpaque(false);
+
+        ComboId.setBackground(new java.awt.Color(176, 184, 157));
+        ComboId.setPreferredSize(new java.awt.Dimension(150, 26));
+        ComboId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboIdActionPerformed(evt);
+            }
+        });
+
+        BotonLimpiar.setBackground(new java.awt.Color(176, 184, 157));
+        BotonLimpiar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        BotonLimpiar.setText("LIMPIAR");
+        BotonLimpiar.setContentAreaFilled(false);
+        BotonLimpiar.setOpaque(true);
+        BotonLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonLimpiarActionPerformed(evt);
+            }
+        });
+
+        panelOpcionEstado.setBackground(new java.awt.Color(176, 184, 157));
+
+        BotonEstadoAlojados.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        BotonEstadoAlojados.setText("ALOJADOS");
+        BotonEstadoAlojados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonEstadoAlojadosActionPerformed(evt);
+            }
+        });
+
+        BotonEstadoTodos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        BotonEstadoTodos.setSelected(true);
+        BotonEstadoTodos.setText("TODOS");
+        BotonEstadoTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonEstadoTodosActionPerformed(evt);
+            }
+        });
+
+        labelOpcionEstado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        labelOpcionEstado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelOpcionEstado.setText("ESTADO");
+
+        javax.swing.GroupLayout panelOpcionEstadoLayout = new javax.swing.GroupLayout(panelOpcionEstado);
+        panelOpcionEstado.setLayout(panelOpcionEstadoLayout);
+        panelOpcionEstadoLayout.setHorizontalGroup(
+            panelOpcionEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelOpcionEstadoLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(labelOpcionEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addComponent(BotonEstadoTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
+                .addComponent(BotonEstadoAlojados, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
+        );
+        panelOpcionEstadoLayout.setVerticalGroup(
+            panelOpcionEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelOpcionEstadoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelOpcionEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BotonEstadoTodos)
+                    .addComponent(BotonEstadoAlojados)
+                    .addComponent(labelOpcionEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        ComboDni.setBackground(new java.awt.Color(176, 184, 157));
+        ComboDni.setPreferredSize(new java.awt.Dimension(150, 26));
+        ComboDni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboDniActionPerformed(evt);
+            }
+        });
+
+        labelOpcionFiltrar.setBackground(new java.awt.Color(176, 184, 157));
+        labelOpcionFiltrar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        labelOpcionFiltrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelOpcionFiltrar.setText("FILTRAR");
+        labelOpcionFiltrar.setOpaque(true);
+
+        ComboNombre.setBackground(new java.awt.Color(176, 184, 157));
+        ComboNombre.setPreferredSize(new java.awt.Dimension(150, 26));
+        ComboNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboNombreActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
+        panelOpciones.setLayout(panelOpcionesLayout);
+        panelOpcionesLayout.setHorizontalGroup(
+            panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(labelOpcionFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelOpcionEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ComboNombre, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ComboDni, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ComboId, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(BotonLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41))
+        );
+        panelOpcionesLayout.setVerticalGroup(
+            panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ComboId, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelOpcionEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(58, Short.MAX_VALUE))
+            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(BotonLimpiar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                    .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(ComboNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ComboDni, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelOpcionFiltrar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        BotonModificar.setBackground(new java.awt.Color(176, 184, 157));
+        BotonModificar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        BotonModificar.setText("MODIFICAR");
+        BotonModificar.setContentAreaFilled(false);
+
+        BotonEliminar.setBackground(new java.awt.Color(176, 184, 157));
+        BotonEliminar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        BotonEliminar.setText("ELIMINAR");
+        BotonEliminar.setContentAreaFilled(false);
+
+        TablaHuespedes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(TablaHuespedes);
+
+        jPanel3.setBackground(new java.awt.Color(27, 118, 134));
+        jPanel3.setPreferredSize(new java.awt.Dimension(956, 177));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setText("E-Mail:");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel8.setText("ID:");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel7.setText("Teléfono:");
+
+        jLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel.setText("Domicilio");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel6.setText("Dni:");
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel15.setText("Nombre:");
+
+        DetNombre.setEditable(false);
+        DetNombre.setBackground(new java.awt.Color(27, 118, 134));
+        DetNombre.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+
+        DetDni.setEditable(false);
+        DetDni.setBackground(new java.awt.Color(27, 118, 134));
+        DetDni.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+
+        DetTelefono.setEditable(false);
+        DetTelefono.setBackground(new java.awt.Color(27, 118, 134));
+        DetTelefono.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+
+        DetDomicilio.setEditable(false);
+        DetDomicilio.setBackground(new java.awt.Color(27, 118, 134));
+        DetDomicilio.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+
+        DetIdHuesped.setEditable(false);
+        DetIdHuesped.setBackground(new java.awt.Color(27, 118, 134));
+        DetIdHuesped.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel4.setText("Alojado:");
+
+        DetCorreo.setEditable(false);
+        DetCorreo.setBackground(new java.awt.Color(27, 118, 134));
+        DetCorreo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+
+        DetAlojado.setEditable(false);
+        DetAlojado.setBackground(new java.awt.Color(27, 118, 134));
+        DetAlojado.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel5))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(DetDomicilio, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+                    .addComponent(DetNombre)
+                    .addComponent(DetCorreo, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(DetTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(DetDni, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(18, 18, 18)
+                                .addComponent(DetIdHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(DetAlojado, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(96, 96, 96))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(DetDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6)
+                        .addComponent(DetNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel)
+                            .addComponent(DetDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addGap(12, 12, 12))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(DetTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(DetCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(DetAlojado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DetIdHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(457, 457, 457)
-                .addComponent(jLabel1)
-                .addContainerGap(474, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(36, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 909, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(BotonModificar)
+                                .addGap(26, 26, 26)
+                                .addComponent(BotonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 909, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(47, 47, 47)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(187, 187, 187)
-                .addComponent(jLabel1)
-                .addContainerGap(366, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BotonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BotonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ComboIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboIdActionPerformed
+
+            llenarTablaPorId(ComboId.getSelectedIndex());
+
+    }//GEN-LAST:event_ComboIdActionPerformed
+
+    private void BotonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonLimpiarActionPerformed
+        
+    }//GEN-LAST:event_BotonLimpiarActionPerformed
+
+    private void BotonEstadoAlojadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEstadoAlojadosActionPerformed
+        
+    }//GEN-LAST:event_BotonEstadoAlojadosActionPerformed
+
+    private void BotonEstadoTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEstadoTodosActionPerformed
+        
+    }//GEN-LAST:event_BotonEstadoTodosActionPerformed
+
+    private void ComboDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboDniActionPerformed
+     llenarTablaPorDni(ComboDni.getSelectedIndex());
+
+    }//GEN-LAST:event_ComboDniActionPerformed
+
+    private void ComboNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboNombreActionPerformed
+     
+
+    }//GEN-LAST:event_ComboNombreActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton BotonEliminar;
+    private javax.swing.JRadioButton BotonEstadoAlojados;
+    private javax.swing.JRadioButton BotonEstadoTodos;
+    private javax.swing.JButton BotonLimpiar;
+    private javax.swing.JButton BotonModificar;
+    private javax.swing.JComboBox<Object> ComboDni;
+    private javax.swing.JComboBox<Object> ComboId;
+    private javax.swing.JComboBox<String> ComboNombre;
+    private javax.swing.JTextField DetAlojado;
+    private javax.swing.JTextField DetCorreo;
+    private javax.swing.JTextField DetDni;
+    private javax.swing.JTextField DetDomicilio;
+    private javax.swing.JTextField DetIdHuesped;
+    private javax.swing.JTextField DetNombre;
+    private javax.swing.JTextField DetTelefono;
+    private javax.swing.JTable TablaHuespedes;
+    private javax.swing.JLabel jLabel;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelOpcionEstado;
+    private javax.swing.JLabel labelOpcionFiltrar;
+    private javax.swing.JPanel panelOpcionEstado;
+    private javax.swing.JPanel panelOpciones;
     // End of variables declaration//GEN-END:variables
+
+    private void armarCabecera(){
+        modelo.addColumn("ID");
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("DNI");
+        modelo.addColumn("DOMICILIO");
+        modelo.addColumn("E-MAIL");
+        modelo.addColumn("TELEFONO");
+        modelo.addColumn("ALOJADO");
+        TablaHuespedes.setModel(modelo);
+    }
+    
+    private void llenarTablaTodos(){
+        modelo.setRowCount(0);
+        huespedes=huespedData.listarHuespedes();
+        
+        for(Huesped huesped: huespedes) {
+            Object[] fila= new Object[6];
+            fila[0]=huesped.getIdHuesped();
+            fila[1]=huesped.getNombre();
+            fila[2]=huesped.getDni();
+            fila[3]=huesped.getDomicilio();
+            fila[4]=huesped.getDni();
+            fila[5]=huesped.getCelular();
+            fila[6]=huesped.isAlojado();
+            modelo.addRow(fila);
+            }
+            }
+            
+    private void llenarTablaAlojados(){
+        modelo.setRowCount(0);
+        huespedes=huespedData.listarHuespedesAlojados();
+        
+        for(Huesped huesped: huespedes) {
+            Object[] fila= new Object[6];
+            fila[0]=huesped.getIdHuesped();
+            fila[1]=huesped.getNombre();
+            fila[2]=huesped.getDni();
+            fila[3]=huesped.getDomicilio();
+            fila[4]=huesped.getDni();
+            fila[5]=huesped.getCelular();
+            fila[6]=huesped.isAlojado();
+            modelo.addRow(fila);
+            }
+        
+    }
+    private void llenarTablaPorId(int ID){
+        modelo.setRowCount(0);
+        huesped=huespedData.buscarHuespedId(ID);
+
+            Object[] fila= new Object[6];
+            fila[0]=huesped.getIdHuesped();
+            fila[1]=huesped.getNombre();
+            fila[2]=huesped.getDni();
+            fila[3]=huesped.getDomicilio();
+            fila[4]=huesped.getDni();
+            fila[5]=huesped.getCelular();
+            fila[6]=huesped.isAlojado();
+            modelo.addRow(fila);
+        
+    }
+    private void llenarTablaPorDni(int DNI){
+        modelo.setRowCount(0);
+        huesped=huespedData.buscarHuespedId(DNI);
+
+            Object[] fila= new Object[6];
+            fila[0]=huesped.getIdHuesped();
+            fila[1]=huesped.getNombre();
+            fila[2]=huesped.getDni();
+            fila[3]=huesped.getDomicilio();
+            fila[4]=huesped.getDni();
+            fila[5]=huesped.getCelular();
+            fila[6]=huesped.isAlojado();
+            modelo.addRow(fila);
+            
+    }
+    
+    private void llenarTablaPorNombre(String nombre){
+        modelo.setRowCount(0);
+        huespedes=huespedData.listarHuespedes();
+
+           for(Huesped huesped: huespedes) {
+            if(huesped.getNombre().equals(nombre)){
+            Object[] fila= new Object[6];
+            fila[0]=huesped.getIdHuesped();
+            fila[1]=huesped.getNombre();
+            fila[2]=huesped.getDni();
+            fila[3]=huesped.getDomicilio();
+            fila[4]=huesped.getDni();
+            fila[5]=huesped.getCelular();
+            fila[6]=huesped.isAlojado();
+            modelo.addRow(fila);
+            }
+            }
+            
+    }
+    
+    private void mostrarDetalles(){
+        limpiarDetalles();
+        try{
+           
+            //huesped = huespedData.buscarHuespedId(getIdHuesped);
+            DetNombre.setText(huesped.getNombre());
+            DetDni.setText(String.valueOf(huesped.getDni()));
+            DetDomicilio.setText(huesped.getDomicilio());
+            DetTelefono.setText(huesped.getCelular());
+            DetCorreo.setText(huesped.getCorreo());
+           // DetIdHuesped.setText(huesped.getIdHuesped());
+            DetAlojado.setText("");
+            
+        }catch(NullPointerException ex){}
+    }
+    
+    private void limpiarDetalles(){
+        DetNombre.setText("");
+        DetDni.setText("");
+        DetDomicilio.setText("");
+        DetTelefono.setText("");
+        DetCorreo.setText("");
+        DetIdHuesped.setText("");
+        DetAlojado.setText("");
+    }
+    
+    private void cargarComboId(){
+        for (Huesped a : huespedData.listarHuespedes()) {
+        ComboId.addItem(a.getIdHuesped());
+        }
+    }
+    
+    private void cargarComboDni(){
+       for (Huesped a : huespedData.listarHuespedes()) {
+        ComboId.addItem(a.getDni());
+        }
+    }
+    
+    private void cargarComboNombre(){
+       for (Huesped a : huespedData.listarHuespedes()) {
+        ComboId.addItem(a.getNombre());
+        }
+    }
 }
