@@ -103,7 +103,8 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "Reserva{" + "idReserva=" + idReserva + ", huesped=" + huesped + ", habitacion=" + habitacion + ", cantPax=" + cantPax + ", fechaInn=" + fechaInn + ", fechaOut=" + fechaOut + ", importe=" + importe + '}';
+        return "Reserva Nro " + idReserva + " a nombre de " + huesped.getNombre() + " para la habitacion " + habitacion.getIdHabitacion() +
+                " para " + cantPax + " personas. Ingreso: " + fechaInn + ". Salida: " + fechaOut + ". Valor: $" + importe + '}';
     }
     
     
