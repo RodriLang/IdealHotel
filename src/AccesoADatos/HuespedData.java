@@ -72,8 +72,8 @@ public class HuespedData {
         }
     }
 
-    public Huesped buscarHuespedId(int id) {
-        String sql = "SELECT nombre, dni, domicilio, correo, celular FROM huesped WHERE idHuesped=? AND alojado = 1";
+   public Huesped buscarHuespedId(int id) {
+        String sql = "SELECT nombre, dni, domicilio, correo, celular FROM huesped WHERE idHuesped=?";
         Huesped huesped = null;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -92,7 +92,7 @@ public class HuespedData {
                 JOptionPane.showMessageDialog(null, "El huesped con IdHuesped: " + id + " no existe.");
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en el método modificarHuesped por Id. " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en el método buscar Huésped por Id. " + ex.getMessage());
         }
         return huesped;
     }

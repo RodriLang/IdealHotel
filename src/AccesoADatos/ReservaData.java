@@ -190,7 +190,7 @@ public class ReservaData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en el método buscarReservaPorHabitacion" + ex.getMessage());
         }
-        return reserva;   
+        return reserva;    
     }
     public List<Reserva> listarReservas(){
         List<Reserva>reserva=new ArrayList<>();
@@ -285,16 +285,15 @@ public class ReservaData {
  public Reserva buscarReservaId(int idReserva){
     
         Reserva reserva=new Reserva();
-        String sql = "SELECT idReserva,idHuesped, idHabitacion, cantPax, fechaInn, fechaOut, importe FROM reserva WHERE  idReserva=?";
-        Reserva res = null;
+        String sql = "SELECT idReserva, idHuesped, idHabitacion, cantPax, fechaInn, fechaOut, importe FROM `reserva` WHERE  idReserva=?";
+        
         PreparedStatement ps;
-        try {
+        try{
             ps = con.prepareStatement(sql);
             ps.setInt(1, idReserva);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
                 while (rs.next()) {                    
-                res = new Reserva();
+                Reserva res = new Reserva();
                 res.setIdReserva(rs.getInt("idReserva"));
                 res.setHuesped(huesData.buscarHuespedId(rs.getInt("idHuesped")));
                 res.setHabitacion(habData.buscarHabitacion(rs.getInt("idHabitacion")));
@@ -304,10 +303,7 @@ public class ReservaData {
                 res.setImporte(rs.getInt("importe")); 
                 reserva=res;            
                 } 
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encuentra una reserva con el Id seleccionado");
-            }
-        } catch (SQLException ex) {
+            } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en el método buscarReservaPorId" + ex.getMessage());
         }
         return reserva;   

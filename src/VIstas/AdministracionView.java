@@ -20,6 +20,7 @@ import java.time.format.DateTimeParseException;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import VIstas.Administracion.PanelAdminTabla;
 
 /**
  *
@@ -35,6 +36,7 @@ public class AdministracionView extends javax.swing.JInternalFrame {
     private PanelAdminReservas panelReservas;
     private LocalDate fecha;
     private DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private PanelAdminTabla panelTabla;
 
     /**
      * Creates new form AdministracionView
@@ -52,6 +54,8 @@ public class AdministracionView extends javax.swing.JInternalFrame {
         panelReservas = new PanelAdminReservas();
         panelHabitaciones = new PanelAdminHabitaciones(habData, reserData, this, panelReservas, fecha);
         panelHuespedes = new PanelAdminHuespedes();
+        panelTabla=new PanelAdminTabla();
+        mostrarPanelTabla(panelTabla);
 
         botonFecha.setText("   " + fecha.format(formatoFecha));
 
@@ -287,6 +291,13 @@ public class AdministracionView extends javax.swing.JInternalFrame {
 
     public JButton getBotonReservas() {
         return botonReservas;
+    }
+    
+    public void mostrarPanelTabla(JPanel panel){
+        panelContenido.removeAll();
+        panelContenido.repaint();
+        panelContenido.add(panel);
+        panel.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
