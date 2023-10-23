@@ -12,7 +12,13 @@ import AccesoADatos.HabitacionData;
 import AccesoADatos.HuespedData;
 import AccesoADatos.ReservaData;
 import java.awt.Color;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -27,6 +33,8 @@ public class AdministracionView extends javax.swing.JInternalFrame {
     private PanelAdminHabitaciones panelHabitaciones;
     private PanelAdminHuespedes panelHuespedes;
     private PanelAdminReservas panelReservas;
+    private LocalDate fecha;
+    private DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     /**
      * Creates new form AdministracionView
@@ -39,9 +47,13 @@ public class AdministracionView extends javax.swing.JInternalFrame {
         this.setOpaque(true);
         this.setBackground(new Color(27, 118, 134, 254));
 
+        fecha = LocalDate.now();
+
         panelReservas = new PanelAdminReservas();
-        panelHabitaciones = new PanelAdminHabitaciones(habData, this, panelReservas);
+        panelHabitaciones = new PanelAdminHabitaciones(habData, reserData, this, panelReservas, fecha);
         panelHuespedes = new PanelAdminHuespedes();
+
+        botonFecha.setText("   " + fecha.format(formatoFecha));
 
 //        panelContenido.add(panelHabitaciones);
 //        panelContenido.add(panelHuespedes);
@@ -59,52 +71,22 @@ public class AdministracionView extends javax.swing.JInternalFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         panelGeneral = new javax.swing.JPanel();
-        botonHuespedes = new javax.swing.JButton();
-        botonReservas = new javax.swing.JButton();
-        botonHabitaciones = new javax.swing.JButton();
         panelContenido = new javax.swing.JPanel();
         panelTitulo = new javax.swing.JPanel();
         botonCerrar = new javax.swing.JButton();
         labelIcono = new javax.swing.JLabel();
         labelTitulo = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        botonHome = new javax.swing.JButton();
+        botonHabitaciones = new javax.swing.JButton();
+        botonHuespedes = new javax.swing.JButton();
+        botonReservas = new javax.swing.JButton();
+        botonFecha = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(27, 118, 134));
         setPreferredSize(new java.awt.Dimension(1020, 721));
 
         panelGeneral.setBackground(new java.awt.Color(27, 118, 134));
-
-        botonHuespedes.setBackground(new java.awt.Color(176, 184, 157));
-        botonHuespedes.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        botonHuespedes.setText("HUESPEDES");
-        botonHuespedes.setContentAreaFilled(false);
-        botonHuespedes.setOpaque(true);
-        botonHuespedes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonHuespedesActionPerformed(evt);
-            }
-        });
-
-        botonReservas.setBackground(new java.awt.Color(176, 184, 157));
-        botonReservas.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        botonReservas.setText("RESERVAS");
-        botonReservas.setContentAreaFilled(false);
-        botonReservas.setOpaque(true);
-        botonReservas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonReservasActionPerformed(evt);
-            }
-        });
-
-        botonHabitaciones.setBackground(new java.awt.Color(176, 184, 157));
-        botonHabitaciones.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        botonHabitaciones.setText("HABITACIONES");
-        botonHabitaciones.setContentAreaFilled(false);
-        botonHabitaciones.setOpaque(true);
-        botonHabitaciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonHabitacionesActionPerformed(evt);
-            }
-        });
 
         panelContenido.setBackground(new java.awt.Color(27, 118, 134));
         panelContenido.setAlignmentX(0.0F);
@@ -136,7 +118,7 @@ public class AdministracionView extends javax.swing.JInternalFrame {
             panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTituloLayout.createSequentialGroup()
                 .addGap(53, 53, 53)
-                .addComponent(labelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 897, Short.MAX_VALUE)
+                .addComponent(labelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botonCerrar))
             .addGroup(panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,32 +140,90 @@ public class AdministracionView extends javax.swing.JInternalFrame {
                     .addContainerGap()))
         );
 
+        jPanel1.setOpaque(false);
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
+
+        botonHome.setBackground(new java.awt.Color(176, 184, 157));
+        botonHome.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        botonHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/home.png"))); // NOI18N
+        botonHome.setText("   HOME");
+        botonHome.setContentAreaFilled(false);
+        botonHome.setOpaque(true);
+        botonHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonHomeActionPerformed(evt);
+            }
+        });
+        jPanel1.add(botonHome);
+
+        botonHabitaciones.setBackground(new java.awt.Color(176, 184, 157));
+        botonHabitaciones.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        botonHabitaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/king_bed.png"))); // NOI18N
+        botonHabitaciones.setText("   HABITACIONES");
+        botonHabitaciones.setContentAreaFilled(false);
+        botonHabitaciones.setOpaque(true);
+        botonHabitaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonHabitacionesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(botonHabitaciones);
+
+        botonHuespedes.setBackground(new java.awt.Color(176, 184, 157));
+        botonHuespedes.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        botonHuespedes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/person.png"))); // NOI18N
+        botonHuespedes.setText("   HUESPEDES");
+        botonHuespedes.setContentAreaFilled(false);
+        botonHuespedes.setOpaque(true);
+        botonHuespedes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonHuespedesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(botonHuespedes);
+
+        botonReservas.setBackground(new java.awt.Color(176, 184, 157));
+        botonReservas.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        botonReservas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/book_online.png"))); // NOI18N
+        botonReservas.setText("   RESERVAS");
+        botonReservas.setContentAreaFilled(false);
+        botonReservas.setOpaque(true);
+        botonReservas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReservasActionPerformed(evt);
+            }
+        });
+        jPanel1.add(botonReservas);
+
+        botonFecha.setBackground(new java.awt.Color(176, 184, 157));
+        botonFecha.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        botonFecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/calendar_month.png"))); // NOI18N
+        botonFecha.setContentAreaFilled(false);
+        botonFecha.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        botonFecha.setOpaque(true);
+        botonFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonFechaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(botonFecha);
+
         javax.swing.GroupLayout panelGeneralLayout = new javax.swing.GroupLayout(panelGeneral);
         panelGeneral.setLayout(panelGeneralLayout);
         panelGeneralLayout.setHorizontalGroup(
             panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelContenido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1008, Short.MAX_VALUE)
             .addComponent(panelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(panelGeneralLayout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addComponent(botonHabitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonHuespedes, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(panelContenido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelGeneralLayout.setVerticalGroup(
             panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGeneralLayout.createSequentialGroup()
                 .addComponent(panelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonHabitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonHuespedes, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelContenido, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -216,6 +256,22 @@ public class AdministracionView extends javax.swing.JInternalFrame {
     private void botonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCerrarActionPerformed
         this.dispose();
     }//GEN-LAST:event_botonCerrarActionPerformed
+
+    private void botonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonHomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonHomeActionPerformed
+
+    private void botonFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFechaActionPerformed
+        String fechaIngresada = JOptionPane.showInputDialog("Ingrese la fecha", "dd/mm/aaaa");
+        if (fechaIngresada!=null) {
+            try {
+                fecha = LocalDate.parse(fechaIngresada, formatoFecha);
+            } catch (DateTimeParseException e) {
+                JOptionPane.showMessageDialog(this, "No se pudo guardar la fecha", "Error en el formato", JOptionPane.ERROR_MESSAGE);
+            }
+            botonFecha.setText("   " + fecha.format(formatoFecha));
+        }
+    }//GEN-LAST:event_botonFechaActionPerformed
     public void mostrarPanelContenido(JPanel panel, JButton boton) {
         if (boton != null) {
             botonHuespedes.setBackground(new Color(176, 184, 157));
@@ -235,10 +291,13 @@ public class AdministracionView extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCerrar;
+    private javax.swing.JButton botonFecha;
     private javax.swing.JButton botonHabitaciones;
+    private javax.swing.JButton botonHome;
     private javax.swing.JButton botonHuespedes;
     private javax.swing.JButton botonReservas;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelIcono;
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JPanel panelContenido;

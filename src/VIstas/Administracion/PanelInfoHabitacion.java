@@ -6,10 +6,12 @@
 package VIstas.Administracion;
 
 import AccesoADatos.HabitacionData;
+import AccesoADatos.ReservaData;
 import VIstas.AdministracionView;
 import entidades.Habitacion;
 import entidades.TipoHabitacion;
 import java.awt.Color;
+import java.time.LocalDate;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -27,18 +29,20 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
     private boolean habilitada;
     private Habitacion habitacion;
     private HabitacionData habData;
+    private ReservaData resData;
     private AdministracionView ventana;
     private PanelAdminHabitaciones panelAdmin;
     private PanelAdminReservas panelAdminReservas;
     private ImageIcon imgLibre;
     private ImageIcon imgOcupada;
     private ImageIcon imgDeshabilitada;
+    private LocalDate fecha;
 
     /**
      * Creates new form panelInfoHabitacion
      */
-    public PanelInfoHabitacion(Habitacion habitacion, HabitacionData habData,
-            AdministracionView ventana, PanelAdminHabitaciones panelAdmin, PanelAdminReservas panelReservas) {
+    public PanelInfoHabitacion(Habitacion habitacion, HabitacionData habData, ReservaData resData,
+            AdministracionView ventana, PanelAdminHabitaciones panelAdmin, PanelAdminReservas panelReservas, LocalDate fecha) {
         this.habitacion = habitacion;
         this.idHabitacion = habitacion.getIdHabitacion();
         this.tipoHabitacion = habitacion.getTipoHabitacion();
@@ -50,6 +54,8 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
         this.ocupada = habitacion.isOcupada();
         this.habilitada = habitacion.isHabilitada();
         this.habData = habData;
+        this.resData = resData;
+        this.fecha = fecha;
         this.setSize(300, 150);
         this.setVisible(true);
 
@@ -106,7 +112,7 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
         labelNPiso = new javax.swing.JLabel();
         labelPiso = new javax.swing.JLabel();
         panelReservas = new javax.swing.JPanel();
-        botonReservas = new javax.swing.JButton();
+        botonCheckInOut = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(200, 100));
         setLayout(new java.awt.BorderLayout());
@@ -224,24 +230,25 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
         panelReservas.setPreferredSize(new java.awt.Dimension(70, 35));
         panelReservas.setLayout(new java.awt.GridLayout(1, 0));
 
-        botonReservas.setBackground(new java.awt.Color(42, 179, 203));
-        botonReservas.setFont(new java.awt.Font("Georgia", 1, 12)); // NOI18N
-        botonReservas.setText("RESERVAS");
-        botonReservas.addActionListener(new java.awt.event.ActionListener() {
+        botonCheckInOut.setBackground(new java.awt.Color(42, 179, 203));
+        botonCheckInOut.setFont(new java.awt.Font("Georgia", 1, 12)); // NOI18N
+        botonCheckInOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pending_actions.png"))); // NOI18N
+        botonCheckInOut.setText("IN/OUT");
+        botonCheckInOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonReservasActionPerformed(evt);
+                botonCheckInOutActionPerformed(evt);
             }
         });
-        panelReservas.add(botonReservas);
+        panelReservas.add(botonCheckInOut);
 
         panelCentro.add(panelReservas, java.awt.BorderLayout.CENTER);
 
         add(panelCentro, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReservasActionPerformed
+    private void botonCheckInOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCheckInOutActionPerformed
         ventana.mostrarPanelContenido(new PanelAdminReservas(habitacion), ventana.getBotonReservas());
-    }//GEN-LAST:event_botonReservasActionPerformed
+    }//GEN-LAST:event_botonCheckInOutActionPerformed
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
         if (JOptionPane.showConfirmDialog(this, "¿Está seguro que desea deshabilitar la habitación?",
@@ -249,7 +256,7 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
             habData.dehabilitarHabitacion(idHabitacion);
             botonEditar.setEnabled(false);
             botonEliminar.setEnabled(false);
-            botonReservas.setEnabled(false);
+//            botonCheckInOut.setEnabled(false);
             botonEstado.setBackground(Color.YELLOW);
             botonEstado.setIcon(imgDeshabilitada);
             this.setBackground(Color.gray);
@@ -261,7 +268,9 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
     }//GEN-LAST:event_botonEliminarActionPerformed
 
     private void botonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEditarActionPerformed
-        ventana.mostrarPanelContenido(new PanelModificarHabitacion(habitacion, ventana, panelAdmin, habData), null);
+        PanelModificarHabitacion panelModificarHabitacion = new PanelModificarHabitacion(habitacion, ventana, panelAdmin, habData);
+        ventana.mostrarPanelContenido(panelModificarHabitacion, null);
+        panelModificarHabitacion.cargarDatosHabitacion(habitacion);
     }//GEN-LAST:event_botonEditarActionPerformed
 
     private void botonEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEstadoActionPerformed
@@ -292,7 +301,7 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
                     botonEstado.setIcon(imgLibre);
                     botonEditar.setEnabled(true);
                     botonEliminar.setEnabled(true);
-                    botonReservas.setEnabled(true);
+//                    botonCheckInOut.setEnabled(true);
                     this.setBackground(new Color(35, 149, 169));
                     habData.habilitarHabitacion(idHabitacion);
                     break;
@@ -303,10 +312,10 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonCheckInOut;
     private javax.swing.JButton botonEditar;
     private javax.swing.JButton botonEliminar;
     private javax.swing.JButton botonEstado;
-    private javax.swing.JButton botonReservas;
     private javax.swing.JLabel labelEstado;
     private javax.swing.JLabel labelN;
     private javax.swing.JLabel labelNPiso;
@@ -338,7 +347,6 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
         }
         labelNPiso.setText(piso + "");
         labelTipoHab.setText(tipoHabitacion.name());
-        botonReservas.setEnabled(habilitada);
         botonEditar.setEnabled(habilitada);
         botonEliminar.setEnabled(habilitada);
         if (habilitada) {
@@ -350,5 +358,18 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
             labelEstado.setBackground(Color.LIGHT_GRAY);
             this.setBackground(Color.gray);
         }
+        if (resData.buscarIdReservasPorIDHabitacionyFecha(fecha, idHabitacion) != 0) {
+            if (!habitacion.isOcupada()) {
+                botonCheckInOut.setText("Check In");
+                botonCheckInOut.setBackground(Color.MAGENTA);
+            } else {
+                botonCheckInOut.setText("Check Out");
+                botonCheckInOut.setBackground(Color.ORANGE);
+            }
+            botonCheckInOut.setEnabled(true);
+        } else {
+            botonCheckInOut.setEnabled(false);
+        }
+        System.out.println("la habitacion tiene reserva " + resData.buscarIdReservasPorIDHabitacionyFecha(fecha, idHabitacion));
     }
 }

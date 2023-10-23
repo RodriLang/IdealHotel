@@ -325,7 +325,7 @@
             <Property name="rows" type="int" value="1"/>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="botonReservas">
+            <Component class="javax.swing.JButton" name="botonCheckInOut">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="cb" green="b3" red="2a" type="rgb"/>
@@ -333,10 +333,13 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Georgia" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="RESERVAS"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagenes/pending_actions.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="IN/OUT"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonReservasActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonCheckInOutActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
