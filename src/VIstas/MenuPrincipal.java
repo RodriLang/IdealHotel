@@ -3,10 +3,7 @@ package VIstas;
 import AccesoADatos.HabitacionData;
 import AccesoADatos.HuespedData;
 import AccesoADatos.ReservaData;
-import VistasInfo.Contacto;
-import VistasInfo.Galeria;
 import javax.swing.JInternalFrame;
-import VistasInfo.SobreNosotros;
 
 public class MenuPrincipal extends javax.swing.JFrame {
 
@@ -48,7 +45,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         botonContacto = new javax.swing.JButton();
         labelLogo = new javax.swing.JLabel();
         botonCerrar = new javax.swing.JButton();
-        escritorio = new javax.swing.JDesktopPane();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
         labelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -75,11 +72,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         botonHome.setText("HOME");
         botonHome.setContentAreaFilled(false);
         botonHome.setOpaque(true);
-        botonHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonHomeActionPerformed(evt);
-            }
-        });
 
         botonNosotros.setBackground(new java.awt.Color(176, 184, 157));
         botonNosotros.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -97,33 +89,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
         botonGaleria.setText("GALERÍA");
         botonGaleria.setContentAreaFilled(false);
         botonGaleria.setOpaque(true);
-        botonGaleria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonGaleriaActionPerformed(evt);
-            }
-        });
 
         botonReservas.setBackground(new java.awt.Color(176, 184, 157));
         botonReservas.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         botonReservas.setText("RESERVAS");
         botonReservas.setContentAreaFilled(false);
         botonReservas.setOpaque(true);
-        botonReservas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonReservasActionPerformed(evt);
-            }
-        });
 
         botonContacto.setBackground(new java.awt.Color(176, 184, 157));
         botonContacto.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         botonContacto.setText("CONTACTO");
         botonContacto.setContentAreaFilled(false);
         botonContacto.setOpaque(true);
-        botonContacto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonContactoActionPerformed(evt);
-            }
-        });
 
         labelLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoHotelIdeal.png"))); // NOI18N
@@ -158,7 +135,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addGroup(panelBotonesLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(botonCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         panelBotonesLayout.setVerticalGroup(
             panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,18 +156,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(botonContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botonAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         panelGeneral.add(panelBotones);
         panelBotones.setBounds(0, 0, 260, 700);
 
         labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondoHabitacion.png"))); // NOI18N
-        escritorio.add(labelFondo);
+        jDesktopPane1.add(labelFondo);
         labelFondo.setBounds(0, 0, 1020, 700);
 
-        panelGeneral.add(escritorio);
-        escritorio.setBounds(260, 0, 1020, 700);
+        panelGeneral.add(jDesktopPane1);
+        jDesktopPane1.setBounds(260, 0, 1020, 700);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -211,7 +188,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCerrarActionPerformed
 
     private void botonNosotrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNosotrosActionPerformed
-        SobreNosotros ventana = new SobreNosotros();
+        SobreNosotrosView ventana = new SobreNosotrosView();
         mostrarVentana(ventana);
     }//GEN-LAST:event_botonNosotrosActionPerformed
 
@@ -220,35 +197,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         VentanaLogin login = new VentanaLogin();
 
     }//GEN-LAST:event_botonAdminActionPerformed
-
-    private void botonGaleriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGaleriaActionPerformed
-        Galeria ventana = new Galeria();
-        mostrarVentana(ventana);
-    }//GEN-LAST:event_botonGaleriaActionPerformed
-
-    private void botonContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonContactoActionPerformed
-        Contacto contacto = new Contacto();
-        mostrarVentana(contacto);
-    }//GEN-LAST:event_botonContactoActionPerformed
-
-    private void botonReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReservasActionPerformed
-        Reservas reservas = new Reservas();
-        mostrarVentana(reservas);
-    }//GEN-LAST:event_botonReservasActionPerformed
-
-    private void botonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonHomeActionPerformed
-        escritorio.removeAll();
-        escritorio.repaint();
-        escritorio.add(labelFondo);
-    }//GEN-LAST:event_botonHomeActionPerformed
     private void mostrarVentana(JInternalFrame ventana) {
         ventana.setVisible(true);
-        escritorio.removeAll();
-        escritorio.repaint();
-        escritorio.add(ventana);
-        escritorio.add(labelFondo);
-        escritorio.moveToFront(this);
-        ventana.setSize(escritorio.getSize());
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        jDesktopPane1.add(ventana);
+        jDesktopPane1.add(labelFondo);
+        jDesktopPane1.moveToFront(this);
+        ventana.setSize(jDesktopPane1.getSize());
         ventana.setResizable(false);
     }
 
@@ -358,7 +314,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton botonHome;
     private javax.swing.JButton botonNosotros;
     private javax.swing.JButton botonReservas;
-    private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel labelFondo;
     private javax.swing.JLabel labelLogo;
     private javax.swing.JPanel panelBotones;
