@@ -58,7 +58,7 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
         this.fecha = fecha;
         this.setSize(300, 150);
         this.setVisible(true);
-
+        
         imgLibre = new ImageIcon(getClass().getResource("/imagenes/check_circle.png"));
         imgOcupada = new ImageIcon(getClass().getResource("/imagenes/do_not_disturb.png"));
         imgDeshabilitada = new ImageIcon(getClass().getResource("/imagenes/cancel.png"));
@@ -358,7 +358,7 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
             labelEstado.setBackground(Color.LIGHT_GRAY);
             this.setBackground(Color.gray);
         }
-        if (resData.buscarIdReservasPorIDHabitacionyFecha(fecha, idHabitacion) != 0) {
+        if (resData.buscarReservasPorIDHabitacionYfecha(fecha, habitacion.getIdHabitacion())!=null) {
             if (!habitacion.isOcupada()) {
                 botonCheckInOut.setText("Check In");
                 botonCheckInOut.setBackground(Color.MAGENTA);
@@ -370,6 +370,5 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
         } else {
             botonCheckInOut.setEnabled(false);
         }
-        System.out.println("la habitacion tiene reserva " + resData.buscarIdReservasPorIDHabitacionyFecha(fecha, idHabitacion));
     }
 }

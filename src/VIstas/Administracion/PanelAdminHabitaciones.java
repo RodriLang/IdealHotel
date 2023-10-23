@@ -602,8 +602,7 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
         if (radioButtonChekInOut.isSelected()) {
             List<Habitacion> habitacionesReservadas = new ArrayList<>();
             for (Habitacion habitacion : habitaciones) {
-                int idRes = resData.buscarIdReservasPorIDHabitacionyFecha(fecha, habitacion.getIdHabitacion());
-                if (habitacion.getIdHabitacion() == resData.buscarReservaId(idRes).getIdReserva()) {
+                if (habitacion.equals(resData.buscarReservasPorIDHabitacionYfecha(fecha, habitacion.getIdHabitacion()).getHabitacion())) {
                     habitacionesReservadas.add(habitacion);
                 }
                 habitaciones = habitacionesReservadas;
