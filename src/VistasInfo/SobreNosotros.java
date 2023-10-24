@@ -50,7 +50,6 @@ public class SobreNosotros extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
-        setBorder(null);
         setPreferredSize(new java.awt.Dimension(1020, 721));
         getContentPane().setLayout(null);
 
