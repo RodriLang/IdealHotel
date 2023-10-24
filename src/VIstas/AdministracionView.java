@@ -64,7 +64,7 @@ public class AdministracionView extends javax.swing.JInternalFrame {
         panelHabitaciones = new PanelAdminHabitaciones(habData, reserData, this, panelReservas, fecha);
         panelHuespedes = new PanelAdminHuespedes();
         panelTabla=new PanelAdminTabla();
-        mostrarPanelTabla(panelTabla);
+        mostrarPanelTabla(panelTabla,botonHome);
 
         botonFecha.setText("   " + fecha.format(formatoFecha));
 
@@ -275,7 +275,7 @@ public class AdministracionView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_botonCerrarActionPerformed
 
     private void botonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonHomeActionPerformed
-        // TODO add your handling code here:
+        mostrarPanelTabla(panelTabla,botonHome);
     }//GEN-LAST:event_botonHomeActionPerformed
 
     private void botonFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFechaActionPerformed
@@ -291,6 +291,7 @@ public class AdministracionView extends javax.swing.JInternalFrame {
             botonHuespedes.setBackground(new Color(176, 184, 157));
             botonReservas.setBackground(new Color(176, 184, 157));
             botonHabitaciones.setBackground(new Color(176, 184, 157));
+            botonHome.setBackground(new Color(176, 184, 157));
             boton.setBackground(new Color(225, 212, 195));
         }
         panelContenido.removeAll();
@@ -303,7 +304,14 @@ public class AdministracionView extends javax.swing.JInternalFrame {
         return botonReservas;
     }
     
-    public void mostrarPanelTabla(JPanel panel){
+    public void mostrarPanelTabla(JPanel panel,JButton boton){
+         if (boton != null) {
+            botonHuespedes.setBackground(new Color(176, 184, 157));
+            botonReservas.setBackground(new Color(176, 184, 157));
+            botonHabitaciones.setBackground(new Color(176, 184, 157));
+            botonHome.setBackground(new Color(176, 184, 157));
+            boton.setBackground(new Color(225, 212, 195));
+        }
         panelContenido.removeAll();
         panelContenido.repaint();
         panelContenido.add(panel);
