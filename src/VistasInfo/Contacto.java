@@ -67,7 +67,6 @@ public class Contacto extends javax.swing.JInternalFrame {
         jLabel17 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(27, 118, 134));
-        setBorder(null);
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(176, 184, 157));
@@ -100,10 +99,11 @@ public class Contacto extends javax.swing.JInternalFrame {
         jLabel3.setBounds(330, 100, 140, 15);
 
         jTextField1.setBackground(new java.awt.Color(176, 184, 157));
+        jTextField1.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField1.setBorder(null);
+        jTextField1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jPanel2.add(jTextField1);
-        jTextField1.setBounds(330, 120, 240, 16);
+        jTextField1.setBounds(330, 120, 240, 30);
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -112,10 +112,11 @@ public class Contacto extends javax.swing.JInternalFrame {
         jLabel4.setBounds(40, 170, 140, 15);
 
         jTextField2.setBackground(new java.awt.Color(176, 184, 157));
+        jTextField2.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         jTextField2.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField2.setBorder(null);
+        jTextField2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jPanel2.add(jTextField2);
-        jTextField2.setBounds(40, 190, 240, 16);
+        jTextField2.setBounds(40, 190, 240, 30);
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -124,10 +125,11 @@ public class Contacto extends javax.swing.JInternalFrame {
         jLabel5.setBounds(40, 100, 140, 15);
 
         jTextField3.setBackground(new java.awt.Color(176, 184, 157));
+        jTextField3.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         jTextField3.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField3.setBorder(null);
+        jTextField3.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jPanel2.add(jTextField3);
-        jTextField3.setBounds(40, 120, 240, 16);
+        jTextField3.setBounds(40, 120, 240, 30);
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
@@ -137,6 +139,7 @@ public class Contacto extends javax.swing.JInternalFrame {
 
         jTextArea1.setBackground(new java.awt.Color(176, 184, 157));
         jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         jTextArea1.setForeground(new java.awt.Color(0, 0, 0));
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);

@@ -5,7 +5,6 @@
 package VistasInfo;
 
 import java.awt.Color;
-import VistasInfo.SimpleExt;
 
 /**
  *
@@ -13,11 +12,11 @@ import VistasInfo.SimpleExt;
  */
 public class Galeria extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form Galeria
-     */
+    private Simple panelSimple;
+    
     public Galeria() {
         initComponents();
+        panelSimple = new Simple();
     }
 
     /**
@@ -73,8 +72,50 @@ public class Galeria extends javax.swing.JInternalFrame {
         jLabel19 = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jPanel21 = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
+        jLabel30 = new javax.swing.JLabel();
+        jPanel22 = new javax.swing.JPanel();
+        jLabel31 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextArea3 = new javax.swing.JTextArea();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel41 = new javax.swing.JLabel();
+        jPanel23 = new javax.swing.JPanel();
+        jLabel33 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextArea4 = new javax.swing.JTextArea();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        jPanel24 = new javax.swing.JPanel();
+        jLabel35 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTextArea5 = new javax.swing.JTextArea();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        jPanel25 = new javax.swing.JPanel();
+        jLabel37 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTextArea6 = new javax.swing.JTextArea();
+        jLabel38 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
+        jPanel26 = new javax.swing.JPanel();
+        jLabel39 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTextArea7 = new javax.swing.JTextArea();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
 
-        setBorder(null);
         getContentPane().setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(27, 118, 134));
@@ -306,7 +347,12 @@ public class Galeria extends javax.swing.JInternalFrame {
         jPanel13.add(jPanel3);
         jPanel3.setBounds(0, 20, 60, 30);
 
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBackground(new java.awt.Color(176, 184, 157));
+        jPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel5MouseClicked(evt);
+            }
+        });
         jPanel5.setLayout(null);
 
         jLabel18.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -320,6 +366,11 @@ public class Galeria extends javax.swing.JInternalFrame {
         jPanel5.setBounds(60, 20, 110, 30);
 
         jPanel6.setBackground(new java.awt.Color(176, 184, 157));
+        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel6MouseClicked(evt);
+            }
+        });
         jPanel6.setLayout(null);
 
         jLabel20.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -332,7 +383,12 @@ public class Galeria extends javax.swing.JInternalFrame {
         jPanel13.add(jPanel6);
         jPanel6.setBounds(170, 20, 110, 30);
 
-        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel7.setBackground(new java.awt.Color(176, 184, 157));
+        jPanel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel7MouseClicked(evt);
+            }
+        });
         jPanel7.setLayout(null);
 
         jLabel24.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -346,6 +402,11 @@ public class Galeria extends javax.swing.JInternalFrame {
         jPanel7.setBounds(280, 20, 140, 30);
 
         jPanel18.setBackground(new java.awt.Color(176, 184, 157));
+        jPanel18.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel18MouseClicked(evt);
+            }
+        });
         jPanel18.setLayout(null);
 
         jLabel23.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -358,7 +419,12 @@ public class Galeria extends javax.swing.JInternalFrame {
         jPanel13.add(jPanel18);
         jPanel18.setBounds(420, 20, 100, 30);
 
-        jPanel19.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel19.setBackground(new java.awt.Color(176, 184, 157));
+        jPanel19.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel19MouseClicked(evt);
+            }
+        });
         jPanel19.setLayout(null);
 
         jLabel19.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -372,7 +438,11 @@ public class Galeria extends javax.swing.JInternalFrame {
         jPanel19.setBounds(520, 20, 140, 30);
 
         jPanel20.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel20.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel20.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel20MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jPanel20MouseEntered(evt);
             }
@@ -392,14 +462,243 @@ public class Galeria extends javax.swing.JInternalFrame {
         jPanel13.add(jPanel20);
         jPanel20.setBounds(660, 20, 160, 30);
 
+        jTabbedPane1.setBackground(new java.awt.Color(27, 118, 134));
+
+        jPanel11.setBackground(new java.awt.Color(27, 118, 134));
+        jPanel11.setLayout(null);
+
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/simple.png"))); // NOI18N
+        jPanel11.add(jLabel25);
+        jLabel25.setBounds(10, 10, 480, 260);
+
+        jLabel26.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel26.setText("STANDARD SIMPLE");
+        jPanel11.add(jLabel26);
+        jLabel26.setBounds(520, 10, 380, 20);
+
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/detallesHab.png"))); // NOI18N
+        jPanel11.add(jLabel27);
+        jLabel27.setBounds(10, 290, 980, 180);
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setBackground(new java.awt.Color(27, 118, 134));
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTextArea1.setForeground(new java.awt.Color(0, 0, 0));
+        jTextArea1.setRows(5);
+        jTextArea1.setText("Nuestra habitación Stándard Simple ofrece una \nexperiencia de alojamiento acogedora y perfecta para \nviajeros individuales. Con una cama de 1 plaza, \nes ideal para aquellos que buscan comodidad y \nprivacidad en un entorno lujoso de 5 estrellas.");
+        jTextArea1.setBorder(null);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jPanel11.add(jScrollPane1);
+        jScrollPane1.setBounds(520, 40, 440, 130);
+
+        jTabbedPane1.addTab("1", jPanel11);
+
+        jPanel21.setBackground(new java.awt.Color(27, 118, 134));
+        jPanel21.setLayout(null);
+
+        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/simpleQueen.png"))); // NOI18N
+        jPanel21.add(jLabel28);
+        jLabel28.setBounds(10, 10, 480, 260);
+
+        jLabel29.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel29.setText("STANDARD SIMPLE QUEEN");
+        jPanel21.add(jLabel29);
+        jLabel29.setBounds(520, 10, 380, 20);
+
+        jTextArea2.setEditable(false);
+        jTextArea2.setBackground(new java.awt.Color(27, 118, 134));
+        jTextArea2.setColumns(20);
+        jTextArea2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTextArea2.setForeground(new java.awt.Color(0, 0, 0));
+        jTextArea2.setRows(5);
+        jTextArea2.setText("Experimenta la elegancia y el confort en nuestra \nHabitación Estándar Simple Queen. Con una amplia \ncama de 2 plazas, esta habitación es perfecta para \nparejas que buscan relajarse en un entorno de lujo.");
+        jTextArea2.setBorder(null);
+        jScrollPane2.setViewportView(jTextArea2);
+
+        jPanel21.add(jScrollPane2);
+        jScrollPane2.setBounds(520, 40, 440, 130);
+
+        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/detallesHab.png"))); // NOI18N
+        jPanel21.add(jLabel30);
+        jLabel30.setBounds(10, 290, 980, 180);
+
+        jTabbedPane1.addTab("2", jPanel21);
+
+        jPanel22.setBackground(new java.awt.Color(27, 118, 134));
+        jPanel22.setLayout(null);
+
+        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/dobleTween.png"))); // NOI18N
+        jPanel22.add(jLabel31);
+        jLabel31.setBounds(10, 10, 480, 260);
+
+        jTextArea3.setEditable(false);
+        jTextArea3.setBackground(new java.awt.Color(27, 118, 134));
+        jTextArea3.setColumns(20);
+        jTextArea3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTextArea3.setForeground(new java.awt.Color(0, 0, 0));
+        jTextArea3.setRows(5);
+        jTextArea3.setText("Nuestra Habitación Estándar Doble Tween es ideal \npara amigos o familiares que viajan juntos. Con dos \ncómodas camas de 1 plaza, esta habitación ofrece \ncomodidad y un ambiente sofisticado.");
+        jTextArea3.setBorder(null);
+        jScrollPane3.setViewportView(jTextArea3);
+
+        jPanel22.add(jScrollPane3);
+        jScrollPane3.setBounds(520, 40, 440, 130);
+
+        jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/detallesHab.png"))); // NOI18N
+        jPanel22.add(jLabel32);
+        jLabel32.setBounds(10, 290, 980, 180);
+
+        jLabel41.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel41.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel41.setText("STANDARD DOBLE TWEEN");
+        jPanel22.add(jLabel41);
+        jLabel41.setBounds(520, 10, 380, 20);
+
+        jTabbedPane1.addTab("3", jPanel22);
+
+        jPanel23.setBackground(new java.awt.Color(27, 118, 134));
+        jPanel23.setLayout(null);
+
+        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/dobleMatrimonial.png"))); // NOI18N
+        jPanel23.add(jLabel33);
+        jLabel33.setBounds(10, 10, 480, 260);
+
+        jTextArea4.setEditable(false);
+        jTextArea4.setBackground(new java.awt.Color(27, 118, 134));
+        jTextArea4.setColumns(20);
+        jTextArea4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTextArea4.setForeground(new java.awt.Color(0, 0, 0));
+        jTextArea4.setRows(5);
+        jTextArea4.setText("Experimenta el lujo en nuestra Habitación Estándar \nDoble Matrimonial, con una espaciosa cama de \n2 plazas y media. Es perfecta para parejas que \nbuscan una escapada romántica.");
+        jTextArea4.setBorder(null);
+        jScrollPane4.setViewportView(jTextArea4);
+
+        jPanel23.add(jScrollPane4);
+        jScrollPane4.setBounds(520, 40, 440, 130);
+
+        jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/detallesHab.png"))); // NOI18N
+        jPanel23.add(jLabel34);
+        jLabel34.setBounds(10, 290, 980, 180);
+
+        jLabel42.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel42.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel42.setText("STANDARD DOBLE MATRIMONIAL");
+        jPanel23.add(jLabel42);
+        jLabel42.setBounds(520, 10, 420, 20);
+
+        jTabbedPane1.addTab("4", jPanel23);
+
+        jPanel24.setBackground(new java.awt.Color(27, 118, 134));
+        jPanel24.setLayout(null);
+
+        jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tripleQueen.png"))); // NOI18N
+        jPanel24.add(jLabel35);
+        jLabel35.setBounds(10, 10, 480, 260);
+
+        jTextArea5.setEditable(false);
+        jTextArea5.setBackground(new java.awt.Color(27, 118, 134));
+        jTextArea5.setColumns(20);
+        jTextArea5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTextArea5.setForeground(new java.awt.Color(0, 0, 0));
+        jTextArea5.setRows(5);
+        jTextArea5.setText("Nuestra Habitación Estándar Triple Tween es perfecta\npara grupos pequeños o familias. Con tres cómodas \ncamas de 1 plaza, todos disfrutarán de su propia \nárea de descanso.");
+        jTextArea5.setBorder(null);
+        jScrollPane5.setViewportView(jTextArea5);
+
+        jPanel24.add(jScrollPane5);
+        jScrollPane5.setBounds(520, 40, 470, 130);
+
+        jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/detallesHab.png"))); // NOI18N
+        jPanel24.add(jLabel36);
+        jLabel36.setBounds(10, 290, 980, 180);
+
+        jLabel43.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel43.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel43.setText("STANDARD TRIPLE QUEEN");
+        jPanel24.add(jLabel43);
+        jLabel43.setBounds(520, 10, 380, 20);
+
+        jTabbedPane1.addTab("5", jPanel24);
+
+        jPanel25.setBackground(new java.awt.Color(27, 118, 134));
+        jPanel25.setLayout(null);
+
+        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tripleMatrimonial.png"))); // NOI18N
+        jPanel25.add(jLabel37);
+        jLabel37.setBounds(10, 10, 480, 260);
+
+        jTextArea6.setEditable(false);
+        jTextArea6.setBackground(new java.awt.Color(27, 118, 134));
+        jTextArea6.setColumns(20);
+        jTextArea6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTextArea6.setForeground(new java.awt.Color(0, 0, 0));
+        jTextArea6.setRows(5);
+        jTextArea6.setText("Combina la comodidad y el lujo en nuestra Habitación \nEstándar Triple Matrimonial, que incluye una cama \nde 2 plazas y una de 1 plaza. Ideal para familias \nque buscan espacio y confort.");
+        jTextArea6.setBorder(null);
+        jScrollPane6.setViewportView(jTextArea6);
+
+        jPanel25.add(jScrollPane6);
+        jScrollPane6.setBounds(520, 40, 440, 130);
+
+        jLabel38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/detallesHab.png"))); // NOI18N
+        jPanel25.add(jLabel38);
+        jLabel38.setBounds(10, 290, 980, 180);
+
+        jLabel44.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel44.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel44.setText("STANDARD TRIPLE MATRIMONIAL");
+        jPanel25.add(jLabel44);
+        jLabel44.setBounds(520, 10, 420, 20);
+
+        jTabbedPane1.addTab("6", jPanel25);
+
+        jPanel26.setBackground(new java.awt.Color(27, 118, 134));
+        jPanel26.setLayout(null);
+
+        jLabel39.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/suite.png"))); // NOI18N
+        jPanel26.add(jLabel39);
+        jLabel39.setBounds(10, 10, 480, 260);
+
+        jTextArea7.setEditable(false);
+        jTextArea7.setBackground(new java.awt.Color(27, 118, 134));
+        jTextArea7.setColumns(20);
+        jTextArea7.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTextArea7.setForeground(new java.awt.Color(0, 0, 0));
+        jTextArea7.setRows(5);
+        jTextArea7.setText("Nuestra Suite de Lujo es la cúspide del confort y la \nsofisticación. Con una cama de 2 plazas y media \ny otra de 2 plazas, esta suite ofrece un espacio amplio\ny elegante para los viajeros más exigentes.");
+        jTextArea7.setBorder(null);
+        jScrollPane7.setViewportView(jTextArea7);
+
+        jPanel26.add(jScrollPane7);
+        jScrollPane7.setBounds(520, 40, 440, 130);
+
+        jLabel40.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/detallesHab.png"))); // NOI18N
+        jPanel26.add(jLabel40);
+        jLabel40.setBounds(10, 290, 980, 180);
+
+        jLabel45.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel45.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel45.setText("SUITE DE LUJO");
+        jPanel26.add(jLabel45);
+        jLabel45.setBounds(520, 10, 380, 20);
+
+        jTabbedPane1.addTab("7", jPanel26);
+
+        jPanel13.add(jTabbedPane1);
+        jTabbedPane1.setBounds(0, 20, 1010, 560);
+
         jTabbedPane2.addTab("3", jPanel13);
 
         jPanel2.add(jTabbedPane2);
-        jTabbedPane2.setBounds(0, 80, 1020, 620);
+        jTabbedPane2.setBounds(0, 80, 1010, 610);
         jTabbedPane2.getAccessibleContext().setAccessibleName("3");
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 0, 1020, 700);
+        jPanel2.setBounds(0, 0, 1010, 690);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -475,11 +774,32 @@ public class Galeria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jPanel20MouseExited
 
     private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
-        // TODO add your handling code here:
-//        SimpleExt simpleExt = new SimpleExt();
-//        jPanel11.add(simpleExt.mostrarPanel());
-//        jPanel11.setVisible(true);
+        jTabbedPane1.setSelectedIndex(0);
     }//GEN-LAST:event_jPanel3MouseClicked
+
+    private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
+        jTabbedPane1.setSelectedIndex(1);
+    }//GEN-LAST:event_jPanel5MouseClicked
+
+    private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
+        jTabbedPane1.setSelectedIndex(2);
+    }//GEN-LAST:event_jPanel6MouseClicked
+
+    private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
+        jTabbedPane1.setSelectedIndex(3);
+    }//GEN-LAST:event_jPanel7MouseClicked
+
+    private void jPanel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel18MouseClicked
+        jTabbedPane1.setSelectedIndex(4);
+    }//GEN-LAST:event_jPanel18MouseClicked
+
+    private void jPanel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel19MouseClicked
+        jTabbedPane1.setSelectedIndex(5);
+    }//GEN-LAST:event_jPanel19MouseClicked
+
+    private void jPanel20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel20MouseClicked
+        jTabbedPane1.setSelectedIndex(6);
+    }//GEN-LAST:event_jPanel20MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -500,8 +820,29 @@ public class Galeria extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -509,6 +850,7 @@ public class Galeria extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
@@ -519,6 +861,12 @@ public class Galeria extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
+    private javax.swing.JPanel jPanel23;
+    private javax.swing.JPanel jPanel24;
+    private javax.swing.JPanel jPanel25;
+    private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -526,6 +874,21 @@ public class Galeria extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextArea jTextArea3;
+    private javax.swing.JTextArea jTextArea4;
+    private javax.swing.JTextArea jTextArea5;
+    private javax.swing.JTextArea jTextArea6;
+    private javax.swing.JTextArea jTextArea7;
     // End of variables declaration//GEN-END:variables
 }
