@@ -44,7 +44,6 @@ public class PanelAdminTabla extends javax.swing.JPanel {
     public PanelAdminTabla() {
         initComponents();
         this.setVisible(false);
-        mostrarFecha();
         armarCabecera();
         cargarComboPisos();
         //System.out.println("armar Cabecera: "+modelo.getColumnCount());
@@ -68,7 +67,6 @@ public class PanelAdminTabla extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         ComboPisos = new javax.swing.JComboBox<>();
         ComboTipoHabitaciones = new javax.swing.JComboBox<>();
-        TextFecha = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaHabitaciones = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
@@ -118,17 +116,6 @@ public class PanelAdminTabla extends javax.swing.JPanel {
             }
         });
 
-        TextFecha.setEditable(false);
-        TextFecha.setBackground(new java.awt.Color(27, 118, 134));
-        TextFecha.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        TextFecha.setForeground(new java.awt.Color(51, 51, 255));
-        TextFecha.setBorder(null);
-        TextFecha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextFechaActionPerformed(evt);
-            }
-        });
-
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         TablaHabitaciones.setBackground(new java.awt.Color(153, 204, 255));
@@ -171,8 +158,7 @@ public class PanelAdminTabla extends javax.swing.JPanel {
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(ComboTipoHabitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 291, Short.MAX_VALUE)
-                        .addComponent(TextFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 398, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -183,8 +169,7 @@ public class PanelAdminTabla extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(ComboPisos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2)
-                        .addComponent(ComboTipoHabitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(TextFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ComboTipoHabitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
                 .addContainerGap())
@@ -356,7 +341,7 @@ public class PanelAdminTabla extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -389,10 +374,6 @@ public class PanelAdminTabla extends javax.swing.JPanel {
         mostrarDetalles();
     }//GEN-LAST:event_TablaHabitacionesMouseClicked
 
-    private void TextFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFechaActionPerformed
-        //TODO USAR PARA COMENZAR TABLA
-    }//GEN-LAST:event_TextFechaActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Integer> ComboPisos;
@@ -408,7 +389,6 @@ public class PanelAdminTabla extends javax.swing.JPanel {
     private javax.swing.JTextField DetTextCheckInn;
     private javax.swing.JTextField DetTextCheckOut;
     private javax.swing.JTable TablaHabitaciones;
-    private javax.swing.JTextField TextFecha;
     private javax.swing.JLabel jLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -487,18 +467,18 @@ public class PanelAdminTabla extends javax.swing.JPanel {
             fila[0]=idHabitacion; 
             int indice = 1;
             for (LocalDate fecha : fechas){
-//               try{
-//                    Reserva reserva=reservaData.buscarReservasPorIDHabitacionYfecha(fecha, idHabitacion);
-//                    int idReserva=reserva.getIdReserva();
-//                    if(idReserva==0){
-//                        fila[indice] =null;
-//                    }else{
-//                        fila[indice]=idReserva;
-//                    }
-//               }catch(NullPointerException ex){
-//                    
-//               }
-//               indice++;
+               try{
+                    Reserva reserva=reservaData.buscarReservasPorIDHabitacionYfecha(fecha, idHabitacion);
+                    int idReserva=reserva.getIdReserva();
+                    if(idReserva==0){
+                        fila[indice] =null;
+                    }else{
+                        fila[indice]=idReserva;
+                    }
+               }catch(NullPointerException ex){
+                    
+               }
+               indice++;
             }
             modelo.addRow(fila);
 
@@ -519,17 +499,17 @@ public class PanelAdminTabla extends javax.swing.JPanel {
             fila[0]=hab.getIdHabitacion(); 
             int indice = 1;
             for (LocalDate fecha : fechas){
-//               try{
-//                    Reserva reserva=reservaData.buscarReservasPorIDHabitacionYfecha(fecha, hab.getIdHabitacion());
-//                    int idReserva=reserva.getIdReserva();
-//                    if(idReserva==0){
-//                        fila[indice] =null;
-//                    }else{
-//                        fila[indice]=idReserva;
-//                    }
-//               }catch(NullPointerException ex){
-//                    
-//               }
+               try{
+                    Reserva reserva=reservaData.buscarReservasPorIDHabitacionYfecha(fecha, hab.getIdHabitacion());
+                    int idReserva=reserva.getIdReserva();
+                    if(idReserva==0){
+                        fila[indice] =null;
+                    }else{
+                        fila[indice]=idReserva;
+                    }
+               }catch(NullPointerException ex){
+                    
+               }
                indice++;
             }
             modelo.addRow(fila);
@@ -537,12 +517,6 @@ public class PanelAdminTabla extends javax.swing.JPanel {
             }
     }
         
-    private void mostrarFecha(){
-        LocalDate fecha = LocalDate.now();   
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String fechaHoy=fecha.format(formato);
-        TextFecha.setText(fechaHoy);
-    }
     
     private void mostrarDetalles(){
         limpiarDetalles();
