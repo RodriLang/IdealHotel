@@ -108,6 +108,7 @@ public class PanelModificarHabitacion extends javax.swing.JPanel {
         labelInfoPiso = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(27, 118, 134));
+        setPreferredSize(new java.awt.Dimension(970, 735));
 
         panelOpciones.setOpaque(false);
 
@@ -705,8 +706,6 @@ public class PanelModificarHabitacion extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labelCondicion;
@@ -723,8 +722,6 @@ public class PanelModificarHabitacion extends javax.swing.JPanel {
     private javax.swing.JPanel panelOpciones;
     private javax.swing.JRadioButton radioButtonModificar;
     private javax.swing.JRadioButton radioButtonNueva;
-    private javax.swing.JRadioButton radioButtonNueva1;
-    private javax.swing.JRadioButton radioButtonNueva2;
     private javax.swing.JTextField textFieldPrecioActual;
     private javax.swing.JTextField textFieldPrecioBrutoNuevo;
     private javax.swing.JTextField textFieldPrecioFinalNuevo;

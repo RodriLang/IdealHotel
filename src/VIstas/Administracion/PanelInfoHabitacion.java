@@ -9,6 +9,7 @@ import AccesoADatos.HabitacionData;
 import AccesoADatos.ReservaData;
 import VIstas.AdministracionView;
 import entidades.Habitacion;
+import entidades.Reserva;
 import entidades.TipoHabitacion;
 import java.awt.Color;
 import java.time.LocalDate;
@@ -58,7 +59,7 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
         this.fecha = fecha;
         this.setSize(300, 150);
         this.setVisible(true);
-        
+
         imgLibre = new ImageIcon(getClass().getResource("/imagenes/check_circle.png"));
         imgOcupada = new ImageIcon(getClass().getResource("/imagenes/do_not_disturb.png"));
         imgDeshabilitada = new ImageIcon(getClass().getResource("/imagenes/cancel.png"));
@@ -66,6 +67,10 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
         initComponents();
         cargarDatosHabitacion();
 
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
     }
 
     public PanelInfoHabitacion(int idHabitacion, TipoHabitacion tipoHabitacion, int piso, int precio, boolean ocupada, boolean habilitada) {
@@ -101,7 +106,6 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
         labelNumHab = new javax.swing.JLabel();
         panelEstado = new javax.swing.JPanel();
         labelEstado = new javax.swing.JLabel();
-        botonEstado = new javax.swing.JButton();
         panelSur = new javax.swing.JPanel();
         labelTipoHab = new javax.swing.JLabel();
         panelCentro = new javax.swing.JPanel();
@@ -150,17 +154,6 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
         labelEstado.setOpaque(true);
         labelEstado.setPreferredSize(new java.awt.Dimension(45, 26));
         panelEstado.add(labelEstado, java.awt.BorderLayout.CENTER);
-
-        botonEstado.setBackground(new java.awt.Color(0, 255, 51));
-        botonEstado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/check_circle.png"))); // NOI18N
-        botonEstado.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botonEstado.setPreferredSize(new java.awt.Dimension(35, 35));
-        botonEstado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonEstadoActionPerformed(evt);
-            }
-        });
-        panelEstado.add(botonEstado, java.awt.BorderLayout.EAST);
 
         panelNorte.add(panelEstado, java.awt.BorderLayout.CENTER);
 
@@ -247,7 +240,10 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonCheckInOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCheckInOutActionPerformed
-        ventana.mostrarPanelContenido(new PanelAdminReservas(habitacion), ventana.getBotonReservas());
+        if(botonCheckInOut.getText().startsWith("Check")){
+            ventana.mostrarPanelContenido(new PanelCheckInOut(habitacion, ventana, panelAdmin, habData), null);
+        }
+        
     }//GEN-LAST:event_botonCheckInOutActionPerformed
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
@@ -257,8 +253,6 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
             botonEditar.setEnabled(false);
             botonEliminar.setEnabled(false);
 //            botonCheckInOut.setEnabled(false);
-            botonEstado.setBackground(Color.YELLOW);
-            botonEstado.setIcon(imgDeshabilitada);
             this.setBackground(Color.gray);
             labelEstado.setText("DESHABILITADA");
             this.revalidate();
@@ -273,49 +267,11 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
         panelModificarHabitacion.cargarDatosHabitacion(habitacion);
     }//GEN-LAST:event_botonEditarActionPerformed
 
-    private void botonEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEstadoActionPerformed
-
-        switch (labelEstado.getText()) {
-            case "LIBRE":
-                if (JOptionPane.showConfirmDialog(this, "Se marcará la Habitación como \n\"OCUPADA\"", "¡ATENCIÓN!", JOptionPane.CANCEL_OPTION) == 0) {
-                    labelEstado.setText("OCUPADA");
-                    botonEstado.setIcon(imgOcupada);
-                    labelEstado.setBackground(Color.RED);
-                    botonEstado.setBackground(Color.RED);
-                    habData.ocuparHabitacion(idHabitacion);
-                }
-                break;
-            case "OCUPADA":
-                if (JOptionPane.showConfirmDialog(this, "Se marcará la Habitación como \n\"LIBRE\"", "¡ATENCIÓN!", JOptionPane.CANCEL_OPTION) == 0) {
-                    botonEstado.setBackground(Color.GREEN);
-                    labelEstado.setBackground(Color.GREEN);
-                    labelEstado.setText("LIBRE");
-                    botonEstado.setIcon(imgLibre);
-                    habData.liberarHabitacion(idHabitacion);
-                }
-                break;
-            case "DESHABILITADA":
-                if (JOptionPane.showConfirmDialog(this, "Se marcará la Habitación como \n\"HABILITADA\"", "¡ATENCIÓN!", JOptionPane.CANCEL_OPTION) == 0) {
-                    botonEstado.setBackground(Color.GREEN);
-                    labelEstado.setText("LIBRE");
-                    botonEstado.setIcon(imgLibre);
-                    botonEditar.setEnabled(true);
-                    botonEliminar.setEnabled(true);
-//                    botonCheckInOut.setEnabled(true);
-                    this.setBackground(new Color(35, 149, 169));
-                    habData.habilitarHabitacion(idHabitacion);
-                    break;
-                }
-        }
-        panelAdmin.filtrarHabitaciones();
-    }//GEN-LAST:event_botonEstadoActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCheckInOut;
     private javax.swing.JButton botonEditar;
     private javax.swing.JButton botonEliminar;
-    private javax.swing.JButton botonEstado;
     private javax.swing.JLabel labelEstado;
     private javax.swing.JLabel labelN;
     private javax.swing.JLabel labelNPiso;
@@ -334,41 +290,39 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
 
     private void cargarDatosHabitacion() {
         labelNumHab.setText(idHabitacion + "");
-        if (ocupada) {
-            botonEstado.setBackground(Color.RED);
-            labelEstado.setBackground(Color.RED);
-            labelEstado.setText("OCUPADA");
-            botonEstado.setIcon(imgOcupada);
+        Reserva reserva = resData.buscarReservasPorIDHabitacionYfecha(fecha, habitacion.getIdHabitacion());
+        if (habilitada) {
+            this.setBackground(new Color(35, 149, 169));
+            if (reserva.getIdReserva() != 0) {
+                if (ocupada) {
+                    if (reserva.getFechaOut().equals(fecha)) {
+                        botonCheckInOut.setText("Check Out");
+                        botonCheckInOut.setIcon(imgLibre);
+                        labelEstado.setBackground(Color.MAGENTA);
+                        labelEstado.setText("SALE HOY");
+                    } else {
+                        labelEstado.setBackground(Color.RED);
+                        labelEstado.setText("OCUPADA");
+                        botonCheckInOut.setText(reserva.getFechaOut().getDayOfMonth() + "/" + reserva.getFechaOut().getMonthValue());
+                    }
+                } else {
+                    labelEstado.setBackground(Color.YELLOW);
+                    labelEstado.setText("RESERVADA");
+                    botonCheckInOut.setText("Check In");
+                    botonCheckInOut.setIcon(imgLibre);
+                }
+            } else {
+                labelEstado.setBackground(Color.GREEN);
+                labelEstado.setText("LIBRE");
+            }
         } else {
-            botonEstado.setBackground(Color.GREEN);
-            labelEstado.setBackground(Color.GREEN);
-            labelEstado.setText("LIBRE");
-            botonEstado.setIcon(imgLibre);
+            labelEstado.setText("DESHABILITADA");
+            labelEstado.setBackground(Color.LIGHT_GRAY);
+            this.setBackground(Color.gray);
         }
         labelNPiso.setText(piso + "");
         labelTipoHab.setText(tipoHabitacion.name());
         botonEditar.setEnabled(habilitada);
         botonEliminar.setEnabled(habilitada);
-        if (habilitada) {
-            this.setBackground(new Color(35, 149, 169));
-        } else {
-            labelEstado.setText("DESHABILITADA");
-            botonEstado.setBackground(Color.YELLOW);
-            botonEstado.setIcon(imgDeshabilitada);
-            labelEstado.setBackground(Color.LIGHT_GRAY);
-            this.setBackground(Color.gray);
-        }
-        if (resData.buscarReservasPorIDHabitacionYfecha(fecha, habitacion.getIdHabitacion())!=null) {
-            if (!habitacion.isOcupada()) {
-                botonCheckInOut.setText("Check In");
-                botonCheckInOut.setBackground(Color.MAGENTA);
-            } else {
-                botonCheckInOut.setText("Check Out");
-                botonCheckInOut.setBackground(Color.ORANGE);
-            }
-            botonCheckInOut.setEnabled(true);
-        } else {
-            botonCheckInOut.setEnabled(false);
-        }
     }
 }

@@ -59,7 +59,6 @@ public class HabitacionData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                System.out.println(rs.getObject("tipoHabitacion"));
                 habitacion.setIdHabitacion(idHabitacion);
                 habitacion.setPiso(rs.getInt("piso"));
                 habitacion.setTipoHabitacion(TipoHabitacion.valueOf(rs.getString("tipoHabitacion")));
@@ -328,7 +327,6 @@ public class HabitacionData {
         List<Habitacion> habitaciones = new ArrayList<>();
         String estadoString = "NOT ocupada = " + ocupada + " AND ";
         if (ocupada <= 1) {
-            System.out.println("muestras Ocupadas");
             estadoString = "ocupada = " + ocupada + " AND ";
         }
         String condicionString = "NOT habilitada = " + habilitada + " AND ";
@@ -344,7 +342,6 @@ public class HabitacionData {
             tipoString = "tipoHabitacion = \'" + tipo.name() + "\';";
         }
         String sql = "SELECT * FROM habitacion Where " + estadoString + condicionString + pisosString + tipoString;
-        System.out.println(sql);
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
 
