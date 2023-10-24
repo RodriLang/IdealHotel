@@ -396,7 +396,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
     }//GEN-LAST:event_BotonEstadoAlojadosActionPerformed
 
     private void BotonEstadoTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEstadoTodosActionPerformed
-        
+        llenarTablaTodos();
     }//GEN-LAST:event_BotonEstadoTodosActionPerformed
 
     private void ComboDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboDniActionPerformed
