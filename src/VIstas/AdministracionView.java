@@ -11,16 +11,25 @@ import VIstas.Administracion.PanelAdminHuespedes;
 import AccesoADatos.HabitacionData;
 import AccesoADatos.HuespedData;
 import AccesoADatos.ReservaData;
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
+import javafx.scene.text.TextFlow;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import VIstas.Administracion.PanelAdminTabla;
+import javax.swing.JTextField;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
+
 
 /**
  *
@@ -34,7 +43,7 @@ public class AdministracionView extends javax.swing.JInternalFrame {
     private PanelAdminHabitaciones panelHabitaciones;
     private PanelAdminHuespedes panelHuespedes;
     private PanelAdminReservas panelReservas;
-    private LocalDate fecha;
+    private static LocalDate fecha;
     private DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private PanelAdminTabla panelTabla;
 
@@ -62,6 +71,10 @@ public class AdministracionView extends javax.swing.JInternalFrame {
 //        panelContenido.add(panelHabitaciones);
 //        panelContenido.add(panelHuespedes);
 //        panelContenido.add(panelReservas);
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
     }
 
     /**
@@ -216,7 +229,7 @@ public class AdministracionView extends javax.swing.JInternalFrame {
         panelGeneral.setLayout(panelGeneralLayout);
         panelGeneralLayout.setHorizontalGroup(
             panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelContenido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1008, Short.MAX_VALUE)
+            .addComponent(panelContenido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -225,7 +238,7 @@ public class AdministracionView extends javax.swing.JInternalFrame {
             .addGroup(panelGeneralLayout.createSequentialGroup()
                 .addComponent(panelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -266,16 +279,13 @@ public class AdministracionView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_botonHomeActionPerformed
 
     private void botonFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFechaActionPerformed
-        String fechaIngresada = JOptionPane.showInputDialog("Ingrese la fecha", "dd/mm/aaaa");
-        if (fechaIngresada!=null) {
-            try {
-                fecha = LocalDate.parse(fechaIngresada, formatoFecha);
-            } catch (DateTimeParseException e) {
-                JOptionPane.showMessageDialog(this, "No se pudo guardar la fecha", "Error en el formato", JOptionPane.ERROR_MESSAGE);
-            }
-            botonFecha.setText("   " + fecha.format(formatoFecha));
-        }
+        JCalendar calendario = new JCalendar(Date.valueOf(LocalDate.now()));
+        JOptionPane.showMessageDialog(this, calendario);
+        fecha = calendario.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        botonFecha.setText("   " + fecha.format(formatoFecha));
+        panelHabitaciones.setFecha(fecha);
     }//GEN-LAST:event_botonFechaActionPerformed
+
     public void mostrarPanelContenido(JPanel panel, JButton boton) {
         if (boton != null) {
             botonHuespedes.setBackground(new Color(176, 184, 157));
