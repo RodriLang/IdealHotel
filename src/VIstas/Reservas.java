@@ -48,7 +48,7 @@ private ReservaData resData=new ReservaData(huesData, habData);
         editor.setEditable(false);
         JTextFieldDateEditor editor1 = (JTextFieldDateEditor) jdSalida.getDateEditor(); //se convierte el jDateChooser en jTextFieldDateEditor para desactivar la edicion del campo de texto
         editor1.setEditable(false);
-    }
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -237,22 +237,10 @@ private ReservaData resData=new ReservaData(huesData, habData);
         jLabel9.setText("Domicilio:");
         jLabel9.setOpaque(true);
 
-        jtDomicilio.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtDomicilioKeyTyped(evt);
-            }
-        });
-
         jLabel10.setBackground(new java.awt.Color(176, 184, 157));
         jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel10.setText("Correo:");
         jLabel10.setOpaque(true);
-
-        jtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtCorreoKeyTyped(evt);
-            }
-        });
 
         jLabel11.setBackground(new java.awt.Color(176, 184, 157));
         jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -469,7 +457,7 @@ private ReservaData resData=new ReservaData(huesData, habData);
 
     private void jbCompletarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCompletarReservaActionPerformed
            
-        if (jtNombre.getText()!=null&&jtDNI.getText()!=null&&jtDomicilio.getText()!=null&&jtCelular.getText()!=null&&jtCorreo.getText()!=null&&jtCantPersonas.getText()!=null) {
+        if (jtNombre.getText().length()>=1&&jtDNI.getText().length()>=1&&jtDomicilio.getText().length()>=1&&jtCelular.getText().length()>=1&&jtCorreo.getText().length()>=1&&jtCantPersonas.getText().length()>=1) {
          int dni=Integer.valueOf(jtDNI.getText());
             Habitacion hab=null;
             Huesped h=null;
@@ -502,13 +490,15 @@ private ReservaData resData=new ReservaData(huesData, habData);
     }//GEN-LAST:event_jbCompletarReservaActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        if (jtDNI.getText()!=null) {
+        if (jtDNI.getText().length()>=1) {
          Huesped h=huesData.buscarHuespedDni(Integer.valueOf(jtDNI.getText()));
         if (h!=null) {
         jtNombre.setText(h.getNombre());
         jtDomicilio.setText(h.getDomicilio());
         jtCorreo.setText(h.getCorreo());
         jtCelular.setText(h.getCelular());   
+        }else{
+            JOptionPane.showMessageDialog(jpDatos, "DNI no encontrado");
         }
         }else{
         JOptionPane.showMessageDialog(jpDatos, "Por favor ingrese su DNI");
@@ -551,24 +541,6 @@ private ReservaData resData=new ReservaData(huesData, habData);
         evt.consume();
         }
     }//GEN-LAST:event_jtDNIKeyTyped
-
-    private void jtDomicilioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtDomicilioKeyTyped
-        char c=evt.getKeyChar();
-        if (c!=' ') {
-         if (c<'A'||c>'z') {
-            evt.consume();
-        }   
-        }
-    }//GEN-LAST:event_jtDomicilioKeyTyped
-
-    private void jtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtCorreoKeyTyped
-        char c=evt.getKeyChar();
-        if (c!=' ') {
-         if (c<'A'||c>'z') {
-            evt.consume();
-        }   
-        }
-    }//GEN-LAST:event_jtCorreoKeyTyped
 
     private void jtCelularKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtCelularKeyTyped
         char c=evt.getKeyChar();
@@ -675,7 +647,7 @@ private ReservaData resData=new ReservaData(huesData, habData);
                     if (suite==0){
                     modelo.addRow(new Object[]{habitacion.getTipoHabitacion(),habitacion.getTipoHabitacion().getCantidadMaxPax(),habitacion.getTipoHabitacion().getDescripcion(),"$"+(habitacion.getPrecio()*fecha2.compareTo(fecha1))});
                     }
-                    tripletwin=1;
+                    suite=1;
                     break;                    
                 default:
                     break;
