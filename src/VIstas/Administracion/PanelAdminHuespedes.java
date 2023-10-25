@@ -22,10 +22,8 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
     };
     private HuespedData huespedData;
     private Huesped huesped;
-    private List<Huesped> huespedes;
     
     public PanelAdminHuespedes() {
-        this.huespedes=new ArrayList<Huesped>();
         this.huespedData=huespedData;
         this.huesped=huesped;
         initComponents();
@@ -454,9 +452,10 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
     
     private void llenarTablaTodos(){
         modelo.setRowCount(0);
-        huespedes=huespedData.listarHuespedes();
+        List<Huesped> lista=new ArrayList<>();
+        lista=huespedData.listarHuespedes();
         
-        for(Huesped huesped: huespedes) {
+            for(Huesped huesped: lista) {
             Object[] fila= new Object[6];
             fila[0]=huesped.getIdHuesped();
             fila[1]=huesped.getNombre();
@@ -476,9 +475,10 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
             
     private void llenarTablaAlojados(){
         modelo.setRowCount(0);
-        huespedes=huespedData.listarHuespedesAlojados();
+        List<Huesped> lista=new ArrayList<>();
+        lista=huespedData.listarHuespedes();
         
-        for(Huesped huesped: huespedes) {
+            for(Huesped huesped: lista) {
             Object[] fila= new Object[6];
             fila[0]=huesped.getIdHuesped();
             fila[1]=huesped.getNombre();
@@ -536,9 +536,10 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
     
     private void llenarTablaPorNombre(String nombre){
         modelo.setRowCount(0);
-        huespedes=huespedData.listarHuespedes();
+        List<Huesped> lista=new ArrayList<>();
+        lista=huespedData.listarHuespedes();
         
-           for(Huesped huesped: huespedes) {
+           for(Huesped huesped: lista) {
             if(huesped.getNombre().equals(nombre)){
             Object[] fila= new Object[6];
             fila[0]=huesped.getIdHuesped();
@@ -588,19 +589,25 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
     }
     
     private void cargarComboId(){
-        for (Huesped a : huespedData.listarHuespedes()) {
+        List<Huesped> lista=new ArrayList<>();
+        lista=huespedData.listarHuespedes();
+        for (Huesped a : lista) {
         ComboId.addItem(a.getIdHuesped());
         }
     }
     
     private void cargarComboDni(){
-       for (Huesped a : huespedData.listarHuespedes()) {
+        List<Huesped> lista=new ArrayList<>();
+        lista=huespedData.listarHuespedes();
+        for (Huesped a : lista) {
         ComboId.addItem(a.getDni());
         }
     }
     
     private void cargarComboNombre(){
-       for (Huesped a : huespedData.listarHuespedes()) {
+        List<Huesped> lista=new ArrayList<>();
+        lista=huespedData.listarHuespedes();
+        for (Huesped a : lista) {
         ComboId.addItem(a.getNombre());
         }
     }
