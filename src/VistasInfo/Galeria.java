@@ -12,11 +12,9 @@ import java.awt.Color;
  */
 public class Galeria extends javax.swing.JInternalFrame {
 
-    private Simple panelSimple;
     
     public Galeria() {
         initComponents();
-        panelSimple = new Simple();
     }
 
     /**
@@ -68,6 +66,7 @@ public class Galeria extends javax.swing.JInternalFrame {
         jLabel24 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
+        jPanel27 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
@@ -334,6 +333,12 @@ public class Galeria extends javax.swing.JInternalFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel3MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel3MouseExited(evt);
+            }
         });
         jPanel3.setLayout(null);
 
@@ -351,6 +356,12 @@ public class Galeria extends javax.swing.JInternalFrame {
         jPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel5MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel5MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel5MouseExited(evt);
             }
         });
         jPanel5.setLayout(null);
@@ -370,6 +381,12 @@ public class Galeria extends javax.swing.JInternalFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel6MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel6MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel6MouseExited(evt);
+            }
         });
         jPanel6.setLayout(null);
 
@@ -387,6 +404,12 @@ public class Galeria extends javax.swing.JInternalFrame {
         jPanel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel7MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel7MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel7MouseExited(evt);
             }
         });
         jPanel7.setLayout(null);
@@ -406,6 +429,12 @@ public class Galeria extends javax.swing.JInternalFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel18MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel18MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel18MouseExited(evt);
+            }
         });
         jPanel18.setLayout(null);
 
@@ -419,10 +448,32 @@ public class Galeria extends javax.swing.JInternalFrame {
         jPanel13.add(jPanel18);
         jPanel18.setBounds(420, 20, 100, 30);
 
+        jPanel27.setBackground(new java.awt.Color(176, 184, 157));
+        jPanel27.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel27MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel27MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel27MouseExited(evt);
+            }
+        });
+        jPanel27.setLayout(null);
+        jPanel13.add(jPanel27);
+        jPanel27.setBounds(820, 20, 190, 30);
+
         jPanel19.setBackground(new java.awt.Color(176, 184, 157));
         jPanel19.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel19MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel19MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel19MouseExited(evt);
             }
         });
         jPanel19.setLayout(null);
@@ -488,11 +539,12 @@ public class Galeria extends javax.swing.JInternalFrame {
         jTextArea1.setForeground(new java.awt.Color(0, 0, 0));
         jTextArea1.setRows(5);
         jTextArea1.setText("Nuestra habitación Stándard Simple ofrece una \nexperiencia de alojamiento acogedora y perfecta para \nviajeros individuales. Con una cama de 1 plaza, \nes ideal para aquellos que buscan comodidad y \nprivacidad en un entorno lujoso de 5 estrellas.");
+        jTextArea1.setAutoscrolls(false);
         jTextArea1.setBorder(null);
         jScrollPane1.setViewportView(jTextArea1);
 
         jPanel11.add(jScrollPane1);
-        jScrollPane1.setBounds(520, 40, 440, 130);
+        jScrollPane1.setBounds(520, 40, 460, 130);
 
         jTabbedPane1.addTab("1", jPanel11);
 
@@ -801,6 +853,66 @@ public class Galeria extends javax.swing.JInternalFrame {
         jTabbedPane1.setSelectedIndex(6);
     }//GEN-LAST:event_jPanel20MouseClicked
 
+    private void jPanel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseEntered
+        jPanel3.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_jPanel3MouseEntered
+
+    private void jPanel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseExited
+        jPanel3.setBackground(new Color(176,184,157));
+    }//GEN-LAST:event_jPanel3MouseExited
+
+    private void jPanel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseEntered
+        jPanel5.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_jPanel5MouseEntered
+
+    private void jPanel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseExited
+        jPanel5.setBackground(new Color(176,184,157));
+    }//GEN-LAST:event_jPanel5MouseExited
+
+    private void jPanel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseEntered
+        jPanel6.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_jPanel6MouseEntered
+
+    private void jPanel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseExited
+        jPanel6.setBackground(new Color(176,184,157));
+    }//GEN-LAST:event_jPanel6MouseExited
+
+    private void jPanel7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseEntered
+        jPanel7.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_jPanel7MouseEntered
+
+    private void jPanel7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseExited
+        jPanel7.setBackground(new Color(176,184,157));
+    }//GEN-LAST:event_jPanel7MouseExited
+
+    private void jPanel19MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel19MouseEntered
+        jPanel19.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_jPanel19MouseEntered
+
+    private void jPanel19MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel19MouseExited
+        jPanel19.setBackground(new Color(176,184,157));
+    }//GEN-LAST:event_jPanel19MouseExited
+
+    private void jPanel18MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel18MouseEntered
+        jPanel18.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_jPanel18MouseEntered
+
+    private void jPanel18MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel18MouseExited
+        jPanel18.setBackground(new Color(176,184,157));
+    }//GEN-LAST:event_jPanel18MouseExited
+
+    private void jPanel27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel27MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel27MouseClicked
+
+    private void jPanel27MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel27MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel27MouseEntered
+
+    private void jPanel27MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel27MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel27MouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -867,6 +979,7 @@ public class Galeria extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
+    private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;

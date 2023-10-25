@@ -98,7 +98,7 @@ public class HuespedData {
     }
 
     public Huesped buscarHuespedDni(int dni) {
-        String sql = "SELECT idHuesped, nombre, dni, domicilio, correo, celular FROM huesped WHERE dni=? AND alojado = 1";
+        String sql = "SELECT idHuesped, nombre, dni, domicilio, correo, celular FROM huesped WHERE dni=?";
         Huesped huesped = null;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -112,9 +112,9 @@ public class HuespedData {
                 huesped.setDomicilio(rs.getString("domicilio"));
                 huesped.setCorreo(rs.getString("correo"));
                 huesped.setCelular(rs.getString("celular"));
-                huesped.setAlojado(true);
+                huesped.setAlojado(false);
             } else {
-                JOptionPane.showMessageDialog(null, "El huesped con IdHuesped: " + dni + " no existe.");
+                System.out.println("El huesped con dni: "+ dni + " no existe");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en el método modificarHuesped por Dni. " + ex.getMessage());

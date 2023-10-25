@@ -11,6 +11,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,6 +24,7 @@ public class Contacto extends javax.swing.JInternalFrame {
      */
     public Contacto() {
         initComponents();
+        jButton1.setBackground(new Color(176,184,157));
     }
 
     /**
@@ -142,6 +144,11 @@ public class Contacto extends javax.swing.JInternalFrame {
         jTextArea1.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         jTextArea1.setForeground(new java.awt.Color(0, 0, 0));
         jTextArea1.setRows(5);
+        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextArea1KeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextArea1);
 
         jPanel2.add(jScrollPane1);
@@ -163,6 +170,19 @@ public class Contacto extends javax.swing.JInternalFrame {
         jButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("ENVIAR MENSAJE");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton1MouseExited(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton1);
         jButton1.setBounds(410, 530, 160, 40);
 
@@ -226,18 +246,33 @@ public class Contacto extends javax.swing.JInternalFrame {
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/instagram.png"))); // NOI18N
         jButton5.setBorderPainted(false);
         jButton5.setContentAreaFilled(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         jPanel4.add(jButton5);
         jButton5.setBounds(80, 400, 40, 40);
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/facebook.png"))); // NOI18N
         jButton2.setBorderPainted(false);
         jButton2.setContentAreaFilled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel4.add(jButton2);
         jButton2.setBounds(130, 400, 38, 40);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/whatsapp.png"))); // NOI18N
         jButton3.setBorderPainted(false);
         jButton3.setContentAreaFilled(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel4.add(jButton3);
         jButton3.setBounds(180, 400, 40, 40);
 
@@ -269,6 +304,60 @@ public class Contacto extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_jLabel17MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(jTextField2.getText().isEmpty() || jTextField3.getText().isEmpty() || jTextField1.getText().isEmpty() || jTextArea1.getText().isEmpty()){
+         JOptionPane.showMessageDialog(this, "Debe completar los campos vacios", "Notificación", JOptionPane.INFORMATION_MESSAGE);
+    }
+        else if(jCheckBox1.isSelected() && !jTextField2.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Mensaje enviado", "Notificación", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Debe declarar que no es un robot", "Notificación", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextArea1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyPressed
+        jLabel6.setVisible(false);
+    }//GEN-LAST:event_jTextArea1KeyPressed
+
+    private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
+        jButton1.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_jButton1MouseEntered
+
+    private void jButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseExited
+        jButton1.setBackground(new Color(176,184,157));
+    }//GEN-LAST:event_jButton1MouseExited
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        try {
+            // TODO add your handling code here:
+            URI uri = new URI("https://www.instagram.com/ulpsanluis/");
+            Desktop.getDesktop().browse(uri);
+        } catch (URISyntaxException | IOException ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+         try {
+            // TODO add your handling code here:
+            URI uri = new URI("https://www.facebook.com/ulp.virtual");
+            Desktop.getDesktop().browse(uri);
+        } catch (URISyntaxException | IOException ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+          try {
+            // TODO add your handling code here:
+            URI uri = new URI("https://web.whatsapp.com/");
+            Desktop.getDesktop().browse(uri);
+        } catch (URISyntaxException | IOException ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
