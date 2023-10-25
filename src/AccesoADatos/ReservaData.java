@@ -65,13 +65,12 @@ public class ReservaData {
             System.out.println("No se puede reserva ");}
     }
     
-    public void eliminarReserva(int idHuesped, int idHabitacion){
-    String sql="DELETE FROM `reserva` WHERE idHuesped=? AND idHabitacion=?";
+    public void eliminarReserva(int idReserva){
+    String sql="DELETE FROM `reserva` WHERE idReserva=?";
     
         try {
             PreparedStatement ps=con.prepareStatement(sql);
-            ps.setInt(1, idHuesped);
-            ps.setInt(2, idHabitacion);
+            ps.setInt(1, idReserva);
             int exito=ps.executeUpdate();
             if(exito==1){       
                 JOptionPane.showMessageDialog(null, "Reserva eliminada");
