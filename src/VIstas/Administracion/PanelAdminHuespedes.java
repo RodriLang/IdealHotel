@@ -9,6 +9,7 @@ import AccesoADatos.HuespedData;
 import entidades.Huesped;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ButtonGroup;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -24,11 +25,14 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
     private List<Huesped> huespedes;
     
     public PanelAdminHuespedes() {
-        this.huespedes=new ArrayList<>();
+        this.huespedes=new ArrayList<Huesped>();
         this.huespedData=huespedData;
         this.huesped=huesped;
         initComponents();
         armarCabecera();
+        cargarComboId();
+        cargarComboDni();
+        cargarComboNombre();
         this.setVisible(false);
     }
 
@@ -52,7 +56,6 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
         labelOpcionFiltrar = new javax.swing.JLabel();
         ComboNombre = new javax.swing.JComboBox<>();
         BotonModificar = new javax.swing.JButton();
-        BotonEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaHuespedes = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
@@ -204,11 +207,12 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
         BotonModificar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         BotonModificar.setText("MODIFICAR");
         BotonModificar.setContentAreaFilled(false);
-
-        BotonEliminar.setBackground(new java.awt.Color(176, 184, 157));
-        BotonEliminar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        BotonEliminar.setText("ELIMINAR");
-        BotonEliminar.setContentAreaFilled(false);
+        BotonModificar.setOpaque(true);
+        BotonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonModificarActionPerformed(evt);
+            }
+        });
 
         TablaHuespedes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -340,7 +344,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
                     .addComponent(DetAlojado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DetIdHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -355,12 +359,9 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(36, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 909, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(BotonModificar)
-                                .addGap(26, 26, 26)
-                                .addComponent(BotonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 909, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 909, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BotonModificar)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 909, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(47, 47, 47)))
                 .addContainerGap())
         );
@@ -370,48 +371,46 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BotonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BotonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BotonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void ComboIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboIdActionPerformed
-
-            llenarTablaPorId(ComboId.getSelectedIndex());
-
+        llenarTablaPorId(ComboId.getSelectedIndex());
     }//GEN-LAST:event_ComboIdActionPerformed
 
     private void BotonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonLimpiarActionPerformed
-        
+        modelo.setRowCount(0);
+        limpiarDetalles();
     }//GEN-LAST:event_BotonLimpiarActionPerformed
 
     private void BotonEstadoAlojadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEstadoAlojadosActionPerformed
-        
+        actionBotones();
     }//GEN-LAST:event_BotonEstadoAlojadosActionPerformed
 
     private void BotonEstadoTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEstadoTodosActionPerformed
-        llenarTablaTodos();
+       actionBotones();
     }//GEN-LAST:event_BotonEstadoTodosActionPerformed
 
     private void ComboDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboDniActionPerformed
-     llenarTablaPorDni(ComboDni.getSelectedIndex());
-
+        llenarTablaPorDni(ComboDni.getSelectedIndex());
     }//GEN-LAST:event_ComboDniActionPerformed
-
+        
     private void ComboNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboNombreActionPerformed
-     
-
+        llenarTablaPorNombre(ComboNombre.getSelectedItem().toString());
     }//GEN-LAST:event_ComboNombreActionPerformed
+
+    private void BotonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonModificarActionPerformed
+        huespedData.modificarHuesped(modificarHuesped());
+    }//GEN-LAST:event_BotonModificarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotonEliminar;
     private javax.swing.JRadioButton BotonEstadoAlojados;
     private javax.swing.JRadioButton BotonEstadoTodos;
     private javax.swing.JButton BotonLimpiar;
@@ -465,7 +464,12 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
             fila[3]=huesped.getDomicilio();
             fila[4]=huesped.getDni();
             fila[5]=huesped.getCelular();
-            fila[6]=huesped.isAlojado();
+            if(huesped.isAlojado()==true){
+                fila[6]="SI";
+            }else{
+                fila[6]="NO";
+            }
+            
             modelo.addRow(fila);
             }
             }
@@ -482,7 +486,11 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
             fila[3]=huesped.getDomicilio();
             fila[4]=huesped.getDni();
             fila[5]=huesped.getCelular();
-            fila[6]=huesped.isAlojado();
+            if(huesped.isAlojado()==true){
+                fila[6]="SI";
+            }else{
+                fila[6]="NO";
+            }
             modelo.addRow(fila);
             }
         
@@ -498,7 +506,11 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
             fila[3]=huesped.getDomicilio();
             fila[4]=huesped.getDni();
             fila[5]=huesped.getCelular();
-            fila[6]=huesped.isAlojado();
+            if(huesped.isAlojado()==true){
+                fila[6]="SI";
+            }else{
+                fila[6]="NO";
+            }
             modelo.addRow(fila);
         
     }
@@ -513,7 +525,11 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
             fila[3]=huesped.getDomicilio();
             fila[4]=huesped.getDni();
             fila[5]=huesped.getCelular();
-            fila[6]=huesped.isAlojado();
+            if(huesped.isAlojado()==true){
+                fila[6]="SI";
+            }else{
+                fila[6]="NO";
+            }
             modelo.addRow(fila);
             
     }
@@ -521,7 +537,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
     private void llenarTablaPorNombre(String nombre){
         modelo.setRowCount(0);
         huespedes=huespedData.listarHuespedes();
-
+        
            for(Huesped huesped: huespedes) {
             if(huesped.getNombre().equals(nombre)){
             Object[] fila= new Object[6];
@@ -531,26 +547,33 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
             fila[3]=huesped.getDomicilio();
             fila[4]=huesped.getDni();
             fila[5]=huesped.getCelular();
-            fila[6]=huesped.isAlojado();
+            if(huesped.isAlojado()==true){
+                fila[6]="SI";
+            }else{
+                fila[6]="NO";
+            }
             modelo.addRow(fila);
             }
-            }
-            
+            }    
     }
     
     private void mostrarDetalles(){
         limpiarDetalles();
         try{
-           
+            //int idSeleccionado=TablaHabitaciones.get
             //huesped = huespedData.buscarHuespedId(getIdHuesped);
             DetNombre.setText(huesped.getNombre());
             DetDni.setText(String.valueOf(huesped.getDni()));
             DetDomicilio.setText(huesped.getDomicilio());
             DetTelefono.setText(huesped.getCelular());
             DetCorreo.setText(huesped.getCorreo());
-           // DetIdHuesped.setText(huesped.getIdHuesped());
-            DetAlojado.setText("");
-            
+            DetIdHuesped.setText(String.valueOf(huesped.getIdHuesped()));
+            if(huesped.isAlojado()==true){
+                DetAlojado.setText("SI");
+            }else{
+                DetAlojado.setText("NO");
+            }
+               
         }catch(NullPointerException ex){}
     }
     
@@ -581,4 +604,45 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
         ComboId.addItem(a.getNombre());
         }
     }
+    
+    private void actionBotones(){
+    
+    ButtonGroup grupoBotones = new ButtonGroup();
+    grupoBotones.add(BotonEstadoAlojados);
+    grupoBotones.add(BotonEstadoTodos);
+    
+        if(BotonEstadoTodos.isSelected()){
+            llenarTablaTodos();
+        }else if(BotonEstadoAlojados.isSelected()){
+            llenarTablaAlojados();
+        }else{
+            llenarTablaTodos();
+        }
+    }
+    
+    private Huesped modificarHuesped(){
+        int id = (Integer.parseInt(DetIdHuesped.getText()));
+        String nombre = DetNombre.getText();
+        int dni = (Integer.parseInt(DetDni.getText()));
+        String domicilio = DetDomicilio.getText();
+        String correo = DetCorreo.getText();
+        String telefono = DetTelefono.getText();
+            
+        huesped.setIdHuesped(id);
+        huesped.setNombre(nombre);
+        huesped.setDni(dni);
+        huesped.setDomicilio(domicilio);
+        huesped.setCorreo(correo);
+        huesped.setCelular(telefono);
+        if (DetAlojado.getText().equals("SI")) {
+            Boolean alojado = true;
+                    huesped.setAlojado(alojado);
+            } else {
+            Boolean alojado = false;
+                    huesped.setAlojado(alojado);
+            }
+
+        return huesped;
+    }
+    
 }
