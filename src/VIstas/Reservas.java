@@ -533,7 +533,6 @@ private ReservaData resData=new ReservaData(huesData, habData);
     private void jtHabitacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtHabitacionesMouseClicked
         if (jtHabitaciones.getSelectedRow()!=-1) {
          jbReservar.setEnabled(true);   
-            System.out.println(jtHabitaciones.getSelectedRow());
         }//habilita el boton reservar
     }//GEN-LAST:event_jtHabitacionesMouseClicked
 
@@ -629,6 +628,7 @@ private ReservaData resData=new ReservaData(huesData, habData);
         int dobletwin=0;
         int triplemat=0;
         int tripletwin=0;
+        int suite=0;
         LocalDate fecha1=jdIngreso.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate fecha2=jdSalida.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         List<Habitacion>hab=new ArrayList<>();
@@ -671,6 +671,12 @@ private ReservaData resData=new ReservaData(huesData, habData);
                     }
                     tripletwin=1;
                     break;
+                case SUITE_DE_LUJO:
+                    if (suite==0){
+                    modelo.addRow(new Object[]{habitacion.getTipoHabitacion(),habitacion.getTipoHabitacion().getCantidadMaxPax(),habitacion.getTipoHabitacion().getDescripcion(),"$"+(habitacion.getPrecio()*fecha2.compareTo(fecha1))});
+                    }
+                    tripletwin=1;
+                    break;                    
                 default:
                     break;
             }
