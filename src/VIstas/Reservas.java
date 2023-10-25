@@ -42,7 +42,15 @@ private ReservaData resData=new ReservaData(huesData, habData);
         initComponents();
         modeloTabla();
         Date fechaActual=new Date();
+        Calendar fe=Calendar.getInstance();
+        fe.setTime(fechaActual);
+        fe.add(Calendar.DAY_OF_YEAR, 120);
+        Date fechalimite=fe.getTime();
+        fe.add(Calendar.DAY_OF_YEAR, 1);
+        Date fechalimite1=fe.getTime();
         jdIngreso.setMinSelectableDate(fechaActual);  
+        jdIngreso.setMaxSelectableDate(fechalimite);
+        jdSalida.setMaxSelectableDate(fechalimite1);
         jpDatos.setVisible(false);
         JTextFieldDateEditor editor = (JTextFieldDateEditor) jdIngreso.getDateEditor(); //se convierte el jDateChooser en jTextFieldDateEditor para desactivar la edicion del campo de texto
         editor.setEditable(false);
