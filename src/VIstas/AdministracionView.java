@@ -30,7 +30,6 @@ import javax.swing.JTextField;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 
-
 /**
  *
  * @author Rodri
@@ -43,7 +42,7 @@ public class AdministracionView extends javax.swing.JInternalFrame {
     private PanelAdminHabitaciones panelHabitaciones;
     private PanelAdminHuespedes panelHuespedes;
     private PanelAdminReservas panelReservas;
-    private static LocalDate fecha;
+    public static LocalDate FECHA;
     private DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private PanelAdminTabla panelTabla;
 
@@ -58,15 +57,15 @@ public class AdministracionView extends javax.swing.JInternalFrame {
         this.setOpaque(true);
         this.setBackground(new Color(27, 118, 134, 254));
 
-        fecha = LocalDate.now();
+        FECHA = LocalDate.now();
 
         panelReservas = new PanelAdminReservas();
-        panelHabitaciones = new PanelAdminHabitaciones(habData, reserData, this, panelReservas, fecha);
+        panelHabitaciones = new PanelAdminHabitaciones(habData, reserData, this, panelReservas, FECHA);
         panelHuespedes = new PanelAdminHuespedes();
-        panelTabla=new PanelAdminTabla();
-        mostrarPanelTabla(panelTabla,botonHome);
+        panelTabla = new PanelAdminTabla();
+        mostrarPanelTabla(panelTabla, botonHome);
 
-        botonFecha.setText("   " + fecha.format(formatoFecha));
+        botonFecha.setText("   " + FECHA.format(formatoFecha));
 
 //        panelContenido.add(panelHabitaciones);
 //        panelContenido.add(panelHuespedes);
@@ -74,7 +73,7 @@ public class AdministracionView extends javax.swing.JInternalFrame {
     }
 
     public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
+        this.FECHA = fecha;
     }
 
     /**
@@ -98,7 +97,9 @@ public class AdministracionView extends javax.swing.JInternalFrame {
         botonHabitaciones = new javax.swing.JButton();
         botonHuespedes = new javax.swing.JButton();
         botonReservas = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         botonFecha = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(27, 118, 134));
         setPreferredSize(new java.awt.Dimension(1020, 721));
@@ -135,7 +136,7 @@ public class AdministracionView extends javax.swing.JInternalFrame {
             panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTituloLayout.createSequentialGroup()
                 .addGap(53, 53, 53)
-                .addComponent(labelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 897, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botonCerrar))
             .addGroup(panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,7 +147,7 @@ public class AdministracionView extends javax.swing.JInternalFrame {
         panelTituloLayout.setVerticalGroup(
             panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTituloLayout.createSequentialGroup()
-                .addGap(0, 1, Short.MAX_VALUE)
+                .addGap(0, 21, Short.MAX_VALUE)
                 .addGroup(panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(labelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)))
@@ -212,18 +213,36 @@ public class AdministracionView extends javax.swing.JInternalFrame {
         });
         jPanel1.add(botonReservas);
 
+        jPanel2.setOpaque(false);
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
         botonFecha.setBackground(new java.awt.Color(176, 184, 157));
         botonFecha.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         botonFecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/calendar_month.png"))); // NOI18N
         botonFecha.setContentAreaFilled(false);
         botonFecha.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         botonFecha.setOpaque(true);
+        botonFecha.setPreferredSize(new java.awt.Dimension(40, 36));
         botonFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonFechaActionPerformed(evt);
             }
         });
-        jPanel1.add(botonFecha);
+        jPanel2.add(botonFecha, java.awt.BorderLayout.CENTER);
+
+        jButton1.setBackground(new java.awt.Color(176, 184, 157));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/skip_next.png"))); // NOI18N
+        jButton1.setContentAreaFilled(false);
+        jButton1.setOpaque(true);
+        jButton1.setPreferredSize(new java.awt.Dimension(30, 36));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, java.awt.BorderLayout.LINE_END);
+
+        jPanel1.add(jPanel2);
 
         javax.swing.GroupLayout panelGeneralLayout = new javax.swing.GroupLayout(panelGeneral);
         panelGeneral.setLayout(panelGeneralLayout);
@@ -231,7 +250,10 @@ public class AdministracionView extends javax.swing.JInternalFrame {
             panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelContenido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panelGeneralLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 975, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelGeneralLayout.setVerticalGroup(
             panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,16 +297,22 @@ public class AdministracionView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_botonCerrarActionPerformed
 
     private void botonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonHomeActionPerformed
-        mostrarPanelTabla(panelTabla,botonHome);
+        mostrarPanelTabla(panelTabla, botonHome);
     }//GEN-LAST:event_botonHomeActionPerformed
 
     private void botonFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFechaActionPerformed
         JCalendar calendario = new JCalendar(Date.valueOf(LocalDate.now()));
         JOptionPane.showMessageDialog(this, calendario);
-        fecha = calendario.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        botonFecha.setText("   " + fecha.format(formatoFecha));
-        panelHabitaciones.setFecha(fecha);
+        FECHA = calendario.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        botonFecha.setText("   " + FECHA.format(formatoFecha));
+        panelHabitaciones.filtrarHabitaciones();
     }//GEN-LAST:event_botonFechaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        FECHA = FECHA.plusDays(1);
+        botonFecha.setText("   " + FECHA.format(formatoFecha));
+        panelHabitaciones.filtrarHabitaciones();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public void mostrarPanelContenido(JPanel panel, JButton boton) {
         if (boton != null) {
@@ -303,9 +331,9 @@ public class AdministracionView extends javax.swing.JInternalFrame {
     public JButton getBotonReservas() {
         return botonReservas;
     }
-    
-    public void mostrarPanelTabla(JPanel panel,JButton boton){
-         if (boton != null) {
+
+    public void mostrarPanelTabla(JPanel panel, JButton boton) {
+        if (boton != null) {
             botonHuespedes.setBackground(new Color(176, 184, 157));
             botonReservas.setBackground(new Color(176, 184, 157));
             botonHabitaciones.setBackground(new Color(176, 184, 157));
@@ -326,7 +354,9 @@ public class AdministracionView extends javax.swing.JInternalFrame {
     private javax.swing.JButton botonHuespedes;
     private javax.swing.JButton botonReservas;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel labelIcono;
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JPanel panelContenido;

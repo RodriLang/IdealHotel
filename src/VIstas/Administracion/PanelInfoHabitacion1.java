@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  *
  * @author Rodri
  */
-public class PanelInfoHabitacion extends javax.swing.JPanel {
+public class PanelInfoHabitacion1 extends javax.swing.JPanel {
 
     private int idHabitacion;
     private TipoHabitacion tipoHabitacion;
@@ -42,7 +42,7 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
     /**
      * Creates new form panelInfoHabitacion
      */
-    public PanelInfoHabitacion(Habitacion habitacion, HabitacionData habData, ReservaData resData,
+    public PanelInfoHabitacion1(Habitacion habitacion, HabitacionData habData, ReservaData resData,
             AdministracionView ventana, PanelAdminHabitaciones panelAdmin, PanelAdminReservas panelReservas, LocalDate fecha) {
         this.habitacion = habitacion;
         this.idHabitacion = habitacion.getIdHabitacion();
@@ -68,7 +68,7 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
 
     }
 
-    public PanelInfoHabitacion(int idHabitacion, TipoHabitacion tipoHabitacion, int piso, int precio, boolean ocupada, boolean habilitada) {
+    public PanelInfoHabitacion1(int idHabitacion, TipoHabitacion tipoHabitacion, int piso, int precio, boolean ocupada, boolean habilitada) {
         this.idHabitacion = idHabitacion;
         this.tipoHabitacion = tipoHabitacion;
         this.piso = piso;
@@ -81,7 +81,7 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
         cargarDatosHabitacion();
     }
 
-    public PanelInfoHabitacion() {
+    public PanelInfoHabitacion1() {
         initComponents();
         cargarDatosHabitacion();
     }
@@ -237,11 +237,6 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
     private void botonCheckInOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCheckInOutActionPerformed
         if (botonCheckInOut.getText().startsWith("Check")) {
             ventana.mostrarPanelContenido(new PanelCheckInOut(ventana, panelAdmin, reserva, habData, resData), null);
-        } else if (botonCheckInOut.getText().startsWith("Out")) {
-            reserva.setFechaOut(AdministracionView.FECHA);
-            reserva.calcularImporte();
-            System.out.println("salida " + reserva.getFechaOut());
-            ventana.mostrarPanelContenido(new PanelCheckInOut(ventana, panelAdmin, reserva, habData, resData), null);
         }
 
     }//GEN-LAST:event_botonCheckInOutActionPerformed
@@ -291,18 +286,9 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
     private void cargarDatosHabitacion() {
         labelNumHab.setText(idHabitacion + "");
         reserva = resData.buscarReservasPorIDHabitacionYfecha(AdministracionView.FECHA, habitacion.getIdHabitacion());
-
         if (habilitada) {
             this.setBackground(new Color(35, 149, 169));
-            //Si la habitacion tiene una reserva
             if (reserva.getIdReserva() != 0) {
-                //si la fecha de inicio de la reserva es igual a la fecha de hoy
-//                if (reserva.getFechaInn().equals(AdministracionView.FECHA)||AdministracionView.FECHA.isAfter(reserva.getFechaOut())) {
-//                    habData.liberarHabitacion(idHabitacion);
-//                } else if (AdministracionView.FECHA.isAfter(reserva.getFechaInn()) && AdministracionView.FECHA.isBefore(reserva.getFechaOut())
-//                        ||reserva.getFechaOut().equals(AdministracionView.FECHA)) {
-//                    habData.ocuparHabitacion(idHabitacion);
-//                } 
                 if (ocupada) {
                     if (reserva.getFechaOut().equals(AdministracionView.FECHA)) {
                         botonCheckInOut.setText("Check Out");
@@ -314,26 +300,13 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
                         labelEstado.setText("OCUPADA");
                         botonCheckInOut.setText("Out " + reserva.getFechaOut().getDayOfMonth() + "/" + reserva.getFechaOut().getMonthValue());
                     }
-                } else if (reserva.getFechaInn().equals(AdministracionView.FECHA)) {
+                } else {
                     labelEstado.setBackground(Color.YELLOW);
                     labelEstado.setText("RESERVADA");
                     botonCheckInOut.setText("Check In");
                     botonCheckInOut.setIcon(imgLibre);
-                } else if (reserva.getFechaInn().plusDays(1).equals(AdministracionView.FECHA)) {
-                    labelEstado.setBackground(Color.ORANGE);
-                    labelEstado.setText("RESERVA ATRASADA");
-                    botonCheckInOut.setText("Check In");
-                    botonCheckInOut.setIcon(imgLibre);
-                } else if (AdministracionView.FECHA.isAfter(reserva.getFechaInn().plusDays(1))) {
-                    habData.liberarHabitacion(idHabitacion);
-                    labelEstado.setBackground(Color.GREEN);
-                    labelEstado.setText("LIBRE");
-                    botonCheckInOut.setText("Reservar");
-                    botonCheckInOut.setIcon(imgReserva);
-                    resData.eliminarReserva(reserva.getIdReserva());
                 }
             } else {
-                habData.liberarHabitacion(idHabitacion);
                 labelEstado.setBackground(Color.GREEN);
                 labelEstado.setText("LIBRE");
                 botonCheckInOut.setText("Reservar");
@@ -349,19 +322,5 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
         labelTipoHab.setText(tipoHabitacion.name());
         botonEditar.setEnabled(habilitada);
         botonEliminar.setEnabled(habilitada);
-    }
-
-    private boolean verificarEstadoHabitacion() {
-        reserva = resData.buscarReservasPorIDHabitacionYfecha(AdministracionView.FECHA, habitacion.getIdHabitacion());
-        if (reserva.getIdReserva() != 0) {
-            if (reserva.getFechaInn().equals(AdministracionView.FECHA)) {
-                habData.liberarHabitacion(idHabitacion);
-            } else if (AdministracionView.FECHA.isAfter(reserva.getFechaInn()) && AdministracionView.FECHA.isBefore(reserva.getFechaOut())) {
-                habData.ocuparHabitacion(idHabitacion);
-            } else if (AdministracionView.FECHA.isAfter(reserva.getFechaOut())) {
-                habData.liberarHabitacion(idHabitacion);
-            }
-        }
-        return true;
     }
 }
