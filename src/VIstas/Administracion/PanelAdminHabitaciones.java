@@ -28,7 +28,6 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
     private List<PanelInfoHabitacion> infoHabitaciones;
     private AdministracionView ventana;
     private PanelAdminReservas panelAdminReservas;
-    private LocalDate fecha;
 
     /**
      * Creates new form panelAdminHabitaciones
@@ -38,7 +37,6 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
         this.resData = resData;
         this.ventana = ventana;
         this.panelAdminReservas = panelAdminReservas;
-        this.fecha = fecha;
         initComponents();
         this.setVisible(false);
         infoHabitaciones = new ArrayList<>();
@@ -47,13 +45,6 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
         cargarComboTipos();
     }
 
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-        for (PanelInfoHabitacion infoHabitacion : infoHabitaciones) {
-            infoHabitacion.setFecha(fecha);
-        }
-        filtrarHabitaciones();
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -540,7 +531,7 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
         limpiarPanelesHabitacion();
         System.out.println("cantidad " + habitaciones.size());
         for (Habitacion habitacion : habitaciones) {
-            infoHabitaciones.add(new PanelInfoHabitacion(habitacion, habData, resData, ventana, this, panelAdminReservas, fecha));
+            infoHabitaciones.add(new PanelInfoHabitacion(habitacion, habData, resData, ventana, this, panelAdminReservas, AdministracionView.FECHA));
         }
 
         mostrarHabitaciones();
@@ -610,7 +601,7 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
         if (radioButtonChekInOut.isSelected()) {
             List<Habitacion> habitacionesReservadas = new ArrayList<>();
             for (Habitacion habitacion : habitaciones) {
-                if (habitacion.equals(resData.buscarReservasPorIDHabitacionYfecha(fecha, habitacion.getIdHabitacion()).getHabitacion())) {
+                if (habitacion.equals(resData.buscarReservasPorIDHabitacionYfecha(AdministracionView.FECHA, habitacion.getIdHabitacion()).getHabitacion())) {
                     habitacionesReservadas.add(habitacion);
                 }
                 habitaciones = habitacionesReservadas;

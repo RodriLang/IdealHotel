@@ -97,7 +97,7 @@ public class HabitacionData {
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idHabitacion);
             if (ps.executeUpdate() == 1) {
-                JOptionPane.showMessageDialog(null, "Habitacion marcada como OCUPADA");
+//                JOptionPane.showMessageDialog(null, "Habitacion marcada como OCUPADA");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la sentencia SQL ocuparHabitacion\n" + ex.getMessage(), ex.getSQLState(), JOptionPane.ERROR_MESSAGE);
@@ -109,7 +109,7 @@ public class HabitacionData {
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idHabitacion);
             if (ps.executeUpdate() == 1) {
-                JOptionPane.showMessageDialog(null, "Habitacion marcada como LIBRE");
+//                JOptionPane.showMessageDialog(null, "Habitacion marcada como LIBRE");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la sentencia SQL liberarHabitacion\n" + ex.getMessage(), ex.getSQLState(), JOptionPane.ERROR_MESSAGE);
