@@ -1,30 +1,58 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package VIstas.Administracion;
 
+import AccesoADatos.HabitacionData;
+import AccesoADatos.HuespedData;
+import AccesoADatos.ReservaData;
+import VIstas.AdministracionView;
+import com.sun.corba.se.impl.oa.toa.TOA;
+import com.toedter.calendar.JTextFieldDateEditor;
 import entidades.Habitacion;
+import entidades.Huesped;
+import entidades.Reserva;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Rodri
  */
 public class PanelAdminReservas extends javax.swing.JPanel {
-private Habitacion habitacion;
+
+    private DefaultTableModel modelo = new DefaultTableModel();
+    private HuespedData huesData = new HuespedData();
+    private HabitacionData habData = new HabitacionData();
+    private ReservaData resData = new ReservaData(huesData, habData);
+
     /**
      * Creates new form panelAdminHabitaciones
      */
     public PanelAdminReservas() {
         initComponents();
         this.setVisible(false);
-    }
-    public PanelAdminReservas(Habitacion habitacion) {
-        this.habitacion = habitacion;
-        initComponents();
-        this.setVisible(false);
-        cargarDatosHabitacion();
+        modeloTabla();
+        Date fechaActual= Date.from(AdministracionView.FECHA.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Calendar fe=Calendar.getInstance();
+        fe.setTime(fechaActual);
+        fe.add(Calendar.DAY_OF_YEAR, 120);
+        Date fechalimite=fe.getTime();
+        fe.add(Calendar.DAY_OF_YEAR, 1);
+        Date fechalimite1=fe.getTime();
+        jdIngreso.setMinSelectableDate(fechaActual);
+        jdIngreso.setMaxSelectableDate(fechalimite);
+        jdSalida.setMaxSelectableDate(fechalimite1);
+        JTextFieldDateEditor editor = (JTextFieldDateEditor) jdIngreso.getDateEditor(); //se convierte el jDateChooser en jTextFieldDateEditor para desactivar la edicion del campo de texto
+        editor.setEditable(false);
+        JTextFieldDateEditor editor1 = (JTextFieldDateEditor) jdSalida.getDateEditor(); //se convierte el jDateChooser en jTextFieldDateEditor para desactivar la edicion del campo de texto
+        editor1.setEditable(false);
+        JTextFieldDateEditor editor2 = (JTextFieldDateEditor) jdDia.getDateEditor(); //se convierte el jDateChooser en jTextFieldDateEditor para desactivar la edicion del campo de texto
+        editor2.setEditable(false);
+        jPanel4.setVisible(false);
     }
 
     /**
@@ -39,7 +67,27 @@ private Habitacion habitacion;
         panelOpciones = new javax.swing.JPanel();
         panelTitulo = new javax.swing.JPanel();
         labelTitulo = new javax.swing.JLabel();
-        labelIdHabitacion = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jbox = new javax.swing.JComboBox<>();
+        jdDia = new com.toedter.calendar.JDateChooser();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtReservas = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jbModificar = new javax.swing.JButton();
+        jbEliminar = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jdIngreso = new com.toedter.calendar.JDateChooser();
+        jdSalida = new com.toedter.calendar.JDateChooser();
+        jtHabitacion = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jtCantPersonas = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jdModi = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(27, 118, 134));
 
@@ -57,11 +105,198 @@ private Habitacion habitacion;
 
         panelOpciones.add(panelTitulo);
 
-        labelIdHabitacion.setBackground(new java.awt.Color(176, 184, 157));
-        labelIdHabitacion.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        labelIdHabitacion.setText("127");
-        labelIdHabitacion.setOpaque(true);
-        labelIdHabitacion.setPreferredSize(new java.awt.Dimension(35, 22));
+        jPanel1.setOpaque(false);
+
+        jLabel1.setText("LISTAR RESERVAS POR:");
+
+        jbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DÍA", "SEMANA", "MES" }));
+        jbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jboxActionPerformed(evt);
+            }
+        });
+
+        jdDia.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jdDiaPropertyChange(evt);
+            }
+        });
+
+        jLabel2.setText("DESDE:");
+
+        jtReservas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jtReservas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtReservasMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jtReservas);
+
+        jPanel2.setOpaque(false);
+        jPanel2.setLayout(new javax.swing.OverlayLayout(jPanel2));
+
+        jPanel3.setOpaque(false);
+
+        jbModificar.setText("Modificar");
+        jbModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbModificarActionPerformed(evt);
+            }
+        });
+
+        jbEliminar.setText("Eliminar");
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(131, 131, 131)
+                .addComponent(jbModificar)
+                .addGap(89, 89, 89)
+                .addComponent(jbEliminar)
+                .addContainerGap(454, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbModificar)
+                    .addComponent(jbEliminar))
+                .addContainerGap(106, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(jPanel3);
+
+        jPanel4.setOpaque(false);
+
+        jtHabitacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtHabitacionKeyTyped(evt);
+            }
+        });
+
+        jLabel3.setText("INGRESO:");
+
+        jtCantPersonas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtCantPersonasKeyTyped(evt);
+            }
+        });
+
+        jLabel4.setText("CANT. DE PERSONAS:");
+
+        jLabel5.setText("HABITACIÓN:");
+
+        jLabel6.setText("SALIDA:");
+
+        jdModi.setText("MODIFICAR");
+        jdModi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jdModiActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(95, 95, 95)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jtHabitacion, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addComponent(jdIngreso, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+                .addGap(43, 43, 43)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jdSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtCantPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(156, 156, 156))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jdModi)
+                .addGap(42, 42, 42))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jdSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jdIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(7, 7, 7)
+                        .addComponent(jdModi)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtCantPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(58, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(jPanel4);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(89, 89, 89)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbox, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jdDia, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jdDia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -69,33 +304,178 @@ private Habitacion habitacion;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, 984, Short.MAX_VALUE)
+                .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(470, 470, 470)
-                .addComponent(labelIdHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(labelIdHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(457, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jdDiaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jdDiaPropertyChange
+        if ("date".equals(evt.getPropertyName())) {
+            cargarDatos();
+        }
+    }//GEN-LAST:event_jdDiaPropertyChange
+
+    private void jboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jboxActionPerformed
+        cargarDatos();
+    }//GEN-LAST:event_jboxActionPerformed
+
+    private void jtReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtReservasMouseClicked
+        if (jtReservas.getSelectedRow()!=-1) {
+         jbModificar.setEnabled(true);  
+         jbEliminar.setEnabled(true);  
+        }
+    }//GEN-LAST:event_jtReservasMouseClicked
+
+    private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
+        if (jtReservas.getSelectedRow()!=-1) {
+         jPanel3.setVisible(false);
+        jPanel4.setVisible(true);   
+        }else{
+        JOptionPane.showMessageDialog(this, "Selecione una reserva");
+        }        
+    }//GEN-LAST:event_jbModificarActionPerformed
+
+    private void jdModiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jdModiActionPerformed
+        if (jdIngreso.getDate()!=null&&jdSalida.getDate()!=null&&jtHabitacion.getText().length()>=1&&jtCantPersonas.getText().length()>=1) {
+         int fila=jtReservas.getSelectedRow();
+         Huesped h=huesData.buscarHuespedId(Integer.valueOf(jtReservas.getValueAt(fila, 1).toString()));
+         Habitacion hab=habData.buscarHabitacion(Integer.valueOf(jtHabitacion.getText()));
+         int numRes=Integer.valueOf(jtReservas.getValueAt(fila, 0).toString());
+         LocalDate ing=jdIngreso.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(); 
+         LocalDate sal=jdSalida.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            if (hab!=null&&h!=null) {
+               Reserva res=new Reserva(numRes, h, hab, fila, ing, sal);
+               resData.modificarReserva(res);
+               cargarDatos();
+               limpiarDatos();
+               jPanel4.setVisible(false);
+               jPanel3.setVisible(true); 
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Faltan campos por completar");
+        }
+    }//GEN-LAST:event_jdModiActionPerformed
+
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+        if (jtReservas.getSelectedRow()!=-1) {
+        int fila=jtReservas.getSelectedRow();
+        resData.eliminarReserva(Integer.valueOf(jtReservas.getValueAt(fila, 0).toString()));
+        cargarDatos();
+        } else{
+        JOptionPane.showMessageDialog(this, "Selecione una reserva");
+        }  
+    }//GEN-LAST:event_jbEliminarActionPerformed
+
+    private void jtHabitacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtHabitacionKeyTyped
+        char c=evt.getKeyChar();
+        if (c>'9'||c<'0'||jtHabitacion.getText().length()>5) {
+        evt.consume();
+        }
+    }//GEN-LAST:event_jtHabitacionKeyTyped
+
+    private void jtCantPersonasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtCantPersonasKeyTyped
+        char c=evt.getKeyChar();
+        if (c>'9'||c<'0'||jtHabitacion.getText().length()>=1) {
+        evt.consume();
+        }
+    }//GEN-LAST:event_jtCantPersonasKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel labelIdHabitacion;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton jbEliminar;
+    private javax.swing.JButton jbModificar;
+    private javax.swing.JComboBox<String> jbox;
+    private com.toedter.calendar.JDateChooser jdDia;
+    private com.toedter.calendar.JDateChooser jdIngreso;
+    private javax.swing.JButton jdModi;
+    private com.toedter.calendar.JDateChooser jdSalida;
+    private javax.swing.JTextField jtCantPersonas;
+    private javax.swing.JTextField jtHabitacion;
+    private javax.swing.JTable jtReservas;
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JPanel panelOpciones;
     private javax.swing.JPanel panelTitulo;
     // End of variables declaration//GEN-END:variables
 
-    private void cargarDatosHabitacion() {
-        labelIdHabitacion.setText(habitacion.getIdHabitacion()+"");
+    public void modeloTabla() {
+
+        modelo.addColumn("ID RESERVA");
+        modelo.addColumn("ID HUESPED");
+        modelo.addColumn("ID HABITACIÓN");
+        modelo.addColumn("FECHA INGRESO");
+        modelo.addColumn("FECHA SALIDA");
+        jtReservas.setModel(modelo);
+    }
+
+    public void cargarDatos() {
+        limpiarTabla();
+        if (jdDia.getDate() != null) {
+            LocalDate fe = jdDia.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate fe2 = fe.plusDays(7);
+            LocalDate fe3 = fe.plusDays(30);
+            List<Reserva> cargadas = new ArrayList<>();
+            switch (jbox.getSelectedIndex()) {
+                case 0:
+                    for (Reserva res : resData.buscarReservaPorFecha(fe)) {
+                        modelo.addRow(new Object[]{res.getIdReserva(), res.getHuesped().getIdHuesped(), res.getHabitacion().getIdHabitacion(), res.getFechaInn(), res.getFechaOut()});
+                    }
+                    break;
+                case 1:
+                    for (LocalDate fecha : resData.obtenerFechas(fe, fe2)) {
+                        for (Reserva res : resData.buscarReservaPorFecha(fecha)) {
+                            if (!cargadas.contains(res)) {
+                                modelo.addRow(new Object[]{res.getIdReserva(), res.getHuesped().getIdHuesped(), res.getHabitacion().getIdHabitacion(), res.getFechaInn(), res.getFechaOut()});
+                                cargadas.add(res);
+                            } 
+                        }
+                    }                   
+                    break;
+                case 2:
+                    for (LocalDate fecha : resData.obtenerFechas(fe, fe3)) {
+                        for (Reserva res : resData.buscarReservaPorFecha(fecha)) {
+                            if (!cargadas.contains(res)) {
+                                modelo.addRow(new Object[]{res.getIdReserva(), res.getHuesped().getIdHuesped(), res.getHabitacion().getIdHabitacion(), res.getFechaInn(), res.getFechaOut()});
+                                cargadas.add(res);
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void limpiarTabla() {
+        int filas = modelo.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            modelo.removeRow(0);
+        }
+    }
+    private void limpiarDatos(){
+     
+        jdIngreso.removeAll();
+        jdSalida.removeAll();
+        jtCantPersonas.setText("");
+        jtHabitacion.setText("");
+    
     }
 }

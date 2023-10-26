@@ -106,6 +106,31 @@ public class Reserva {
         return "Reserva Nro " + idReserva + " a nombre de " + huesped.getNombre() + " para la habitacion " + habitacion.getIdHabitacion() +
                 " para " + cantPax + " personas. Ingreso: " + fechaInn + ". Salida: " + fechaOut + ". Valor: $" + importe + '}';
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + this.idReserva;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Reserva other = (Reserva) obj;
+        if (this.idReserva != other.idReserva) {
+            return false;
+        }
+        return true;
+    }
     
     
 

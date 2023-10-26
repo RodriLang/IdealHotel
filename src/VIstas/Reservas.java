@@ -41,7 +41,12 @@ private ReservaData resData=new ReservaData(huesData, habData);
     public Reservas() {
         initComponents();
         modeloTabla();
-        Date fechaActual=new Date();
+        Date fechaActual;
+        if (AdministracionView.FECHA!=null) {
+        fechaActual= Date.from(AdministracionView.FECHA.atStartOfDay(ZoneId.systemDefault()).toInstant());   
+        }else{
+        fechaActual=new Date();
+        }       
         Calendar fe=Calendar.getInstance();
         fe.setTime(fechaActual);
         fe.add(Calendar.DAY_OF_YEAR, 120);
@@ -152,9 +157,6 @@ private ReservaData resData=new ReservaData(huesData, habData);
         jtHabitaciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtHabitacionesMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jtHabitacionesMousePressed(evt);
             }
         });
         jScrollPane1.setViewportView(jtHabitaciones);
@@ -436,10 +438,6 @@ private ReservaData resData=new ReservaData(huesData, habData);
         //Se habilita el jdSalida con la fecha minima que es un dia despues de la jdIngreso
     }//GEN-LAST:event_jdIngresoPropertyChange
 
-    private void jtHabitacionesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtHabitacionesMousePressed
-        
-    }//GEN-LAST:event_jtHabitacionesMousePressed
-
     private void jbReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbReservarActionPerformed
         jpReservas.setVisible(false);
         jpDatos.setVisible(true);
@@ -490,11 +488,10 @@ private ReservaData resData=new ReservaData(huesData, habData);
             jdIngreso.removeAll();
             jdSalida.removeAll();
             jtHabitaciones.removeAll();
+            JOptionPane.showMessageDialog(jpDatos, "Reserva guardada. Su numero de habitación es "+ hab.getIdHabitacion());
         }else{         
             JOptionPane.showMessageDialog(jpDatos, "Faltan datos por completar");
         }
-            
-            //
     }//GEN-LAST:event_jbCompletarReservaActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
