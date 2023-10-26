@@ -454,9 +454,9 @@ public class PanelAdminTabla extends javax.swing.JPanel {
             TablaHabitaciones.getColumnModel().getColumn(column).setCellRenderer(new CustomCellRenderer());
         }
         
-        JScrollPane scrollPane = new JScrollPane(TablaHabitaciones);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        this.add(scrollPane);
+//        JScrollPane scrollPane = new JScrollPane(TablaHabitaciones);
+//        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+//        this.add(scrollPane);
     }
 
     private void cargarComboPisos() {

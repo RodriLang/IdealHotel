@@ -42,10 +42,10 @@ public class HuespedData {
             } catch (SQLException ex) {
                 if (ex.getSQLState().equals("23000") && ex.getErrorCode() == 1062) {
                     JOptionPane.showMessageDialog(null, "El Dni ingresado ya existe");
-                } else {
+            } else {
                     JOptionPane.showMessageDialog(null, "Error en el método guardarHuesped" + ex.getMessage());
-                }
-            }
+        }
+        }
         }
 
     
@@ -72,8 +72,8 @@ public class HuespedData {
         }
     }
 
-   public Huesped buscarHuespedId(int id) {
-        String sql = "SELECT nombre, dni, domicilio, correo, celular FROM huesped WHERE idHuesped=?";
+   public Huesped buscarHuespedId(int id){
+        String sql = "SELECT nombre, dni, domicilio, correo, celular, alojado FROM huesped WHERE idHuesped=?";
         Huesped huesped = null;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -87,7 +87,7 @@ public class HuespedData {
                 huesped.setDomicilio(rs.getString("domicilio"));
                 huesped.setCorreo(rs.getString("correo"));
                 huesped.setCelular(rs.getString("celular"));
-                huesped.setAlojado(true);
+                huesped.setAlojado(rs.getBoolean("alojado"));
             } else {
                 JOptionPane.showMessageDialog(null, "El huesped con IdHuesped: " + id + " no existe.");
             }
@@ -97,8 +97,8 @@ public class HuespedData {
         return huesped;
     }
 
-    public Huesped buscarHuespedDni(int dni) {
-        String sql = "SELECT idHuesped, nombre, dni, domicilio, correo, celular FROM huesped WHERE dni=?";
+    public Huesped buscarHuespedDni(int dni){
+        String sql = "SELECT idHuesped, nombre, dni, domicilio, correo, celular, alojado FROM huesped WHERE dni=?";
         Huesped huesped = null;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -106,18 +106,18 @@ public class HuespedData {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 huesped = new Huesped();
-                huesped.setIdHuesped(dni);
+                huesped.setDni(dni);
                 huesped.setIdHuesped(rs.getInt("idHuesped"));
                 huesped.setNombre(rs.getString("nombre"));
                 huesped.setDomicilio(rs.getString("domicilio"));
                 huesped.setCorreo(rs.getString("correo"));
                 huesped.setCelular(rs.getString("celular"));
-                huesped.setAlojado(false);
+                huesped.setAlojado(rs.getBoolean("alojado"));
             } else {
                 System.out.println("El huesped con dni: "+ dni + " no existe");
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en el método modificarHuesped por Dni. " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en el método buscarHuesped por Dni. " + ex.getMessage());
         }
         return huesped;
     }
@@ -142,8 +142,9 @@ public class HuespedData {
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, " Error en el método listarHuesped. " + ex.getMessage());
                 }
-                return hd;
-            }
+        return hd;
+    }
+    
     public List<Huesped> listarHuespedesAlojados() {
         List<Huesped> hd = new ArrayList<>();
         String sql = "SELECT * FROM huesped WHERE alojado=1";
@@ -157,14 +158,34 @@ public class HuespedData {
                         huesped.setDomicilio(rs.getString("domicilio"));
                         huesped.setCorreo(rs.getString("correo"));
                         huesped.setCelular(rs.getString("celular"));
-                        huesped.setAlojado(true);
+                        huesped.setAlojado(rs.getBoolean("alojado"));
                         hd.add(huesped);
                     }
                     ps.close();
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, " Error en el método listarHuesped. " + ex.getMessage());
+                    JOptionPane.showMessageDialog(null, " Error en el método listarHuespedesAlojados " + ex.getMessage());
                 }
-                return hd;
-            }
+        return hd;
+    }
+    
+    private void eliminarHuesped(int idHuesped){
+        String sql="DELETE FROM `huesped` WHERE idHuesped=?";
+    
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, idHuesped);
+            int exito=ps.executeUpdate();
+            if(exito==1){       
+                JOptionPane.showMessageDialog(null, "Huesped Eliminado");
+            }else{
+                JOptionPane.showMessageDialog(null, "Huesped no encontrado");  
+            }            
+            ps.close();
+            
+        } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error en el método EliminarHuesped"+ ex.getMessage());
         }
+    }
+    
+}
 
