@@ -54,8 +54,7 @@ public class ReservaData {
             ps.executeUpdate();
             ResultSet rs=ps.getGeneratedKeys();
             if (rs.next()) {
-                res.setIdReserva(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Reserva Guardada");               
+                res.setIdReserva(rs.getInt(1));               
             }
             ps.close();
         } catch (SQLException ex) {
