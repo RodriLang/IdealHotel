@@ -419,9 +419,9 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(botonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(comboBoxTipos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(18, 18, 18)
-                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -491,7 +491,7 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
     }//GEN-LAST:event_botonEditarActionPerformed
 
     private void botonBuscar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscar2ActionPerformed
-        // TODO add your handling code here:
+        ventana.mostrarPanelContenido(new PanelCheckInOut(ventana, this, habData, resData), botonBuscar);
     }//GEN-LAST:event_botonBuscar2ActionPerformed
 
     private void radioButtonChekInOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonChekInOutActionPerformed

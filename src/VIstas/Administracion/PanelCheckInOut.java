@@ -12,6 +12,7 @@ import VIstas.AdministracionView;
 import entidades.Habitacion;
 import entidades.Huesped;
 import entidades.Reserva;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
 /**
@@ -44,13 +45,16 @@ public class PanelCheckInOut extends javax.swing.JPanel {
         cargarDatosHuesped();
     }
 
-    public JRadioButton getRadioButtonModificar() {
-        return radioButtonCheckOut;
+    public PanelCheckInOut(AdministracionView ventana, PanelAdminHabitaciones panelAdmin, HabitacionData habData, ReservaData resData) {
+        this.habData = habData;
+        this.resData = resData;
+        this.ventana = ventana;
+        this.panelAdmin = panelAdmin;
+        initComponents();
+        this.setVisible(false);
+        cargarComboNumeros();
     }
 
-    public JRadioButton getRadioButtonNueva() {
-        return radioButtonCheckIn;
-    }
 
     /**
      * Creates new form panelAdminHabitaciones
@@ -67,15 +71,10 @@ public class PanelCheckInOut extends javax.swing.JPanel {
         buttonGroup1 = new javax.swing.ButtonGroup();
         panelOpciones = new javax.swing.JPanel();
         botonVolver = new javax.swing.JButton();
-        labelCheckOut = new javax.swing.JLabel();
         labelChekIn = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        radioButtonCheckIn = new javax.swing.JRadioButton();
         comboBoxNumeroReserva = new javax.swing.JComboBox<>();
-        jPanel2 = new javax.swing.JPanel();
-        radioButtonCheckOut = new javax.swing.JRadioButton();
         labelNumReserva = new javax.swing.JLabel();
-        botonLimpiar = new javax.swing.JButton();
+        botonActualizar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         panelAtributos = new javax.swing.JPanel();
         textFieldPisoHab = new javax.swing.JTextField();
@@ -91,28 +90,29 @@ public class PanelCheckInOut extends javax.swing.JPanel {
         labelDomicilio = new javax.swing.JLabel();
         textFieldDomicilio = new javax.swing.JTextField();
         labelHuesped = new javax.swing.JLabel();
-        botonGuardar = new javax.swing.JButton();
         labelNombre = new javax.swing.JLabel();
         textFieldNombre = new javax.swing.JTextField();
-        textFieldApellido = new javax.swing.JTextField();
         labelDocumento = new javax.swing.JLabel();
-        labelApellido = new javax.swing.JLabel();
         textFieldDni = new javax.swing.JTextField();
         labelTelefono = new javax.swing.JLabel();
         textFieldEmail = new javax.swing.JTextField();
         textFieldTelefono = new javax.swing.JTextField();
-        jSeparator2 = new javax.swing.JSeparator();
+        botonGuardar = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
         labelEstadia = new javax.swing.JLabel();
-        labelFechaOut = new javax.swing.JLabel();
-        labelFechaIn = new javax.swing.JLabel();
-        textFieldFechaOut = new javax.swing.JTextField();
         textFieldFechaIn = new javax.swing.JTextField();
-        labelValor = new javax.swing.JLabel();
+        labelFechaIn = new javax.swing.JLabel();
+        labelFechaOut = new javax.swing.JLabel();
+        textFieldFechaOut = new javax.swing.JTextField();
         textFieldValor = new javax.swing.JTextField();
+        labelValor = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        botonLimpiar = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JSeparator();
         jSeparator1 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(27, 118, 134));
-        setPreferredSize(new java.awt.Dimension(970, 735));
+        setPreferredSize(new java.awt.Dimension(984, 581));
 
         panelOpciones.setOpaque(false);
 
@@ -126,41 +126,12 @@ public class PanelCheckInOut extends javax.swing.JPanel {
             }
         });
 
-        labelCheckOut.setBackground(new java.awt.Color(176, 184, 157));
-        labelCheckOut.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        labelCheckOut.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelCheckOut.setText("CHECK OUT");
-        labelCheckOut.setOpaque(true);
-        labelCheckOut.setPreferredSize(new java.awt.Dimension(300, 30));
-
         labelChekIn.setBackground(new java.awt.Color(176, 184, 157));
         labelChekIn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         labelChekIn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelChekIn.setText("CHECK IN");
         labelChekIn.setOpaque(true);
         labelChekIn.setPreferredSize(new java.awt.Dimension(300, 30));
-
-        jPanel3.setBackground(new java.awt.Color(176, 184, 157));
-
-        buttonGroup1.add(radioButtonCheckIn);
-        radioButtonCheckIn.setSelected(true);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(radioButtonCheckIn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(radioButtonCheckIn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         comboBoxNumeroReserva.setBackground(new java.awt.Color(176, 184, 157));
         comboBoxNumeroReserva.addActionListener(new java.awt.event.ActionListener() {
@@ -169,39 +140,20 @@ public class PanelCheckInOut extends javax.swing.JPanel {
             }
         });
 
-        jPanel2.setBackground(new java.awt.Color(176, 184, 157));
-
-        buttonGroup1.add(radioButtonCheckOut);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(radioButtonCheckOut)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(radioButtonCheckOut)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         labelNumReserva.setBackground(new java.awt.Color(176, 184, 157));
         labelNumReserva.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         labelNumReserva.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelNumReserva.setText("NÚMERO DE RESERVA");
         labelNumReserva.setOpaque(true);
 
-        botonLimpiar.setBackground(new java.awt.Color(176, 184, 157));
-        botonLimpiar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        botonLimpiar.setText("LIMPIAR");
-        botonLimpiar.addActionListener(new java.awt.event.ActionListener() {
+        botonActualizar.setBackground(new java.awt.Color(176, 184, 157));
+        botonActualizar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        botonActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cached.png"))); // NOI18N
+        botonActualizar.setContentAreaFilled(false);
+        botonActualizar.setOpaque(true);
+        botonActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonLimpiarActionPerformed(evt);
+                botonActualizarActionPerformed(evt);
             }
         });
 
@@ -212,46 +164,35 @@ public class PanelCheckInOut extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(botonVolver)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(184, 184, 184)
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
+                    .addGroup(panelOpcionesLayout.createSequentialGroup()
                         .addComponent(labelNumReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(comboBoxNumeroReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelOpcionesLayout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelChekIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(panelOpcionesLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(143, 143, 143)
-                .addComponent(botonLimpiar)
-                .addGap(67, 67, 67))
+                        .addComponent(comboBoxNumeroReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelChekIn, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botonActualizar)
+                .addGap(23, 23, 23))
         );
         panelOpcionesLayout.setVerticalGroup(
             panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOpcionesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
+                        .addGap(45, 45, 45)
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelNumReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboBoxNumeroReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(botonLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(labelChekIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(comboBoxNumeroReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
-                        .addComponent(botonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(botonActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelChekIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         jPanel1.setOpaque(false);
@@ -325,21 +266,24 @@ public class PanelCheckInOut extends javax.swing.JPanel {
             panelAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAtributosLayout.createSequentialGroup()
                 .addComponent(labelHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelNumeroHab, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textFieldNumeroHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(panelAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelPisoHab, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textFieldPisoHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelTipoHab, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textFieldTipoHab, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelAtributosLayout.createSequentialGroup()
+                        .addComponent(labelPisoHab, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAtributosLayout.createSequentialGroup()
+                        .addComponent(textFieldPisoHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addGroup(panelAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(textFieldTipoHab, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(labelTipoHab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(jLabel6)
-                .addGap(0, 9, Short.MAX_VALUE))
+                .addGap(0, 5, Short.MAX_VALUE))
         );
 
         panelAtributos1.setOpaque(false);
@@ -356,6 +300,7 @@ public class PanelCheckInOut extends javax.swing.JPanel {
         labelDomicilio.setText("DOMICILIO");
         labelDomicilio.setOpaque(true);
 
+        textFieldDomicilio.setEditable(false);
         textFieldDomicilio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textFieldDomicilio.setPreferredSize(new java.awt.Dimension(80, 28));
 
@@ -366,26 +311,15 @@ public class PanelCheckInOut extends javax.swing.JPanel {
         labelHuesped.setOpaque(true);
         labelHuesped.setPreferredSize(new java.awt.Dimension(300, 30));
 
-        botonGuardar.setBackground(new java.awt.Color(176, 184, 157));
-        botonGuardar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        botonGuardar.setText("GUARDAR");
-        botonGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonGuardarActionPerformed(evt);
-            }
-        });
-
         labelNombre.setBackground(new java.awt.Color(176, 184, 157));
         labelNombre.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         labelNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelNombre.setText("NOMBRE");
         labelNombre.setOpaque(true);
 
+        textFieldNombre.setEditable(false);
         textFieldNombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textFieldNombre.setPreferredSize(new java.awt.Dimension(80, 28));
-
-        textFieldApellido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        textFieldApellido.setPreferredSize(new java.awt.Dimension(80, 28));
 
         labelDocumento.setBackground(new java.awt.Color(176, 184, 157));
         labelDocumento.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -393,12 +327,7 @@ public class PanelCheckInOut extends javax.swing.JPanel {
         labelDocumento.setText("N° DOCUMENTO");
         labelDocumento.setOpaque(true);
 
-        labelApellido.setBackground(new java.awt.Color(176, 184, 157));
-        labelApellido.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        labelApellido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelApellido.setText("APELLIDO");
-        labelApellido.setOpaque(true);
-
+        textFieldDni.setEditable(false);
         textFieldDni.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textFieldDni.setPreferredSize(new java.awt.Dimension(80, 28));
         textFieldDni.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -413,9 +342,11 @@ public class PanelCheckInOut extends javax.swing.JPanel {
         labelTelefono.setText("TELÉFONO");
         labelTelefono.setOpaque(true);
 
+        textFieldEmail.setEditable(false);
         textFieldEmail.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textFieldEmail.setPreferredSize(new java.awt.Dimension(80, 28));
 
+        textFieldTelefono.setEditable(false);
         textFieldTelefono.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textFieldTelefono.setPreferredSize(new java.awt.Dimension(80, 28));
 
@@ -424,8 +355,19 @@ public class PanelCheckInOut extends javax.swing.JPanel {
         panelAtributos1Layout.setHorizontalGroup(
             panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAtributos1Layout.createSequentialGroup()
-                .addGroup(panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(botonGuardar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelAtributos1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAtributos1Layout.createSequentialGroup()
+                                .addGroup(panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(labelNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(labelDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(textFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                                    .addComponent(textFieldDni, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(panelAtributos1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -437,24 +379,11 @@ public class PanelCheckInOut extends javax.swing.JPanel {
                                 .addGroup(panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(textFieldEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
                                     .addComponent(textFieldTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(labelHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAtributos1Layout.createSequentialGroup()
-                                .addGroup(panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelAtributos1Layout.createSequentialGroup()
-                                        .addGroup(panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(labelNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(labelApellido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(labelDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAtributos1Layout.createSequentialGroup()
-                                        .addComponent(labelDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(12, 12, 12)))
-                                .addGroup(panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(textFieldDomicilio, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
-                                    .addComponent(textFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(textFieldDni, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(textFieldApellido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(labelDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(textFieldDomicilio, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)))))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         panelAtributos1Layout.setVerticalGroup(
             panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -470,10 +399,6 @@ public class PanelCheckInOut extends javax.swing.JPanel {
                     .addComponent(textFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textFieldDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
@@ -484,10 +409,19 @@ public class PanelCheckInOut extends javax.swing.JPanel {
                 .addGroup(panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        botonGuardar.setBackground(new java.awt.Color(176, 184, 157));
+        botonGuardar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        botonGuardar.setText("GUARDAR");
+        botonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardarActionPerformed(evt);
+            }
+        });
+
+        jPanel4.setOpaque(false);
 
         labelEstadia.setBackground(new java.awt.Color(176, 184, 157));
         labelEstadia.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -496,11 +430,9 @@ public class PanelCheckInOut extends javax.swing.JPanel {
         labelEstadia.setOpaque(true);
         labelEstadia.setPreferredSize(new java.awt.Dimension(300, 30));
 
-        labelFechaOut.setBackground(new java.awt.Color(176, 184, 157));
-        labelFechaOut.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        labelFechaOut.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelFechaOut.setText("FECHA SALIDA");
-        labelFechaOut.setOpaque(true);
+        textFieldFechaIn.setEditable(false);
+        textFieldFechaIn.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        textFieldFechaIn.setPreferredSize(new java.awt.Dimension(80, 28));
 
         labelFechaIn.setBackground(new java.awt.Color(176, 184, 157));
         labelFechaIn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -508,13 +440,19 @@ public class PanelCheckInOut extends javax.swing.JPanel {
         labelFechaIn.setText("FECHA ENTRADA");
         labelFechaIn.setOpaque(true);
 
+        labelFechaOut.setBackground(new java.awt.Color(176, 184, 157));
+        labelFechaOut.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        labelFechaOut.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelFechaOut.setText("FECHA SALIDA");
+        labelFechaOut.setOpaque(true);
+
         textFieldFechaOut.setEditable(false);
         textFieldFechaOut.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textFieldFechaOut.setPreferredSize(new java.awt.Dimension(80, 28));
 
-        textFieldFechaIn.setEditable(false);
-        textFieldFechaIn.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        textFieldFechaIn.setPreferredSize(new java.awt.Dimension(80, 28));
+        textFieldValor.setEditable(false);
+        textFieldValor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        textFieldValor.setPreferredSize(new java.awt.Dimension(80, 28));
 
         labelValor.setBackground(new java.awt.Color(176, 184, 157));
         labelValor.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -522,64 +460,99 @@ public class PanelCheckInOut extends javax.swing.JPanel {
         labelValor.setText("VALOR $");
         labelValor.setOpaque(true);
 
-        textFieldValor.setEditable(false);
-        textFieldValor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        textFieldValor.setPreferredSize(new java.awt.Dimension(80, 28));
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelEstadia, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(labelFechaOut, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelFechaIn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelValor, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(textFieldFechaOut, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textFieldFechaIn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelEstadia, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(labelFechaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelFechaOut, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(textFieldFechaIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(textFieldFechaOut, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelValor, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        botonLimpiar.setBackground(new java.awt.Color(176, 184, 157));
+        botonLimpiar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        botonLimpiar.setText("LIMPIAR");
+        botonLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelAtributos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(81, 81, 81)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(panelAtributos1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(19, 19, 19))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(labelFechaOut, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelFechaIn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                            .addComponent(labelValor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(textFieldFechaOut, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                            .addComponent(textFieldFechaIn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textFieldValor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(panelAtributos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelEstadia, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panelAtributos1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(botonLimpiar))
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelAtributos1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(panelAtributos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(labelEstadia, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(labelFechaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(labelFechaOut, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(textFieldFechaIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(textFieldFechaOut, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(14, 14, 14)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(panelAtributos1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelValor, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(50, 57, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -590,11 +563,13 @@ public class PanelCheckInOut extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 869, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 891, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -602,8 +577,8 @@ public class PanelCheckInOut extends javax.swing.JPanel {
                 .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -617,26 +592,31 @@ public class PanelCheckInOut extends javax.swing.JPanel {
     }//GEN-LAST:event_botonLimpiarActionPerformed
 
     private void comboBoxNumeroReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxNumeroReservaActionPerformed
-//        try {
-//            int idReserva = Integer.parseInt(comboBoxNumeroReserva.getSelectedItem().toString());
-//
-//            reserva = resData.buscarReservaId(idReserva);
-//        } catch (NumberFormatException e) {
-//            limpiarCampos();
-//        }
-//        if (comboBoxNumeroReserva.getSelectedIndex() != 0) {
-//            cargarDatosReserva();
-//            cargarDatosHabitacion();
-//            cargarDatosHuesped();
-//            botonGuardar.setEnabled(true);
-//        }
+        try {
+            System.out.println("try");
+            if (comboBoxNumeroReserva.getSelectedIndex() != 0) {
+                System.out.println("entro al combo");
+                int idReserva = Integer.parseInt(comboBoxNumeroReserva.getSelectedItem().toString());
+                System.out.println("paso el parseint");
+                reserva = resData.buscarReservaId(idReserva);
+                cargarDatosReserva();
+                cargarDatosHabitacion();
+                cargarDatosHuesped();
+                botonGuardar.setEnabled(true);
+            }
+        } catch (NumberFormatException e) {
+            limpiarCampos();
+        } catch (NullPointerException e) {
+            // JOptionPane.showMessageDialog(this, "NullPointer");
+            limpiarCampos();
+        }
+
     }//GEN-LAST:event_comboBoxNumeroReservaActionPerformed
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
-        if (radioButtonCheckIn.isSelected()) {
+        if (labelChekIn.getText().equals("CHECK IN")) {
             habData.ocuparHabitacion(habitacion.getIdHabitacion());
         } else {
-
             habData.liberarHabitacion(habitacion.getIdHabitacion());
         }
         resData.modificarReserva(reserva);
@@ -651,8 +631,13 @@ public class PanelCheckInOut extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_textFieldDniKeyReleased
 
+    private void botonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarActionPerformed
+        cargarComboNumeros();
+    }//GEN-LAST:event_botonActualizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonActualizar;
     private javax.swing.JButton botonGuardar;
     private javax.swing.JButton botonLimpiar;
     private javax.swing.JButton botonVolver;
@@ -660,12 +645,10 @@ public class PanelCheckInOut extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> comboBoxNumeroReserva;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel labelApellido;
-    private javax.swing.JLabel labelCheckOut;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel labelChekIn;
     private javax.swing.JLabel labelDocumento;
     private javax.swing.JLabel labelDomicilio;
@@ -685,9 +668,6 @@ public class PanelCheckInOut extends javax.swing.JPanel {
     private javax.swing.JPanel panelAtributos;
     private javax.swing.JPanel panelAtributos1;
     private javax.swing.JPanel panelOpciones;
-    private javax.swing.JRadioButton radioButtonCheckIn;
-    private javax.swing.JRadioButton radioButtonCheckOut;
-    private javax.swing.JTextField textFieldApellido;
     private javax.swing.JTextField textFieldDni;
     private javax.swing.JTextField textFieldDomicilio;
     private javax.swing.JTextField textFieldEmail;
@@ -707,7 +687,8 @@ public class PanelCheckInOut extends javax.swing.JPanel {
         this.setVisible(false);
     }
 
-    private void cargarComboNumeros() {
+    public void cargarComboNumeros() {
+        comboBoxNumeroReserva.removeAllItems();
         comboBoxNumeroReserva.addItem("<Seleccione Reserva>");
         for (Reserva reserva : resData.buscarReservaPorFecha(AdministracionView.FECHA)) {
             comboBoxNumeroReserva.addItem("" + reserva.getIdReserva());
@@ -715,12 +696,13 @@ public class PanelCheckInOut extends javax.swing.JPanel {
     }
 
     private void limpiarCampos() {
+        if(comboBoxNumeroReserva.getItemCount()!=0){
         comboBoxNumeroReserva.setSelectedIndex(0);
+        }
         textFieldNumeroHab.setText("");
         textFieldPisoHab.setText("");
         textFieldTipoHab.setText("");
         textFieldNombre.setText("");
-        textFieldApellido.setText("");
         textFieldDni.setText("");
         textFieldEmail.setText("");
         textFieldTelefono.setText("");
@@ -741,7 +723,6 @@ public class PanelCheckInOut extends javax.swing.JPanel {
     private void cargarDatosHuesped() {
         huesped = reserva.getHuesped();
         textFieldNombre.setText(huesped.getNombre());
-        textFieldApellido.setText(huesped.getNombre());
         textFieldDni.setText(huesped.getDni() + "");
         textFieldEmail.setText(huesped.getCorreo());
         textFieldTelefono.setText(huesped.getCelular());
@@ -751,9 +732,9 @@ public class PanelCheckInOut extends javax.swing.JPanel {
     private void cargarDatosReserva() {
         comboBoxNumeroReserva.setSelectedItem("" + reserva.getIdReserva());
         if (reserva.getFechaInn().equals(AdministracionView.FECHA)) {
-            radioButtonCheckIn.setSelected(true);
+            labelChekIn.setText("CHECK IN");
         } else if (reserva.getFechaOut().equals(AdministracionView.FECHA)) {
-            radioButtonCheckOut.setSelected(true);
+            labelChekIn.setText("CHECK OUT");
         }
         textFieldFechaIn.setText(reserva.getFechaInn().toString());
         textFieldFechaOut.setText(reserva.getFechaOut().toString());

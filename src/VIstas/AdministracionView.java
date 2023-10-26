@@ -304,14 +304,12 @@ public class AdministracionView extends javax.swing.JInternalFrame {
         JCalendar calendario = new JCalendar(Date.valueOf(LocalDate.now()));
         JOptionPane.showMessageDialog(this, calendario);
         FECHA = calendario.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        botonFecha.setText("   " + FECHA.format(formatoFecha));
-        panelHabitaciones.filtrarHabitaciones();
+        apicarCambioFecha();
     }//GEN-LAST:event_botonFechaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         FECHA = FECHA.plusDays(1);
-        botonFecha.setText("   " + FECHA.format(formatoFecha));
-        panelHabitaciones.filtrarHabitaciones();
+        apicarCambioFecha();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void mostrarPanelContenido(JPanel panel, JButton boton) {
@@ -363,4 +361,10 @@ public class AdministracionView extends javax.swing.JInternalFrame {
     private javax.swing.JPanel panelGeneral;
     private javax.swing.JPanel panelTitulo;
     // End of variables declaration//GEN-END:variables
+
+    private void apicarCambioFecha() {
+        botonFecha.setText("   " + FECHA.format(formatoFecha));
+        panelHabitaciones.filtrarHabitaciones();
+        
+    }
 }
