@@ -520,7 +520,7 @@ private ReservaData resData=new ReservaData(huesData, habData);
                 }
             }
         int cantMax=hab.getTipoHabitacion().getCantidadMaxPax();
-        if (c>'9'||c<'1'||jtCantPersonas.getText().length()>1||Integer.valueOf(String.valueOf(c))>cantMax) {
+        if (c>'9'||c<'1'||jtCantPersonas.getText().length()==1||Integer.valueOf(String.valueOf(c))>cantMax) {
         evt.consume();
         }      
     }//GEN-LAST:event_jtCantPersonasKeyTyped
@@ -534,7 +534,7 @@ private ReservaData resData=new ReservaData(huesData, habData);
     private void jtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNombreKeyTyped
         char c=evt.getKeyChar();
         if (c!=' ') {
-         if (c<'A'||c>'z') {
+         if (c<'A'||c>'z'||jtNombre.getText().length()>30) {
             evt.consume();
         }   
         }
@@ -542,14 +542,14 @@ private ReservaData resData=new ReservaData(huesData, habData);
 
     private void jtDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtDNIKeyTyped
         char c=evt.getKeyChar();
-        if (c>'9'||c<'0') {
+        if (c>'9'||c<'0'||jtDNI.getText().length()>10) {
         evt.consume();
         }
     }//GEN-LAST:event_jtDNIKeyTyped
 
     private void jtCelularKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtCelularKeyTyped
         char c=evt.getKeyChar();
-        if (c>'9'||c<'0') {
+        if (c>'9'||c<'0'||jtCelular.getText().length()>15) {
         evt.consume();
         }
     }//GEN-LAST:event_jtCelularKeyTyped

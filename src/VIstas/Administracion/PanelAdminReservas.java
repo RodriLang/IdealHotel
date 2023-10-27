@@ -384,7 +384,7 @@ public class PanelAdminReservas extends javax.swing.JPanel {
 
     private void jtCantPersonasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtCantPersonasKeyTyped
         char c=evt.getKeyChar();
-        if (c>'9'||c<'0'||jtHabitacion.getText().length()>=1) {
+        if (c>'9'||c<'0'||jtCantPersonas.getText().length()>1) {
         evt.consume();
         }
     }//GEN-LAST:event_jtCantPersonasKeyTyped
