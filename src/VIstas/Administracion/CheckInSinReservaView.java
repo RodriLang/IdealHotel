@@ -4,7 +4,6 @@ import AccesoADatos.HabitacionData;
 import AccesoADatos.HuespedData;
 import AccesoADatos.ReservaData;
 import VIstas.AdministracionView;
-import com.toedter.calendar.JCalendar;
 import entidades.Habitacion;
 import entidades.Huesped;
 import entidades.Reserva;
@@ -13,7 +12,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 public class CheckInSinReservaView extends javax.swing.JFrame {
     

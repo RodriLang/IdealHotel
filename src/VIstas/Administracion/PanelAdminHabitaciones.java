@@ -406,21 +406,10 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboBoxPisosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxPisosActionPerformed
-//        if (comboBoxPisos.getSelectedIndex() != 0) {
-//            habitaciones = habData.listarHabitacionesPorPiso(comboBoxPisos.getSelectedIndex());
-//        } else {
-//            habitaciones = habData.listarHabitaciones();
-//        }
         filtrarHabitaciones();
     }//GEN-LAST:event_comboBoxPisosActionPerformed
 
     private void comboBoxTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTiposActionPerformed
-//        if (comboBoxTipos.getSelectedIndex() != 0) {
-//            habitaciones = habData.listarHabitacionesPorTipo((TipoHabitacion) comboBoxTipos.getSelectedItem());
-//        } else {
-//            habitaciones = habData.listarHabitaciones();
-//        }
-//        cargarHabitaciones();
         filtrarHabitaciones();
     }//GEN-LAST:event_comboBoxTiposActionPerformed
 
@@ -507,7 +496,6 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
     private void cargarHabitaciones() {
         limpiarPanelesHabitacion();
-        System.out.println("cantidad " + habitaciones.size());
         for (Habitacion habitacion : habitaciones) {
             infoHabitaciones.add(new PanelInfoHabitacion(habitacion, habData, resData,huesData, ventana, this, panelAdminReservas, AdministracionView.FECHA));
         }
@@ -522,8 +510,6 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
         if (filas < 4) {
             filas = 4;
         }
-
-        System.out.println("filas " + filas);
         panelHabitaciones.setLayout(new java.awt.GridLayout(filas, 4, 10, 15));
         for (PanelInfoHabitacion infoHabitacion : infoHabitaciones) {
             panelHabitaciones.add(infoHabitacion);
@@ -531,7 +517,6 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
 
         scrollPane.setViewportView(panelHabitaciones);
         if (infoHabitaciones.size() < filas * 4) {
-            System.out.println("se agregan " + (200 - infoHabitaciones.size()) + " paneles");
             for (int i = infoHabitaciones.size(); i < filas * 4; i++) {
                 JPanel panelVacio = new JPanel();
                 panelVacio.setBackground(new Color(27, 118, 134));
