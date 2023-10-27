@@ -12,6 +12,7 @@ import VIstas.AdministracionView;
 import entidades.Habitacion;
 import entidades.Huesped;
 import entidades.Reserva;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
@@ -590,21 +591,19 @@ public class PanelCheckInOut extends javax.swing.JPanel {
 
     private void comboBoxNumeroReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxNumeroReservaActionPerformed
         try {
-            System.out.println("try");
             if (comboBoxNumeroReserva.getSelectedIndex() != 0) {
-                System.out.println("entro al combo");
                 int idReserva = Integer.parseInt(comboBoxNumeroReserva.getSelectedItem().toString());
-                System.out.println("paso el parseint");
                 reserva = resData.buscarReservaId(idReserva);
                 cargarDatosReserva();
                 cargarDatosHabitacion();
                 cargarDatosHuesped();
                 botonGuardar.setEnabled(true);
+            } else {
+                limpiarCampos();
             }
         } catch (NumberFormatException e) {
             limpiarCampos();
         } catch (NullPointerException e) {
-            // JOptionPane.showMessageDialog(this, "NullPointer");
             limpiarCampos();
         }
 
@@ -708,6 +707,7 @@ public class PanelCheckInOut extends javax.swing.JPanel {
         textFieldFechaOut.setText("");
         textFieldValor.setText("");
         botonGuardar.setEnabled(false);
+        labelChekIn.setText("CHECK IN/OUT");
     }
 
     private void cargarDatosHabitacion() {
@@ -728,13 +728,16 @@ public class PanelCheckInOut extends javax.swing.JPanel {
 
     private void cargarDatosReserva() {
         comboBoxNumeroReserva.setSelectedItem("" + reserva.getIdReserva());
-        if (reserva.getFechaInn().equals(AdministracionView.FECHA)) {
+        if (reserva.getFechaInn().equals(AdministracionView.FECHA)
+        ||reserva.getFechaInn().plusDays(1).equals(AdministracionView.FECHA)) {
             labelChekIn.setText("CHECK IN");
         } else if (reserva.getFechaOut().equals(AdministracionView.FECHA)) {
             labelChekIn.setText("CHECK OUT");
+        } else if (AdministracionView.FECHA.isBefore(reserva.getFechaOut())) {
+            labelChekIn.setText("CHECK OUT ANTICIPADO");
         }
-        textFieldFechaIn.setText(reserva.getFechaInn().toString());
-        textFieldFechaOut.setText(reserva.getFechaOut().toString());
+        textFieldFechaIn.setText(reserva.getFechaInn().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+        textFieldFechaOut.setText(reserva.getFechaOut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
         textFieldValor.setText(reserva.getImporte() + "");
     }
 }

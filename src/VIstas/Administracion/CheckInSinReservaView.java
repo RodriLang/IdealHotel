@@ -578,7 +578,7 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             textFieldDni.setText("");
         }
-        if(textFieldDni.getText().length()>8){
+        if(textFieldDni.getText().length()>7){
            textFieldDni.setText(""); 
         }
     }//GEN-LAST:event_textFieldDniFocusLost
