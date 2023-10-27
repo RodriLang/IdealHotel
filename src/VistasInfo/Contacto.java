@@ -41,16 +41,16 @@ public class Contacto extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        apellido = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        correo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        nombre = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jPanel3 = new javax.swing.JPanel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        mensaje = new javax.swing.JTextArea();
+        panelRobot = new javax.swing.JPanel();
+        robot = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -92,7 +92,7 @@ public class Contacto extends javax.swing.JInternalFrame {
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Nuestros Datos");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(650, 40, 200, 40);
+        jLabel2.setBounds(640, 40, 200, 40);
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -100,12 +100,17 @@ public class Contacto extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel3);
         jLabel3.setBounds(330, 100, 140, 15);
 
-        jTextField1.setBackground(new java.awt.Color(176, 184, 157));
-        jTextField1.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jPanel2.add(jTextField1);
-        jTextField1.setBounds(330, 120, 240, 30);
+        apellido.setBackground(new java.awt.Color(176, 184, 157));
+        apellido.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        apellido.setForeground(new java.awt.Color(0, 0, 0));
+        apellido.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        apellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                apellidoKeyTyped(evt);
+            }
+        });
+        jPanel2.add(apellido);
+        apellido.setBounds(330, 120, 240, 30);
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -113,12 +118,12 @@ public class Contacto extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel4);
         jLabel4.setBounds(40, 170, 140, 15);
 
-        jTextField2.setBackground(new java.awt.Color(176, 184, 157));
-        jTextField2.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jPanel2.add(jTextField2);
-        jTextField2.setBounds(40, 190, 240, 30);
+        correo.setBackground(new java.awt.Color(176, 184, 157));
+        correo.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        correo.setForeground(new java.awt.Color(0, 0, 0));
+        correo.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jPanel2.add(correo);
+        correo.setBounds(40, 190, 240, 30);
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -126,12 +131,17 @@ public class Contacto extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel5);
         jLabel5.setBounds(40, 100, 140, 15);
 
-        jTextField3.setBackground(new java.awt.Color(176, 184, 157));
-        jTextField3.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jPanel2.add(jTextField3);
-        jTextField3.setBounds(40, 120, 240, 30);
+        nombre.setBackground(new java.awt.Color(176, 184, 157));
+        nombre.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        nombre.setForeground(new java.awt.Color(0, 0, 0));
+        nombre.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombreKeyTyped(evt);
+            }
+        });
+        jPanel2.add(nombre);
+        nombre.setBounds(40, 120, 240, 30);
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
@@ -139,32 +149,32 @@ public class Contacto extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel6);
         jLabel6.setBounds(50, 260, 120, 15);
 
-        jTextArea1.setBackground(new java.awt.Color(176, 184, 157));
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
-        jTextArea1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextArea1.setRows(5);
-        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+        mensaje.setBackground(new java.awt.Color(176, 184, 157));
+        mensaje.setColumns(20);
+        mensaje.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        mensaje.setForeground(new java.awt.Color(0, 0, 0));
+        mensaje.setRows(5);
+        mensaje.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextArea1KeyPressed(evt);
+                mensajeKeyPressed(evt);
             }
         });
-        jScrollPane1.setViewportView(jTextArea1);
+        jScrollPane1.setViewportView(mensaje);
 
         jPanel2.add(jScrollPane1);
         jScrollPane1.setBounds(40, 250, 530, 230);
 
-        jPanel3.setBackground(new java.awt.Color(176, 184, 157));
-        jPanel3.setLayout(null);
+        panelRobot.setBackground(new java.awt.Color(176, 184, 157));
+        panelRobot.setLayout(null);
 
-        jCheckBox1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jCheckBox1.setForeground(new java.awt.Color(0, 0, 0));
-        jCheckBox1.setText("No soy un robot");
-        jPanel3.add(jCheckBox1);
-        jCheckBox1.setBounds(20, 20, 120, 30);
+        robot.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        robot.setForeground(new java.awt.Color(0, 0, 0));
+        robot.setText("No soy un robot");
+        panelRobot.add(robot);
+        robot.setBounds(20, 20, 120, 30);
 
-        jPanel2.add(jPanel3);
-        jPanel3.setBounds(40, 520, 150, 70);
+        jPanel2.add(panelRobot);
+        panelRobot.setBounds(40, 510, 150, 70);
 
         jButton1.setBackground(new java.awt.Color(176, 184, 157));
         jButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -184,7 +194,7 @@ public class Contacto extends javax.swing.JInternalFrame {
             }
         });
         jPanel2.add(jButton1);
-        jButton1.setBounds(410, 530, 160, 40);
+        jButton1.setBounds(410, 510, 160, 40);
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
@@ -286,7 +296,7 @@ public class Contacto extends javax.swing.JInternalFrame {
         jLabel17.setBounds(20, 240, 270, 140);
 
         jPanel2.add(jPanel4);
-        jPanel4.setBounds(650, 120, 320, 450);
+        jPanel4.setBounds(640, 100, 320, 450);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(0, 60, 1020, 640);
@@ -306,20 +316,25 @@ public class Contacto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jLabel17MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(jTextField2.getText().isEmpty() || jTextField3.getText().isEmpty() || jTextField1.getText().isEmpty() || jTextArea1.getText().isEmpty()){
+        if(correo.getText().isEmpty() || nombre.getText().isEmpty() || apellido.getText().isEmpty() || mensaje.getText().isEmpty()){
          JOptionPane.showMessageDialog(this, "Debe completar los campos vacios", "Notificación", JOptionPane.INFORMATION_MESSAGE);
     }
-        else if(jCheckBox1.isSelected() && !jTextField2.getText().isEmpty()){
+        else if(robot.isSelected() && !correo.getText().isEmpty()){
             JOptionPane.showMessageDialog(this, "Mensaje enviado", "Notificación", JOptionPane.INFORMATION_MESSAGE);
+            nombre.setText("");
+            apellido.setText("");
+            correo.setText("");
+            mensaje.setText("");
+            robot.setSelected(false);
         }
         else{
             JOptionPane.showMessageDialog(this, "Debe declarar que no es un robot", "Notificación", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextArea1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyPressed
+    private void mensajeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mensajeKeyPressed
         jLabel6.setVisible(false);
-    }//GEN-LAST:event_jTextArea1KeyPressed
+    }//GEN-LAST:event_mensajeKeyPressed
 
     private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
         jButton1.setBackground(new Color(255,255,255));
@@ -332,7 +347,7 @@ public class Contacto extends javax.swing.JInternalFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         try {
             // TODO add your handling code here:
-            URI uri = new URI("https://www.instagram.com/ulpsanluis/");
+            URI uri = new URI("https://www.instagram.com/hotelidealresort/");
             Desktop.getDesktop().browse(uri);
         } catch (URISyntaxException | IOException ex) {
             ex.printStackTrace();
@@ -359,13 +374,28 @@ public class Contacto extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyTyped
+        char c = evt.getKeyChar();
+        if(Character.isDigit(c)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_nombreKeyTyped
+
+    private void apellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_apellidoKeyTyped
+        char c = evt.getKeyChar();
+        if(Character.isDigit(c)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_apellidoKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField apellido;
+    private javax.swing.JTextField correo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -385,12 +415,11 @@ public class Contacto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextArea mensaje;
+    private javax.swing.JTextField nombre;
+    private javax.swing.JPanel panelRobot;
+    private javax.swing.JCheckBox robot;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,7 +4,10 @@
  */
 package VistasInfo;
 
+import VIstas.AuthenticationListener;
 import java.awt.Color;
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
 
 /**
  *
@@ -12,9 +15,42 @@ import java.awt.Color;
  */
 public class Galeria extends javax.swing.JInternalFrame {
 
-    
+    private VIstas.AuthenticationListener authenticationListener;
+
+    Border border = BorderFactory.createLineBorder(Color.WHITE, 5);
+
+    public void setAuthenticationListener(AuthenticationListener authenticationListener) {
+        this.authenticationListener = authenticationListener;
+    }
+
     public Galeria() {
         initComponents();
+        jButton1.setBackground(new Color(176, 184, 157));
+        jButton2.setBackground(new Color(176, 184, 157));
+        jButton3.setBackground(new Color(176, 184, 157));
+        jButton4.setBackground(new Color(176, 184, 157));
+        jButton5.setBackground(new Color(176, 184, 157));
+        jButton6.setBackground(new Color(176, 184, 157));
+        jButton7.setBackground(new Color(176, 184, 157));
+        jLabel6.setBorder(border);
+        jLabel7.setBorder(border);
+        jLabel8.setBorder(border);
+        jLabel9.setBorder(border);
+        jLabel10.setBorder(border);
+        jLabel11.setBorder(border);
+        jLabel12.setBorder(border);
+        jLabel13.setBorder(border);
+        jLabel14.setBorder(border);
+        jLabel15.setBorder(border);
+        jLabel16.setBorder(border);
+        jLabel17.setBorder(border);
+        jLabel25.setBorder(border);
+        jLabel28.setBorder(border);
+        jLabel31.setBorder(border);
+        jLabel33.setBorder(border);
+        jLabel35.setBorder(border);
+        jLabel37.setBorder(border);
+        jLabel39.setBorder(border);
     }
 
     /**
@@ -71,6 +107,7 @@ public class Galeria extends javax.swing.JInternalFrame {
         jLabel19 = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel11 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
@@ -78,42 +115,49 @@ public class Galeria extends javax.swing.JInternalFrame {
         jLabel27 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
         jPanel21 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jLabel30 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jPanel22 = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea3 = new javax.swing.JTextArea();
         jLabel32 = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
         jPanel23 = new javax.swing.JPanel();
         jLabel33 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextArea4 = new javax.swing.JTextArea();
         jLabel34 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
         jPanel24 = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTextArea5 = new javax.swing.JTextArea();
         jLabel36 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
         jPanel25 = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTextArea6 = new javax.swing.JTextArea();
         jLabel38 = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
         jPanel26 = new javax.swing.JPanel();
         jLabel39 = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jTextArea7 = new javax.swing.JTextArea();
         jLabel40 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
 
         getContentPane().setLayout(null);
 
@@ -449,20 +493,9 @@ public class Galeria extends javax.swing.JInternalFrame {
         jPanel18.setBounds(420, 20, 100, 30);
 
         jPanel27.setBackground(new java.awt.Color(176, 184, 157));
-        jPanel27.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel27MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jPanel27MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jPanel27MouseExited(evt);
-            }
-        });
         jPanel27.setLayout(null);
         jPanel13.add(jPanel27);
-        jPanel27.setBounds(820, 20, 190, 30);
+        jPanel27.setBounds(910, 20, 100, 30);
 
         jPanel19.setBackground(new java.awt.Color(176, 184, 157));
         jPanel19.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -508,10 +541,14 @@ public class Galeria extends javax.swing.JInternalFrame {
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel22.setText("SUITE DE LUJO");
         jPanel20.add(jLabel22);
-        jLabel22.setBounds(0, 0, 160, 30);
+        jLabel22.setBounds(0, 0, 150, 30);
+
+        jLabel46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/corona.png"))); // NOI18N
+        jPanel20.add(jLabel46);
+        jLabel46.setBounds(150, 0, 100, 30);
 
         jPanel13.add(jPanel20);
-        jPanel20.setBounds(660, 20, 160, 30);
+        jPanel20.setBounds(660, 20, 250, 30);
 
         jTabbedPane1.setBackground(new java.awt.Color(27, 118, 134));
 
@@ -546,6 +583,24 @@ public class Galeria extends javax.swing.JInternalFrame {
         jPanel11.add(jScrollPane1);
         jScrollPane1.setBounds(520, 40, 460, 130);
 
+        jButton1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jButton1.setText("RESERVAR");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton1MouseExited(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel11.add(jButton1);
+        jButton1.setBounds(520, 210, 140, 50);
+
         jTabbedPane1.addTab("1", jPanel11);
 
         jPanel21.setBackground(new java.awt.Color(27, 118, 134));
@@ -577,6 +632,24 @@ public class Galeria extends javax.swing.JInternalFrame {
         jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/detallesHab.png"))); // NOI18N
         jPanel21.add(jLabel30);
         jLabel30.setBounds(10, 290, 980, 180);
+
+        jButton2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jButton2.setText("RESERVAR");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton2MouseExited(evt);
+            }
+        });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel21.add(jButton2);
+        jButton2.setBounds(520, 210, 140, 50);
 
         jTabbedPane1.addTab("2", jPanel21);
 
@@ -610,6 +683,24 @@ public class Galeria extends javax.swing.JInternalFrame {
         jPanel22.add(jLabel41);
         jLabel41.setBounds(520, 10, 380, 20);
 
+        jButton3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jButton3.setText("RESERVAR");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton3MouseExited(evt);
+            }
+        });
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel22.add(jButton3);
+        jButton3.setBounds(520, 210, 140, 50);
+
         jTabbedPane1.addTab("3", jPanel22);
 
         jPanel23.setBackground(new java.awt.Color(27, 118, 134));
@@ -641,6 +732,24 @@ public class Galeria extends javax.swing.JInternalFrame {
         jLabel42.setText("STANDARD DOBLE MATRIMONIAL");
         jPanel23.add(jLabel42);
         jLabel42.setBounds(520, 10, 420, 20);
+
+        jButton4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jButton4.setText("RESERVAR");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton4MouseExited(evt);
+            }
+        });
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel23.add(jButton4);
+        jButton4.setBounds(520, 210, 140, 50);
 
         jTabbedPane1.addTab("4", jPanel23);
 
@@ -674,6 +783,24 @@ public class Galeria extends javax.swing.JInternalFrame {
         jPanel24.add(jLabel43);
         jLabel43.setBounds(520, 10, 380, 20);
 
+        jButton5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jButton5.setText("RESERVAR");
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton5MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton5MouseExited(evt);
+            }
+        });
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel24.add(jButton5);
+        jButton5.setBounds(520, 210, 140, 50);
+
         jTabbedPane1.addTab("5", jPanel24);
 
         jPanel25.setBackground(new java.awt.Color(27, 118, 134));
@@ -705,6 +832,24 @@ public class Galeria extends javax.swing.JInternalFrame {
         jLabel44.setText("STANDARD TRIPLE MATRIMONIAL");
         jPanel25.add(jLabel44);
         jLabel44.setBounds(520, 10, 420, 20);
+
+        jButton6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jButton6.setText("RESERVAR");
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton6MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton6MouseExited(evt);
+            }
+        });
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel25.add(jButton6);
+        jButton6.setBounds(520, 210, 140, 50);
 
         jTabbedPane1.addTab("6", jPanel25);
 
@@ -738,6 +883,24 @@ public class Galeria extends javax.swing.JInternalFrame {
         jPanel26.add(jLabel45);
         jLabel45.setBounds(520, 10, 380, 20);
 
+        jButton7.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jButton7.setText("RESERVAR");
+        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton7MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton7MouseExited(evt);
+            }
+        });
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel26.add(jButton7);
+        jButton7.setBounds(520, 210, 140, 50);
+
         jTabbedPane1.addTab("7", jPanel26);
 
         jPanel13.add(jTabbedPane1);
@@ -757,42 +920,42 @@ public class Galeria extends javax.swing.JInternalFrame {
 
     private void jPanel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseEntered
         // TODO add your handling code here:
-        jPanel4.setBackground(new Color(255,255,255));
+        jPanel4.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_jPanel4MouseEntered
 
     private void jPanel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseExited
         // TODO add your handling code here:
-        jPanel4.setBackground(new Color(176,184,157));
+        jPanel4.setBackground(new Color(176, 184, 157));
     }//GEN-LAST:event_jPanel4MouseExited
 
     private void jPanel8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseEntered
         // TODO add your handling code here:
-        jPanel8.setBackground(new Color(255,255,255));
+        jPanel8.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_jPanel8MouseEntered
 
     private void jPanel8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseExited
         // TODO add your handling code here:
-        jPanel8.setBackground(new Color(176,184,157));
+        jPanel8.setBackground(new Color(176, 184, 157));
     }//GEN-LAST:event_jPanel8MouseExited
 
     private void jPanel9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseEntered
         // TODO add your handling code here:
-        jPanel9.setBackground(new Color(255,255,255));
+        jPanel9.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_jPanel9MouseEntered
 
     private void jPanel9MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseExited
         // TODO add your handling code here:
-        jPanel9.setBackground(new Color(176,184,157));
+        jPanel9.setBackground(new Color(176, 184, 157));
     }//GEN-LAST:event_jPanel9MouseExited
 
     private void jPanel10MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel10MouseEntered
         // TODO add your handling code here:
-        jPanel10.setBackground(new Color(255,255,255));
+        jPanel10.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_jPanel10MouseEntered
 
     private void jPanel10MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel10MouseExited
         // TODO add your handling code here:
-        jPanel10.setBackground(new Color(176,184,157));
+        jPanel10.setBackground(new Color(176, 184, 157));
     }//GEN-LAST:event_jPanel10MouseExited
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
@@ -817,12 +980,12 @@ public class Galeria extends javax.swing.JInternalFrame {
 
     private void jPanel20MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel20MouseEntered
         // TODO add your handling code here:
-        jPanel20.setBackground(new Color(255,255,255));
+        jPanel20.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_jPanel20MouseEntered
 
     private void jPanel20MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel20MouseExited
         // TODO add your handling code here:
-        jPanel20.setBackground(new Color(0,0,0));
+        jPanel20.setBackground(new Color(0, 0, 0));
     }//GEN-LAST:event_jPanel20MouseExited
 
     private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
@@ -854,67 +1017,149 @@ public class Galeria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jPanel20MouseClicked
 
     private void jPanel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseEntered
-        jPanel3.setBackground(new Color(255,255,255));
+        jPanel3.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_jPanel3MouseEntered
 
     private void jPanel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseExited
-        jPanel3.setBackground(new Color(176,184,157));
+        jPanel3.setBackground(new Color(176, 184, 157));
     }//GEN-LAST:event_jPanel3MouseExited
 
     private void jPanel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseEntered
-        jPanel5.setBackground(new Color(255,255,255));
+        jPanel5.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_jPanel5MouseEntered
 
     private void jPanel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseExited
-        jPanel5.setBackground(new Color(176,184,157));
+        jPanel5.setBackground(new Color(176, 184, 157));
     }//GEN-LAST:event_jPanel5MouseExited
 
     private void jPanel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseEntered
-        jPanel6.setBackground(new Color(255,255,255));
+        jPanel6.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_jPanel6MouseEntered
 
     private void jPanel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseExited
-        jPanel6.setBackground(new Color(176,184,157));
+        jPanel6.setBackground(new Color(176, 184, 157));
     }//GEN-LAST:event_jPanel6MouseExited
 
     private void jPanel7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseEntered
-        jPanel7.setBackground(new Color(255,255,255));
+        jPanel7.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_jPanel7MouseEntered
 
     private void jPanel7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseExited
-        jPanel7.setBackground(new Color(176,184,157));
+        jPanel7.setBackground(new Color(176, 184, 157));
     }//GEN-LAST:event_jPanel7MouseExited
 
     private void jPanel19MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel19MouseEntered
-        jPanel19.setBackground(new Color(255,255,255));
+        jPanel19.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_jPanel19MouseEntered
 
     private void jPanel19MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel19MouseExited
-        jPanel19.setBackground(new Color(176,184,157));
+        jPanel19.setBackground(new Color(176, 184, 157));
     }//GEN-LAST:event_jPanel19MouseExited
 
     private void jPanel18MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel18MouseEntered
-        jPanel18.setBackground(new Color(255,255,255));
+        jPanel18.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_jPanel18MouseEntered
 
     private void jPanel18MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel18MouseExited
-        jPanel18.setBackground(new Color(176,184,157));
+        jPanel18.setBackground(new Color(176, 184, 157));
     }//GEN-LAST:event_jPanel18MouseExited
 
-    private void jPanel27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel27MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel27MouseClicked
+    private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
+        jButton1.setBackground(new Color(255, 255, 255));
+    }//GEN-LAST:event_jButton1MouseEntered
 
-    private void jPanel27MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel27MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel27MouseEntered
+    private void jButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseExited
+        jButton1.setBackground(new Color(176, 184, 157));
+    }//GEN-LAST:event_jButton1MouseExited
 
-    private void jPanel27MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel27MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel27MouseExited
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (authenticationListener != null) {
+            authenticationListener.onReservarSuccess();
+            this.dispose();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseEntered
+        jButton2.setBackground(new Color(255, 255, 255));
+    }//GEN-LAST:event_jButton2MouseEntered
+
+    private void jButton2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseExited
+        jButton2.setBackground(new Color(176, 184, 157));
+    }//GEN-LAST:event_jButton2MouseExited
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        jButton1ActionPerformed(evt);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseEntered
+        jButton3.setBackground(new Color(255, 255, 255));
+    }//GEN-LAST:event_jButton3MouseEntered
+
+    private void jButton3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseExited
+        jButton3.setBackground(new Color(176, 184, 157));
+    }//GEN-LAST:event_jButton3MouseExited
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        jButton1ActionPerformed(evt);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseEntered
+        jButton4.setBackground(new Color(255, 255, 255));
+    }//GEN-LAST:event_jButton4MouseEntered
+
+    private void jButton4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseExited
+        jButton4.setBackground(new Color(176, 184, 157));
+    }//GEN-LAST:event_jButton4MouseExited
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        jButton1ActionPerformed(evt);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseEntered
+        jButton5.setBackground(new Color(255, 255, 255));
+    }//GEN-LAST:event_jButton5MouseEntered
+
+    private void jButton5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseExited
+        jButton5.setBackground(new Color(176, 184, 157));
+    }//GEN-LAST:event_jButton5MouseExited
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        jButton1ActionPerformed(evt);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseEntered
+        jButton6.setBackground(new Color(255, 255, 255));
+    }//GEN-LAST:event_jButton6MouseEntered
+
+    private void jButton6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseExited
+        jButton6.setBackground(new Color(176, 184, 157));
+    }//GEN-LAST:event_jButton6MouseExited
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        jButton1ActionPerformed(evt);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseEntered
+        jButton7.setBackground(new Color(255, 255, 255));
+    }//GEN-LAST:event_jButton7MouseEntered
+
+    private void jButton7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseExited
+        jButton7.setBackground(new Color(176, 184, 157));
+    }//GEN-LAST:event_jButton7MouseExited
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        jButton1ActionPerformed(evt);
+    }//GEN-LAST:event_jButton7ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -955,6 +1200,7 @@ public class Galeria extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

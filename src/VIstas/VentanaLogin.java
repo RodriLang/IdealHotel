@@ -3,11 +3,18 @@ package VIstas;
 import java.awt.Color;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import javax.swing.JOptionPane;
 
 public class VentanaLogin extends javax.swing.JFrame {
 
     private int x;
     private int y;
+    //el siguiente objeto notificara si la autenticacion fue exitosa
+    private AuthenticationListener authenticationListener;
+
+    public void setAuthenticationListener(AuthenticationListener listener) {
+        this.authenticationListener = listener;
+    }
 
     public VentanaLogin() {
         //hece que la ventana no tenga barra superior
@@ -19,6 +26,7 @@ public class VentanaLogin extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         textUser.setBackground(new Color(0, 0, 0, 0));
         passwordField.setBackground(new Color(0, 0, 0, 0));
+        jButton1.setBackground(new Color(0, 0, 0, 0));
     }
 
     /**
@@ -42,6 +50,7 @@ public class VentanaLogin extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         labelUser = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
+        botonIngresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
@@ -50,43 +59,43 @@ public class VentanaLogin extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lock.png"))); // NOI18N
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(31, 400, 40, 40);
+        jLabel1.setBounds(30, 330, 40, 40);
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/person.png"))); // NOI18N
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(30, 300, 40, 40);
+        jLabel2.setBounds(30, 270, 40, 40);
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/visibility_off.png"))); // NOI18N
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(320, 400, 40, 40);
+        jLabel3.setBounds(320, 330, 40, 40);
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/verified_user.png"))); // NOI18N
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(320, 300, 40, 40);
+        jLabel4.setBounds(320, 270, 40, 40);
 
         separadorUser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(separadorUser);
-        separadorUser.setBounds(30, 335, 330, 2);
+        separadorUser.setBounds(30, 300, 330, 2);
 
         separadorPass.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(separadorPass);
-        separadorPass.setBounds(30, 435, 330, 2);
+        separadorPass.setBounds(30, 360, 330, 2);
 
         textUser.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         textUser.setForeground(new java.awt.Color(153, 153, 153));
         textUser.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textUser.setText("User");
         textUser.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        textUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textUserActionPerformed(evt);
-            }
-        });
         getContentPane().add(textUser);
-        textUser.setBounds(30, 300, 330, 40);
+        textUser.setBounds(30, 270, 330, 40);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -135,12 +144,12 @@ public class VentanaLogin extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 0, 0);
+        jPanel1.setBounds(0, 0, 400, 42);
 
         labelUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/user.png"))); // NOI18N
         getContentPane().add(labelUser);
-        labelUser.setBounds(0, 60, 400, 220);
+        labelUser.setBounds(0, 40, 400, 220);
 
         passwordField.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         passwordField.setForeground(new java.awt.Color(153, 153, 153));
@@ -148,14 +157,24 @@ public class VentanaLogin extends javax.swing.JFrame {
         passwordField.setText("Password");
         passwordField.setBorder(null);
         getContentPane().add(passwordField);
-        passwordField.setBounds(30, 400, 330, 40);
+        passwordField.setBounds(30, 330, 330, 40);
+
+        botonIngresar.setBackground(new java.awt.Color(70, 73, 75));
+        botonIngresar.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
+        botonIngresar.setForeground(new java.awt.Color(0, 0, 0));
+        botonIngresar.setText("Ingresar");
+        botonIngresar.setBorder(null);
+        botonIngresar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonIngresarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonIngresar);
+        botonIngresar.setBounds(140, 410, 120, 40);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
         Point ubicacion = MouseInfo.getPointerInfo().getLocation();
@@ -167,9 +186,28 @@ public class VentanaLogin extends javax.swing.JFrame {
         y = evt.getY();
     }//GEN-LAST:event_jPanel1MousePressed
 
-    private void textUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textUserActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textUserActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+         passwordField.setEchoChar((char) 0); // Mostrar la contraseña
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/visibility.png")));
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void botonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIngresarActionPerformed
+        char[] password = passwordField.getPassword(); // Obtiene la contraseña del JPasswordField
+        String passwordString = new String(password); // Convierte la contraseña a String
+        if(textUser.getText().equals("admin") && passwordString.equals("admin")){
+            if(authenticationListener !=null){
+                authenticationListener.onAuthenticationSuccess(); //la autenticacion fue exitosa
+                this.dispose();
+            } 
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Datos incorrectos");
+        }
+    }//GEN-LAST:event_botonIngresarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -204,6 +242,7 @@ public class VentanaLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonIngresar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
