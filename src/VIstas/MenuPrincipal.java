@@ -7,9 +7,13 @@ import javax.swing.JInternalFrame;
 import VistasInfo.Contacto;
 import VistasInfo.Galeria;
 import VistasInfo.SobreNosotros;
+import java.awt.Color;
+import javax.swing.JButton;
+import java.applet.Applet;
+import java.applet.AudioClip;
+import java.net.URL;
 
-
-public class MenuPrincipal extends javax.swing.JFrame {
+public class MenuPrincipal extends javax.swing.JFrame implements AuthenticationListener {
 
     private HabitacionData habData;
     private HuespedData huesData;
@@ -65,6 +69,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         botonAdmin.setText("ADMINISTRACIÓN");
         botonAdmin.setContentAreaFilled(false);
         botonAdmin.setOpaque(true);
+        botonAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botonAdminMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botonAdminMouseExited(evt);
+            }
+        });
         botonAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAdminActionPerformed(evt);
@@ -76,6 +88,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         botonHome.setText("HOME");
         botonHome.setContentAreaFilled(false);
         botonHome.setOpaque(true);
+        botonHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botonHomeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botonHomeMouseExited(evt);
+            }
+        });
         botonHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonHomeActionPerformed(evt);
@@ -87,6 +107,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         botonNosotros.setText("SOBRE NOSOTROS");
         botonNosotros.setContentAreaFilled(false);
         botonNosotros.setOpaque(true);
+        botonNosotros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botonNosotrosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botonNosotrosMouseExited(evt);
+            }
+        });
         botonNosotros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonNosotrosActionPerformed(evt);
@@ -98,6 +126,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         botonGaleria.setText("GALERÍA");
         botonGaleria.setContentAreaFilled(false);
         botonGaleria.setOpaque(true);
+        botonGaleria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botonGaleriaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botonGaleriaMouseExited(evt);
+            }
+        });
         botonGaleria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonGaleriaActionPerformed(evt);
@@ -109,6 +145,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         botonReservas.setText("RESERVAS");
         botonReservas.setContentAreaFilled(false);
         botonReservas.setOpaque(true);
+        botonReservas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botonReservasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botonReservasMouseExited(evt);
+            }
+        });
         botonReservas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonReservasActionPerformed(evt);
@@ -120,6 +164,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         botonContacto.setText("CONTACTO");
         botonContacto.setContentAreaFilled(false);
         botonContacto.setOpaque(true);
+        botonContacto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botonContactoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botonContactoMouseExited(evt);
+            }
+        });
         botonContacto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonContactoActionPerformed(evt);
@@ -217,14 +269,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_botonNosotrosActionPerformed
 
     private void botonAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAdminActionPerformed
-        mostrarVentana(new AdministracionView(habData, huesData, reserData));
+        //mostrarVentana(new AdministracionView(habData, huesData, reserData));
         VentanaLogin login = new VentanaLogin();
-
+        login.setVisible(true);
+        login.setAuthenticationListener(this); //establece esta clase como el listener de la autenticacion de VentanaLogin
     }//GEN-LAST:event_botonAdminActionPerformed
 
     private void botonGaleriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGaleriaActionPerformed
         Galeria ventana = new Galeria();
         mostrarVentana(ventana);
+        ventana.setAuthenticationListener(this);
     }//GEN-LAST:event_botonGaleriaActionPerformed
 
     private void botonContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonContactoActionPerformed
@@ -241,8 +295,57 @@ public class MenuPrincipal extends javax.swing.JFrame {
         escritorio.removeAll();
         escritorio.repaint();
         escritorio.add(labelFondo);
+
     }//GEN-LAST:event_botonHomeActionPerformed
-    private void mostrarVentana(JInternalFrame ventana) {
+
+    private void botonHomeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonHomeMouseEntered
+        efectoBotonesEntered(botonHome);
+    }//GEN-LAST:event_botonHomeMouseEntered
+
+    private void botonHomeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonHomeMouseExited
+        efectoBotonesExited(botonHome);
+    }//GEN-LAST:event_botonHomeMouseExited
+
+    private void botonNosotrosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonNosotrosMouseEntered
+        efectoBotonesEntered(botonNosotros);
+    }//GEN-LAST:event_botonNosotrosMouseEntered
+
+    private void botonNosotrosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonNosotrosMouseExited
+        efectoBotonesExited(botonNosotros);
+    }//GEN-LAST:event_botonNosotrosMouseExited
+
+    private void botonGaleriaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGaleriaMouseEntered
+        efectoBotonesEntered(botonGaleria);
+    }//GEN-LAST:event_botonGaleriaMouseEntered
+
+    private void botonGaleriaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGaleriaMouseExited
+        efectoBotonesExited(botonGaleria);
+    }//GEN-LAST:event_botonGaleriaMouseExited
+
+    private void botonReservasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonReservasMouseEntered
+        efectoBotonesEntered(botonReservas);
+    }//GEN-LAST:event_botonReservasMouseEntered
+
+    private void botonReservasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonReservasMouseExited
+        efectoBotonesExited(botonReservas);
+    }//GEN-LAST:event_botonReservasMouseExited
+
+    private void botonContactoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonContactoMouseEntered
+        efectoBotonesEntered(botonContacto);
+    }//GEN-LAST:event_botonContactoMouseEntered
+
+    private void botonContactoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonContactoMouseExited
+        efectoBotonesExited(botonContacto);
+    }//GEN-LAST:event_botonContactoMouseExited
+
+    private void botonAdminMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAdminMouseEntered
+        efectoBotonesEntered(botonAdmin);
+    }//GEN-LAST:event_botonAdminMouseEntered
+
+    private void botonAdminMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAdminMouseExited
+        efectoBotonesExited(botonAdmin);
+    }//GEN-LAST:event_botonAdminMouseExited
+    public void mostrarVentana(JInternalFrame ventana) {
         ventana.setVisible(true);
         escritorio.removeAll();
         escritorio.repaint();
@@ -251,6 +354,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         escritorio.moveToFront(this);
         ventana.setSize(escritorio.getSize());
         ventana.setResizable(false);
+    }
+
+    private void efectoBotonesEntered(JButton boton) {
+        boton.setBackground(Color.black);
+        boton.setForeground(Color.white);
+    }
+
+    private void efectoBotonesExited(JButton boton) {
+        boton.setBackground(new Color(176, 184, 157));
+        boton.setForeground(Color.black);
     }
 
     public static void main(String args[]) {
@@ -344,7 +457,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 HabitacionData habData = new HabitacionData();
-                HuespedData huesData =  new HuespedData();
+                HuespedData huesData = new HuespedData();
                 ReservaData reserData = new ReservaData(huesData, habData);
                 new MenuPrincipal(habData, huesData, reserData).setVisible(true);
             }
@@ -365,5 +478,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel panelBotones;
     private javax.swing.JPanel panelGeneral;
     // End of variables declaration//GEN-END:variables
+
+    //si la autenticacion de VentanaLogin fue exitosa mustra la ventana Administracion
+    @Override
+    public void onAuthenticationSuccess() {
+        mostrarVentana(new AdministracionView(habData, huesData, reserData));
+    }
+
+    @Override
+    public void onReservarSuccess() {
+        mostrarVentana(new Reservas());
+    }
 
 }

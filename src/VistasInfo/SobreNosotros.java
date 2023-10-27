@@ -5,6 +5,8 @@
 package VistasInfo;
 
 import java.awt.Color;
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
 
 /**
  *
@@ -12,12 +14,15 @@ import java.awt.Color;
  */
 public class SobreNosotros extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form SobreNosotros
-     */
+   Border border = BorderFactory.createLineBorder(Color.WHITE, 5);
+    
     public SobreNosotros() {
         initComponents();
         jLabel1.setBackground(new Color(239,213,168));
+        jLabel2.setBorder(border);
+        jLabel3.setBorder(border);
+        jLabel4.setBorder(border);
+        jLabel5.setBorder(border);
         
     }
 
