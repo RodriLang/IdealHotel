@@ -6,6 +6,7 @@
 package VIstas.Administracion;
 
 import AccesoADatos.HabitacionData;
+import AccesoADatos.HuespedData;
 import AccesoADatos.ReservaData;
 import VIstas.AdministracionView;
 import entidades.Habitacion;
@@ -31,6 +32,7 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
     private Habitacion habitacion;
     private HabitacionData habData;
     private ReservaData resData;
+    private HuespedData huesData;
     private AdministracionView ventana;
     private PanelAdminHabitaciones panelAdmin;
     private PanelAdminReservas panelAdminReservas;
@@ -42,7 +44,7 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
     /**
      * Creates new form panelInfoHabitacion
      */
-    public PanelInfoHabitacion(Habitacion habitacion, HabitacionData habData, ReservaData resData,
+    public PanelInfoHabitacion(Habitacion habitacion, HabitacionData habData, ReservaData resData, HuespedData huesData,
             AdministracionView ventana, PanelAdminHabitaciones panelAdmin, PanelAdminReservas panelReservas, LocalDate fecha) {
         this.habitacion = habitacion;
         this.idHabitacion = habitacion.getIdHabitacion();
@@ -56,6 +58,7 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
         this.habilitada = habitacion.isHabilitada();
         this.habData = habData;
         this.resData = resData;
+        this.huesData = huesData;
         this.setSize(300, 150);
         this.setVisible(true);
 
@@ -250,7 +253,7 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
             System.out.println("salida " + reserva.getFechaOut());
             ventana.mostrarPanelContenido(new PanelCheckInOut(ventana, panelAdmin, reserva, habData, resData), null);
         } else if (botonCheckInOut.getText().equals("Reservar")) {
-            new CheckInSinReservaView(ventana, panelAdmin, habData, resData, habitacion);
+            new CheckInSinReservaView(ventana, panelAdmin, habData, resData, huesData, habitacion);
         }
 
     }//GEN-LAST:event_botonCheckInOutActionPerformed
@@ -341,7 +344,7 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
                     botonCheckInOut.setText("Reservar");
                     botonCheckInOut.setIcon(imgReserva);
                     //resData.eliminarReserva(reserva.getIdReserva());
-                    JOptionPane.showMessageDialog(this, "Se canceló la reserva de la habitación "+idHabitacion);
+                    JOptionPane.showMessageDialog(this, "Se canceló la reserva de la habitación " + idHabitacion);
                 }
             } else {
                 habData.liberarHabitacion(idHabitacion);

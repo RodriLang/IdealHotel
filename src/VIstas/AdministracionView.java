@@ -60,7 +60,7 @@ public class AdministracionView extends javax.swing.JInternalFrame {
         FECHA = LocalDate.now();
 
         panelReservas = new PanelAdminReservas();
-        panelHabitaciones = new PanelAdminHabitaciones(habData, reserData, this, panelReservas, FECHA);
+        panelHabitaciones = new PanelAdminHabitaciones(habData, reserData,huesData, this, panelReservas, FECHA);
         panelHuespedes = new PanelAdminHuespedes();
         panelTabla = new PanelAdminTabla();
         mostrarPanelTabla(panelTabla, botonHome);
