@@ -96,9 +96,6 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
     private void initComponents() {
 
         panelNorte = new javax.swing.JPanel();
-        panelNumero = new javax.swing.JPanel();
-        labelN = new javax.swing.JLabel();
-        labelNumHab = new javax.swing.JLabel();
         panelEstado = new javax.swing.JPanel();
         labelEstado = new javax.swing.JLabel();
         panelSur = new javax.swing.JPanel();
@@ -107,7 +104,11 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
         panelEdit = new javax.swing.JPanel();
         botonEditar = new javax.swing.JButton();
         botonEliminar = new javax.swing.JButton();
-        panelPiso = new javax.swing.JPanel();
+        panelDatos = new javax.swing.JPanel();
+        panelNum = new javax.swing.JPanel();
+        labelN = new javax.swing.JLabel();
+        labelNumHab = new javax.swing.JLabel();
+        panelPIso = new javax.swing.JPanel();
         labelNPiso = new javax.swing.JLabel();
         labelPiso = new javax.swing.JLabel();
         panelReservas = new javax.swing.JPanel();
@@ -120,26 +121,9 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
         panelNorte.setPreferredSize(new java.awt.Dimension(984, 25));
         panelNorte.setLayout(new java.awt.BorderLayout());
 
-        panelNumero.setMaximumSize(new java.awt.Dimension(50, 44));
-        panelNumero.setOpaque(false);
-        panelNumero.setPreferredSize(new java.awt.Dimension(74, 44));
-        panelNumero.setLayout(new java.awt.BorderLayout());
-
-        labelN.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
-        labelN.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        labelN.setText("N°");
-        labelN.setPreferredSize(new java.awt.Dimension(30, 21));
-        panelNumero.add(labelN, java.awt.BorderLayout.WEST);
-
-        labelNumHab.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
-        labelNumHab.setText("000");
-        labelNumHab.setPreferredSize(new java.awt.Dimension(30, 21));
-        panelNumero.add(labelNumHab, java.awt.BorderLayout.CENTER);
-
-        panelNorte.add(panelNumero, java.awt.BorderLayout.WEST);
-
+        panelEstado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         panelEstado.setOpaque(false);
-        panelEstado.setPreferredSize(new java.awt.Dimension(115, 38));
+        panelEstado.setPreferredSize(new java.awt.Dimension(115, 40));
         panelEstado.setLayout(new java.awt.BorderLayout());
 
         labelEstado.setBackground(new java.awt.Color(51, 255, 51));
@@ -147,7 +131,7 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
         labelEstado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelEstado.setText("LIBRE");
         labelEstado.setOpaque(true);
-        labelEstado.setPreferredSize(new java.awt.Dimension(45, 26));
+        labelEstado.setPreferredSize(new java.awt.Dimension(45, 40));
         panelEstado.add(labelEstado, java.awt.BorderLayout.CENTER);
 
         panelNorte.add(panelEstado, java.awt.BorderLayout.CENTER);
@@ -167,6 +151,7 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
 
         add(panelSur, java.awt.BorderLayout.SOUTH);
 
+        panelCentro.setMinimumSize(new java.awt.Dimension(220, 60));
         panelCentro.setOpaque(false);
         panelCentro.setPreferredSize(new java.awt.Dimension(358, 30));
         panelCentro.setLayout(new java.awt.BorderLayout());
@@ -197,21 +182,42 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
 
         panelCentro.add(panelEdit, java.awt.BorderLayout.EAST);
 
-        panelPiso.setOpaque(false);
-        panelPiso.setPreferredSize(new java.awt.Dimension(70, 39));
-        panelPiso.setLayout(new java.awt.BorderLayout());
+        panelDatos.setOpaque(false);
+        panelDatos.setPreferredSize(new java.awt.Dimension(80, 39));
+        panelDatos.setLayout(new java.awt.GridLayout(2, 0));
+
+        panelNum.setOpaque(false);
+        panelNum.setLayout(new java.awt.BorderLayout());
+
+        labelN.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
+        labelN.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelN.setText("N°");
+        labelN.setPreferredSize(new java.awt.Dimension(30, 21));
+        panelNum.add(labelN, java.awt.BorderLayout.WEST);
+
+        labelNumHab.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
+        labelNumHab.setText("000");
+        labelNumHab.setPreferredSize(new java.awt.Dimension(30, 21));
+        panelNum.add(labelNumHab, java.awt.BorderLayout.CENTER);
+
+        panelDatos.add(panelNum);
+
+        panelPIso.setOpaque(false);
+        panelPIso.setLayout(new java.awt.BorderLayout());
 
         labelNPiso.setFont(new java.awt.Font("Georgia", 1, 14)); // NOI18N
         labelNPiso.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         labelNPiso.setText("1°");
         labelNPiso.setPreferredSize(new java.awt.Dimension(20, 14));
-        panelPiso.add(labelNPiso, java.awt.BorderLayout.WEST);
+        panelPIso.add(labelNPiso, java.awt.BorderLayout.WEST);
 
         labelPiso.setFont(new java.awt.Font("Georgia", 1, 14)); // NOI18N
         labelPiso.setText("  PISO");
-        panelPiso.add(labelPiso, java.awt.BorderLayout.CENTER);
+        panelPIso.add(labelPiso, java.awt.BorderLayout.CENTER);
 
-        panelCentro.add(panelPiso, java.awt.BorderLayout.WEST);
+        panelDatos.add(panelPIso);
+
+        panelCentro.add(panelDatos, java.awt.BorderLayout.WEST);
 
         panelReservas.setMinimumSize(new java.awt.Dimension(80, 36));
         panelReservas.setOpaque(false);
@@ -222,6 +228,7 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
         botonCheckInOut.setFont(new java.awt.Font("Georgia", 1, 12)); // NOI18N
         botonCheckInOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pending_actions.png"))); // NOI18N
         botonCheckInOut.setText("IN/OUT");
+        botonCheckInOut.setPreferredSize(new java.awt.Dimension(80, 36));
         botonCheckInOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonCheckInOutActionPerformed(evt);
@@ -242,6 +249,8 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
             reserva.calcularImporte();
             System.out.println("salida " + reserva.getFechaOut());
             ventana.mostrarPanelContenido(new PanelCheckInOut(ventana, panelAdmin, reserva, habData, resData), null);
+        } else if (botonCheckInOut.getText().equals("Reservar")) {
+            new CheckInSinReservaView(ventana, panelAdmin, habData, resData, habitacion);
         }
 
     }//GEN-LAST:event_botonCheckInOutActionPerformed
@@ -279,11 +288,12 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
     private javax.swing.JLabel labelPiso;
     private javax.swing.JLabel labelTipoHab;
     private javax.swing.JPanel panelCentro;
+    private javax.swing.JPanel panelDatos;
     private javax.swing.JPanel panelEdit;
     private javax.swing.JPanel panelEstado;
     private javax.swing.JPanel panelNorte;
-    private javax.swing.JPanel panelNumero;
-    private javax.swing.JPanel panelPiso;
+    private javax.swing.JPanel panelNum;
+    private javax.swing.JPanel panelPIso;
     private javax.swing.JPanel panelReservas;
     private javax.swing.JPanel panelSur;
     // End of variables declaration//GEN-END:variables
@@ -330,7 +340,8 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
                     labelEstado.setText("LIBRE");
                     botonCheckInOut.setText("Reservar");
                     botonCheckInOut.setIcon(imgReserva);
-                    resData.eliminarReserva(reserva.getIdReserva());
+                    //resData.eliminarReserva(reserva.getIdReserva());
+                    JOptionPane.showMessageDialog(this, "Se canceló la reserva de la habitación "+idHabitacion);
                 }
             } else {
                 habData.liberarHabitacion(idHabitacion);
