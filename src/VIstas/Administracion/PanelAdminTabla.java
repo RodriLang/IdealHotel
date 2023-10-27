@@ -14,11 +14,14 @@ import javax.swing.table.DefaultTableModel;
 import AccesoADatos.HabitacionData;
 import AccesoADatos.HuespedData;
 import AccesoADatos.ReservaData;
+import VIstas.AdministracionView;
 import entidades.Habitacion;
 import entidades.Huesped;
 import entidades.Reserva;
 import java.awt.Color;
 import java.awt.Component;
+import java.time.ZoneId;
+import java.util.Date;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -327,7 +330,6 @@ public class PanelAdminTabla extends javax.swing.JPanel {
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel11))
                                 .addGap(2, 2, 2)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel10))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(11, 11, 11)
@@ -347,14 +349,11 @@ public class PanelAdminTabla extends javax.swing.JPanel {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -562,7 +561,11 @@ public class PanelAdminTabla extends javax.swing.JPanel {
             DetTextCheckInn.setText(reserva.getFechaInn().format(formato));
             DetTextCheckOut.setText(reserva.getFechaOut().format(formato));
             DetImporte.setText(String.valueOf(reserva.getImporte()));
-                    //System.out.println(valorCelda+"/n");
+            if(huesped.isAlojado()==true){
+                DetAlojado.setText("SI");
+            }else{
+                DetAlojado.setText("NO");
+            }
         }catch(NullPointerException ex){}
 
     }
@@ -578,23 +581,33 @@ public class PanelAdminTabla extends javax.swing.JPanel {
         DetTextCheckInn.setText("");
         DetTextCheckOut.setText("");
         DetImporte.setText("");
+        DetAlojado.setText("");
     }
     
-    public static class CustomCellRenderer extends DefaultTableCellRenderer {
+    class CustomCellRenderer extends DefaultTableCellRenderer {
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-            try {
-                if (value == null) {
-                    component.setBackground(table.getBackground());
+        try {
+            if (value == null) {
+                component.setBackground(table.getBackground());
+            } else {
+                int valor = (int) value;
+                
+                int idReserva= valor;
+                Reserva reserva=reservaData.buscarReservaId(idReserva);
+                Huesped huesped = huespedData.buscarHuespedId(reserva.getHuesped().getIdHuesped());
+                Boolean alojado=huesped.isAlojado();
+                if (alojado) {
+                    component.setBackground(Color.GREEN);
                 } else {
-                    int valor = (int) value;
                     component.setBackground(Color.YELLOW);
                 }
-            } catch (NullPointerException ex) {
             }
+        } catch (NullPointerException ex) {
+        }
 
             return component;
         }

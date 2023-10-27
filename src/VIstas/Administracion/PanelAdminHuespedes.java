@@ -7,8 +7,12 @@ package VIstas.Administracion;
 
 import AccesoADatos.HuespedData;
 import entidades.Huesped;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
+import static javax.management.Query.value;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -388,14 +392,23 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
     private void BotonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonLimpiarActionPerformed
         modelo.setRowCount(0);
         limpiarDetalles();
+        ComboId.setSelectedIndex(0);
+        ComboDni.setSelectedIndex(0);
+        ComboNombre.setSelectedIndex(0);
     }//GEN-LAST:event_BotonLimpiarActionPerformed
 
     private void BotonEstadoAlojadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEstadoAlojadosActionPerformed
         usarBotones();
+        ComboDni.setSelectedIndex(0);
+        ComboId.setSelectedIndex(0);
+        ComboNombre.setSelectedIndex(0);
     }//GEN-LAST:event_BotonEstadoAlojadosActionPerformed
 
     private void BotonEstadoTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEstadoTodosActionPerformed
         usarBotones();
+        ComboDni.setSelectedIndex(0);
+        ComboId.setSelectedIndex(0);
+        ComboNombre.setSelectedIndex(0);
     }//GEN-LAST:event_BotonEstadoTodosActionPerformed
         
     private void BotonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonModificarActionPerformed
@@ -404,21 +417,26 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
 
     private void ComboNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboNombreActionPerformed
         limpiarDetalles();
+        if(ComboDni.getSelectedIndex()!=0){
         String selectedValue=ComboNombre.getSelectedItem().toString();
         if(selectedValue!= null){
-            llenarTablaPorNombre();
+            llenarTablaPorNombre(); 
         }
-        
+        }
+        ComboId.setSelectedIndex(0);
+        ComboDni.setSelectedIndex(0);
     }//GEN-LAST:event_ComboNombreActionPerformed
 
     private void ComboDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboDniActionPerformed
         limpiarDetalles();
+        if(ComboDni.getSelectedIndex()!=0){
         String selectedValue = ComboDni.getSelectedItem().toString();
         if (selectedValue != null) {
         llenarTablaPorDni();
         }
-
-        
+        }
+        ComboId.setSelectedIndex(0);
+        ComboNombre.setSelectedIndex(0);
     }//GEN-LAST:event_ComboDniActionPerformed
 
     private void TablaHuespedesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaHuespedesMouseClicked
@@ -427,10 +445,13 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
 
     private void ComboIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboIdActionPerformed
         limpiarDetalles();
+        if(ComboId.getSelectedIndex()!=0){
         String selectedValue = ComboId.getSelectedItem().toString();
         if (selectedValue != null) {
-        llenarTablaPorId();
+        llenarTablaPorId();}
         }
+        ComboDni.setSelectedIndex(0);
+        ComboNombre.setSelectedIndex(0);
     }//GEN-LAST:event_ComboIdActionPerformed
 
 
@@ -622,6 +643,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
     }
     
     private void cargarComboId(){
+        ComboId.setRenderer(new DisabledItemRenderer());
         List<Huesped> lista=new ArrayList<>();
         lista=huespedData.listarHuespedes();
         List<String> listaId=new ArrayList<>();
@@ -637,6 +659,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
     }
     
     private void cargarComboDni(){
+       ComboDni.setRenderer(new DisabledItemRenderer());
        List<Huesped> lista=new ArrayList<>();
        lista=huespedData.listarHuespedes();
        List<String> listaId=new ArrayList<>();
@@ -652,6 +675,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
     }
     
     private void cargarComboNombre(){
+        ComboNombre.setRenderer(new DisabledItemRenderer());
         List<Huesped> lista=new ArrayList<>();
         lista=huespedData.listarHuespedes();
         List<String> listaNombres=new ArrayList<>();
@@ -710,4 +734,14 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
             }    
     }
     
+    class DisabledItemRenderer extends DefaultListCellRenderer {
+    @Override
+    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        if (index == 0) {
+            setEnabled(false);
+        }
+        return this;
+    }
+    }
 }
