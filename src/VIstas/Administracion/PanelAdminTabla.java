@@ -55,6 +55,8 @@ public class PanelAdminTabla extends javax.swing.JPanel {
         cargarComboBoxTipoHabitacion();
         llenarTablaPorPiso();
         //System.out.println("llenar tabla initComponents: "+modelo.getColumnCount());
+        TablaHabitaciones.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        TablaHabitaciones.setAutoCreateRowSorter(true);
     }
 
     /**
@@ -124,6 +126,7 @@ public class PanelAdminTabla extends javax.swing.JPanel {
         });
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         TablaHabitaciones.setBackground(new java.awt.Color(153, 204, 255));
         TablaHabitaciones.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
