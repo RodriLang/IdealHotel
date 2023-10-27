@@ -6,6 +6,7 @@
 package VIstas.Administracion;
 
 import AccesoADatos.HabitacionData;
+import AccesoADatos.HuespedData;
 import AccesoADatos.ReservaData;
 import VIstas.AdministracionView;
 import entidades.Habitacion;
@@ -24,6 +25,7 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
 
     private HabitacionData habData;
     private ReservaData resData;
+    private HuespedData huesData;
     private List<Habitacion> habitaciones;
     private List<PanelInfoHabitacion> infoHabitaciones;
     private AdministracionView ventana;
@@ -32,10 +34,12 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
     /**
      * Creates new form panelAdminHabitaciones
      */
-    public PanelAdminHabitaciones(HabitacionData habData, ReservaData resData, AdministracionView ventana, PanelAdminReservas panelAdminReservas, LocalDate fecha) {
+    public PanelAdminHabitaciones(HabitacionData habData, ReservaData resData, HuespedData huesData,
+            AdministracionView ventana, PanelAdminReservas panelAdminReservas, LocalDate fecha) {
         this.habData = habData;
         this.resData = resData;
         this.ventana = ventana;
+        this.huesData = huesData;
         this.panelAdminReservas = panelAdminReservas;
         initComponents();
         this.setVisible(false);
@@ -44,7 +48,6 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
         filtrarHabitaciones();
         cargarComboTipos();
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -67,12 +70,10 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
         radioButtonDeshabilitadas = new javax.swing.JRadioButton();
         radioButtonHabilitadas = new javax.swing.JRadioButton();
         radioButtonCondicionTodas = new javax.swing.JRadioButton();
-        labelOpcionCondicion = new javax.swing.JLabel();
         panelOpcionEstado = new javax.swing.JPanel();
         radioButtonOcupadas = new javax.swing.JRadioButton();
         radioButtonLibres = new javax.swing.JRadioButton();
         radioButtonEstadoTodas = new javax.swing.JRadioButton();
-        labelOpcionEstado = new javax.swing.JLabel();
         botonBuscar2 = new javax.swing.JButton();
         comboBoxPisos = new javax.swing.JComboBox<>();
         comboBoxTipos = new javax.swing.JComboBox<>();
@@ -175,34 +176,25 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
             }
         });
 
-        labelOpcionCondicion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        labelOpcionCondicion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelOpcionCondicion.setText("CONDICIÓN");
-
         javax.swing.GroupLayout panelOpcionCondicionLayout = new javax.swing.GroupLayout(panelOpcionCondicion);
         panelOpcionCondicion.setLayout(panelOpcionCondicionLayout);
         panelOpcionCondicionLayout.setHorizontalGroup(
             panelOpcionCondicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOpcionCondicionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelOpcionCondicion, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(radioButtonCondicionTodas)
-                .addGap(39, 39, 39)
-                .addComponent(radioButtonHabilitadas, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(28, 28, 28)
+                .addComponent(radioButtonHabilitadas, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(radioButtonDeshabilitadas)
-                .addGap(15, 15, 15))
+                .addContainerGap())
         );
         panelOpcionCondicionLayout.setVerticalGroup(
             panelOpcionCondicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOpcionCondicionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelOpcionCondicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(radioButtonCondicionTodas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelOpcionCondicionLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(labelOpcionCondicion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(radioButtonCondicionTodas, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
                     .addComponent(radioButtonHabilitadas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(radioButtonDeshabilitadas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -238,28 +230,20 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
             }
         });
 
-        labelOpcionEstado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        labelOpcionEstado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelOpcionEstado.setText("ESTADO");
-
         javax.swing.GroupLayout panelOpcionEstadoLayout = new javax.swing.GroupLayout(panelOpcionEstado);
         panelOpcionEstado.setLayout(panelOpcionEstadoLayout);
         panelOpcionEstadoLayout.setHorizontalGroup(
             panelOpcionEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOpcionEstadoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelOpcionEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(radioButtonEstadoTodas)
-                .addGap(36, 36, 36)
-                .addComponent(radioButtonLibres, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(radioButtonOcupadas, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(radioButtonLibres, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(radioButtonOcupadas, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelOpcionEstadoLayout.setVerticalGroup(
             panelOpcionEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelOpcionEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panelOpcionEstadoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelOpcionEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,7 +256,9 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
         botonBuscar2.setBackground(new java.awt.Color(176, 184, 157));
         botonBuscar2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         botonBuscar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/check_in_out.png"))); // NOI18N
+        botonBuscar2.setText("CHECK");
         botonBuscar2.setContentAreaFilled(false);
+        botonBuscar2.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         botonBuscar2.setOpaque(true);
         botonBuscar2.setPreferredSize(new java.awt.Dimension(52, 40));
         botonBuscar2.addActionListener(new java.awt.event.ActionListener() {
@@ -331,34 +317,28 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/check_in_out.png"))); // NOI18N
+        jLabel1.setText("CON RESERVA");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(radioButtonChekInOut)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(radioButtonChekInOut)
-                    .addContainerGap(56, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(radioButtonChekInOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                    .addContainerGap(9, Short.MAX_VALUE)
-                    .addComponent(radioButtonChekInOut)
-                    .addContainerGap(9, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -378,18 +358,18 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonBuscar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboBoxTipos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboBoxPisos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(botonAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(botonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(comboBoxTipos, 0, 166, Short.MAX_VALUE)
+                    .addComponent(comboBoxPisos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(botonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 991, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 985, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -406,22 +386,22 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
                                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(9, 9, 9)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(botonBuscar2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(comboBoxTipos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(panelOpcionCondicion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(botonLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
-                                    .addComponent(botonBuscar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(botonLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)))))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
                             .addComponent(botonAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(comboBoxPisos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(7, 7, 7)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(botonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboBoxTipos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(8, 8, 8)
+                        .addComponent(botonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -512,8 +492,6 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel labelOpcionCondicion;
-    private javax.swing.JLabel labelOpcionEstado;
     private javax.swing.JPanel panelHabitaciones;
     private javax.swing.JPanel panelOpcionCondicion;
     private javax.swing.JPanel panelOpcionEstado;
@@ -531,7 +509,7 @@ public class PanelAdminHabitaciones extends javax.swing.JPanel {
         limpiarPanelesHabitacion();
         System.out.println("cantidad " + habitaciones.size());
         for (Habitacion habitacion : habitaciones) {
-            infoHabitaciones.add(new PanelInfoHabitacion(habitacion, habData, resData, ventana, this, panelAdminReservas, AdministracionView.FECHA));
+            infoHabitaciones.add(new PanelInfoHabitacion(habitacion, habData, resData,huesData, ventana, this, panelAdminReservas, AdministracionView.FECHA));
         }
 
         mostrarHabitaciones();

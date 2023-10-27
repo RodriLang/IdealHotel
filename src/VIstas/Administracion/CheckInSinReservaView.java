@@ -1,28 +1,46 @@
 package VIstas.Administracion;
 
 import AccesoADatos.HabitacionData;
+import AccesoADatos.HuespedData;
 import AccesoADatos.ReservaData;
 import VIstas.AdministracionView;
 import com.toedter.calendar.JCalendar;
 import entidades.Habitacion;
+import entidades.Huesped;
 import entidades.Reserva;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class CheckInSinReservaView extends javax.swing.JFrame {
-
+    
     private Reserva reserva;
+    private Huesped huesped;
     private HabitacionData habData;
     private ReservaData resData;
+    private HuespedData huesData;
     private Habitacion habitacion;
     private PanelAdminHabitaciones panelAdmin;
     private AdministracionView ventana;
-
-    public CheckInSinReservaView(AdministracionView ventana, PanelAdminHabitaciones panelAdmin, HabitacionData habData, ReservaData resData, Habitacion habitacion) {
+    private int dni;
+    private String nombre;
+    private String domicilio;
+    private String correo;
+    private String celular;
+    private LocalDate fechaInn;
+    private LocalDate fechaOut;
+    private int importe;
+    private int diasDisponibles;
+    
+    public CheckInSinReservaView(AdministracionView ventana, PanelAdminHabitaciones panelAdmin,
+            HabitacionData habData, ReservaData resData, HuespedData huesData, Habitacion habitacion) {
         this.habitacion = habitacion;
         this.habData = habData;
         this.resData = resData;
+        this.huesData = huesData;
         this.ventana = ventana;
         this.panelAdmin = panelAdmin;
         initComponents();
@@ -30,6 +48,13 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         labelChekIn.setText("CHECK IN HABITACIÓN N° " + habitacion.getIdHabitacion());
+        fechaInn = AdministracionView.FECHA;
+        textFieldFechaInn.setText(fechaInn.toString());
+        verificarDisponibilidad();
+        dateChooserSalida.setMinSelectableDate(Date.valueOf(fechaInn.plusDays(1)));
+        dateChooserSalida.setMaxSelectableDate(Date.valueOf(fechaInn.plusDays(diasDisponibles)));
+        huesped = new Huesped();
+        // dateChooserSalida.setDate(Date.valueOf(fechaInn.plusDays(1)));
     }
 
     /**
@@ -47,7 +72,6 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
         labelEmail = new javax.swing.JLabel();
         labelDomicilio = new javax.swing.JLabel();
         textFieldDomicilio = new javax.swing.JTextField();
-        labelHuesped = new javax.swing.JLabel();
         labelNombre = new javax.swing.JLabel();
         textFieldNombre = new javax.swing.JTextField();
         labelDocumento = new javax.swing.JLabel();
@@ -59,18 +83,19 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         labelFechaIn = new javax.swing.JLabel();
         labelFechaOut = new javax.swing.JLabel();
-        textFieldValor = new javax.swing.JTextField();
-        labelValor = new javax.swing.JLabel();
-        dateChooserEntrada = new com.toedter.calendar.JDateChooser();
         dateChooserSalida = new com.toedter.calendar.JDateChooser();
+        textFieldFechaInn = new javax.swing.JTextField();
+        labelValor = new javax.swing.JLabel();
+        textFieldValor = new javax.swing.JTextField();
         botonLimpiar = new javax.swing.JButton();
-        botonLimpiar1 = new javax.swing.JButton();
+        botonCancelar = new javax.swing.JButton();
+        labelHuesped = new javax.swing.JLabel();
         labelChekIn = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(27, 118, 134));
-        jPanel1.setPreferredSize(new java.awt.Dimension(984, 581));
+        jPanel1.setPreferredSize(new java.awt.Dimension(430, 581));
 
         jPanel2.setOpaque(false);
 
@@ -90,13 +115,14 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
 
         textFieldDomicilio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textFieldDomicilio.setPreferredSize(new java.awt.Dimension(80, 28));
-
-        labelHuesped.setBackground(new java.awt.Color(176, 184, 157));
-        labelHuesped.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        labelHuesped.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelHuesped.setText("DATOS  DEL  HUESPED");
-        labelHuesped.setOpaque(true);
-        labelHuesped.setPreferredSize(new java.awt.Dimension(300, 30));
+        textFieldDomicilio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textFieldDomicilioKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textFieldDomicilioKeyTyped(evt);
+            }
+        });
 
         labelNombre.setBackground(new java.awt.Color(176, 184, 157));
         labelNombre.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -106,6 +132,14 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
 
         textFieldNombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textFieldNombre.setPreferredSize(new java.awt.Dimension(80, 28));
+        textFieldNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textFieldNombreKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textFieldNombreKeyTyped(evt);
+            }
+        });
 
         labelDocumento.setBackground(new java.awt.Color(176, 184, 157));
         labelDocumento.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -115,9 +149,22 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
 
         textFieldDni.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textFieldDni.setPreferredSize(new java.awt.Dimension(80, 28));
+        textFieldDni.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                textFieldDniFocusLost(evt);
+            }
+        });
+        textFieldDni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldDniActionPerformed(evt);
+            }
+        });
         textFieldDni.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textFieldDniKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textFieldDniKeyTyped(evt);
             }
         });
 
@@ -129,45 +176,59 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
 
         textFieldEmail.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textFieldEmail.setPreferredSize(new java.awt.Dimension(80, 28));
+        textFieldEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textFieldEmailKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textFieldEmailKeyTyped(evt);
+            }
+        });
 
         textFieldTelefono.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textFieldTelefono.setPreferredSize(new java.awt.Dimension(80, 28));
+        textFieldTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textFieldTelefonoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textFieldTelefonoKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelAtributos1Layout = new javax.swing.GroupLayout(panelAtributos1);
         panelAtributos1.setLayout(panelAtributos1Layout);
         panelAtributos1Layout.setHorizontalGroup(
             panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAtributos1Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
+                .addContainerGap()
                 .addGroup(panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelAtributos1Layout.createSequentialGroup()
+                        .addComponent(labelDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(textFieldDomicilio, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE))
                     .addGroup(panelAtributos1Layout.createSequentialGroup()
                         .addGroup(panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(labelEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
+                            .addComponent(labelTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
                         .addGap(12, 12, 12)
                         .addGroup(panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textFieldEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(textFieldTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(panelAtributos1Layout.createSequentialGroup()
-                        .addComponent(labelDomicilio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textFieldDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelAtributos1Layout.createSequentialGroup()
                         .addGroup(panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(labelDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                            .addComponent(labelDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                             .addComponent(labelNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                            .addComponent(textFieldDni, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(labelHuesped, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE))
-                .addContainerGap(53, Short.MAX_VALUE))
+                            .addComponent(textFieldDni, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                            .addComponent(textFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelAtributos1Layout.setVerticalGroup(
             panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAtributos1Layout.createSequentialGroup()
-                .addComponent(labelHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addGroup(panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textFieldDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -185,13 +246,10 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
                     .addGroup(panelAtributos1Layout.createSequentialGroup()
                         .addComponent(textFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)))
-                .addGroup(panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelAtributos1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(labelTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelAtributos1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(textFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20)
+                .addGroup(panelAtributos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -219,9 +277,28 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
         labelFechaOut.setText("FECHA SALIDA");
         labelFechaOut.setOpaque(true);
 
-        textFieldValor.setEditable(false);
-        textFieldValor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        textFieldValor.setPreferredSize(new java.awt.Dimension(80, 28));
+        dateChooserSalida.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dateChooserSalidaPropertyChange(evt);
+            }
+        });
+
+        textFieldFechaInn.setEditable(false);
+        textFieldFechaInn.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        textFieldFechaInn.setPreferredSize(new java.awt.Dimension(80, 28));
+        textFieldFechaInn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldFechaInnActionPerformed(evt);
+            }
+        });
+        textFieldFechaInn.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textFieldFechaInnKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textFieldFechaInnKeyTyped(evt);
+            }
+        });
 
         labelValor.setBackground(new java.awt.Color(176, 184, 157));
         labelValor.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -229,61 +306,47 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
         labelValor.setText("VALOR $");
         labelValor.setOpaque(true);
 
-        dateChooserEntrada.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-                dateChooserEntradaAncestorMoved(evt);
-            }
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-
-        dateChooserSalida.setEnabled(false);
-        dateChooserSalida.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-                dateChooserSalidaAncestorMoved(evt);
-            }
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
+        textFieldValor.setEditable(false);
+        textFieldValor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        textFieldValor.setPreferredSize(new java.awt.Dimension(80, 28));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(64, 64, 64)
+                .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelValor, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(labelFechaOut, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(labelFechaIn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(textFieldValor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dateChooserEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dateChooserSalida, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(labelFechaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelFechaOut, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dateChooserSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textFieldFechaInn, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(labelValor, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(textFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelFechaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateChooserEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(textFieldFechaInn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelFechaOut, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dateChooserSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelValor, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         botonLimpiar.setBackground(new java.awt.Color(176, 184, 157));
@@ -295,137 +358,232 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
             }
         });
 
-        botonLimpiar1.setBackground(new java.awt.Color(176, 184, 157));
-        botonLimpiar1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        botonLimpiar1.setText("CANCELAR");
-        botonLimpiar1.addActionListener(new java.awt.event.ActionListener() {
+        botonCancelar.setBackground(new java.awt.Color(176, 184, 157));
+        botonCancelar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        botonCancelar.setText("CANCELAR");
+        botonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonLimpiar1ActionPerformed(evt);
+                botonCancelarActionPerformed(evt);
             }
         });
+
+        labelHuesped.setBackground(new java.awt.Color(176, 184, 157));
+        labelHuesped.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        labelHuesped.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelHuesped.setText("DATOS  DEL  HUESPED");
+        labelHuesped.setOpaque(true);
+        labelHuesped.setPreferredSize(new java.awt.Dimension(300, 30));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelAtributos1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(panelAtributos1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(botonLimpiar1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(botonLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(7, Short.MAX_VALUE))
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(botonLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
+                                .addComponent(botonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelAtributos1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonLimpiar)
-                    .addComponent(botonLimpiar1))
+                    .addComponent(botonCancelar))
+                .addGap(22, 22, 22))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         labelChekIn.setBackground(new java.awt.Color(176, 184, 157));
         labelChekIn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         labelChekIn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelChekIn.setText("CHECK IN");
         labelChekIn.setOpaque(true);
-        labelChekIn.setPreferredSize(new java.awt.Dimension(300, 30));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelChekIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(labelChekIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 431, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 583, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        labelChekIn.setPreferredSize(new java.awt.Dimension(300, 40));
+        getContentPane().add(labelChekIn, java.awt.BorderLayout.PAGE_START);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textFieldDniKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldDniKeyReleased
-
-        if (textFieldDni.getText().equals("dni")) {
-
-        }
-    }//GEN-LAST:event_textFieldDniKeyReleased
-
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
-
+        
+        huesped.setAlojado(true);
+        huesped.setCelular(textFieldTelefono.getText());
+        huesped.setCorreo(textFieldEmail.getText());
+        try {
+            huesped.setDni(Integer.parseInt(textFieldDni.getText()));
+        } catch (NumberFormatException e) {
+        }
+        huesped.setDomicilio(textFieldDomicilio.getText());
+        huesped.setNombre(textFieldNombre.getText());
+        reserva = new Reserva(huesped, habitacion, habitacion.getTipoHabitacion().getCantidadMaxPax(), fechaInn, fechaOut);
+        if (huesData.buscarHuespedDni(dni) != null) {
+            huesData.modificarHuesped(huesped);
+        } else {
+            huesData.agregarHuesped(huesped);
+        }
         habData.ocuparHabitacion(habitacion.getIdHabitacion());
-
         resData.guardarReserva(reserva);
         limpiarCampos();
+        panelAdmin.filtrarHabitaciones();
+        this.dispose();
     }//GEN-LAST:event_botonGuardarActionPerformed
 
     private void botonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLimpiarActionPerformed
         limpiarCampos();
     }//GEN-LAST:event_botonLimpiarActionPerformed
 
-    private void botonLimpiar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLimpiar1ActionPerformed
+    private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         this.dispose();
-    }//GEN-LAST:event_botonLimpiar1ActionPerformed
+    }//GEN-LAST:event_botonCancelarActionPerformed
 
-    private void dateChooserEntradaAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_dateChooserEntradaAncestorMoved
-        dateChooserEntrada.setMinSelectableDate(Date.valueOf(AdministracionView.FECHA));
-        dateChooserSalida.setEnabled(true);
+    private void dateChooserSalidaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateChooserSalidaPropertyChange
+        if (dateChooserSalida.getDate() != null) {
+            fechaOut = dateChooserSalida.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            int dias = (int) ChronoUnit.DAYS.between(fechaInn, fechaOut);
+            importe = dias * habitacion.getPrecio();
+            textFieldValor.setText(importe + "");
+        }
+        verificarCampos();
+    }//GEN-LAST:event_dateChooserSalidaPropertyChange
 
-    }//GEN-LAST:event_dateChooserEntradaAncestorMoved
+    private void textFieldDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldDniActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldDniActionPerformed
 
-    private void dateChooserSalidaAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_dateChooserSalidaAncestorMoved
+    private void textFieldDniKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldDniKeyReleased
         
-        dateChooserEntrada.setMaxSelectableDate(Date.valueOf(AdministracionView.FECHA.plusDays(90)));       
-        dateChooserSalida.setMinSelectableDate(dateChooserEntrada.getDate());
-    }//GEN-LAST:event_dateChooserSalidaAncestorMoved
+        try {
+            dni = Integer.valueOf(textFieldDni.getText());
+            if (huesData.buscarHuespedDni(dni).getIdHuesped() != 0) {
+                huesped = huesData.buscarHuespedDni(dni);
+            }
+            if (huesped != null) {
+                cargarDatosHuesped();
+            } else {
+                limpiarCampos();
+                textFieldDni.setText(dni + "");
+                textFieldValor.setText(importe + "");
+                dateChooserSalida.setDate(Date.valueOf(fechaOut));
+            }
+        } catch (NumberFormatException | NullPointerException e) {
+        }
+        verificarCampos();
+    }//GEN-LAST:event_textFieldDniKeyReleased
 
+    private void textFieldDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldDniKeyTyped
+        char caracter = evt.getKeyChar();
+        if (textFieldDni.getText().length() >= 8
+                || !Character.isDigit(caracter)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_textFieldDniKeyTyped
+
+    private void textFieldFechaInnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldFechaInnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldFechaInnActionPerformed
+
+    private void textFieldFechaInnKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldFechaInnKeyReleased
+        verificarCampos();
+    }//GEN-LAST:event_textFieldFechaInnKeyReleased
+
+    private void textFieldFechaInnKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldFechaInnKeyTyped
+        verificarCampos();
+    }//GEN-LAST:event_textFieldFechaInnKeyTyped
+
+    private void textFieldNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldNombreKeyReleased
+        
+        nombre = textFieldNombre.getText();
+        verificarCampos();
+    }//GEN-LAST:event_textFieldNombreKeyReleased
+
+    private void textFieldDomicilioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldDomicilioKeyReleased
+        domicilio = textFieldDomicilio.getText();
+        verificarCampos();
+    }//GEN-LAST:event_textFieldDomicilioKeyReleased
+
+    private void textFieldEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldEmailKeyReleased
+        correo = textFieldEmail.getText();
+        verificarCampos();
+    }//GEN-LAST:event_textFieldEmailKeyReleased
+
+    private void textFieldTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldTelefonoKeyReleased
+        celular = textFieldTelefono.getText();
+        verificarCampos();
+    }//GEN-LAST:event_textFieldTelefonoKeyReleased
+
+    private void textFieldNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldNombreKeyTyped
+        char caracter = evt.getKeyChar();
+        if (Character.isDigit(caracter)
+                || ((caracter < 65 || caracter > 122) && caracter != 32)
+                || textFieldNombre.getText().length() >= 60) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_textFieldNombreKeyTyped
+
+    private void textFieldDomicilioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldDomicilioKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldDomicilioKeyTyped
+
+    private void textFieldEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldEmailKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldEmailKeyTyped
+
+    private void textFieldTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldTelefonoKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter)
+                || (caracter < 40 || caracter < 41)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_textFieldTelefonoKeyTyped
+
+    private void textFieldDniFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textFieldDniFocusLost
+        try {
+            Integer.parseInt(textFieldDni.getText());
+        } catch (NumberFormatException e) {
+            textFieldDni.setText("");
+        }
+        if(textFieldDni.getText().length()>8){
+           textFieldDni.setText(""); 
+        }
+    }//GEN-LAST:event_textFieldDniFocusLost
+    
     private void limpiarCampos() {
-
         textFieldNombre.setText("");
         textFieldDni.setText("");
         textFieldEmail.setText("");
@@ -433,13 +591,13 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
         textFieldDomicilio.setText("");
         textFieldValor.setText("");
         botonGuardar.setEnabled(false);
+        dateChooserSalida.setDate(null);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonGuardar;
     private javax.swing.JButton botonLimpiar;
-    private javax.swing.JButton botonLimpiar1;
-    private com.toedter.calendar.JDateChooser dateChooserEntrada;
     private com.toedter.calendar.JDateChooser dateChooserSalida;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -458,9 +616,43 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldDni;
     private javax.swing.JTextField textFieldDomicilio;
     private javax.swing.JTextField textFieldEmail;
+    private javax.swing.JTextField textFieldFechaInn;
     private javax.swing.JTextField textFieldNombre;
     private javax.swing.JTextField textFieldTelefono;
     private javax.swing.JTextField textFieldValor;
     // End of variables declaration//GEN-END:variables
 
+    private void cargarDatosHuesped() {
+        textFieldNombre.setText(huesped.getNombre());
+        textFieldDni.setText(huesped.getDni() + "");
+        textFieldEmail.setText(huesped.getCorreo());
+        textFieldTelefono.setText(huesped.getCelular());
+        textFieldDomicilio.setText(huesped.getDomicilio());
+    }
+    
+    private void verificarDisponibilidad() {
+        diasDisponibles = 15;
+        for (Reserva reserva : resData.buscarReservaPorHabitacion(habitacion.getIdHabitacion())) {
+            for (int i = 1; i < 15; i++) {
+                if (reserva.getFechaInn().equals(fechaInn.plusDays(i))) {
+                    diasDisponibles = i - 1;
+                }
+            }
+        }
+    }
+    
+    private void verificarCampos() {
+        if (textFieldDni.getText().length() == 8
+                && !textFieldDomicilio.getText().isEmpty()
+                && !textFieldEmail.getText().isEmpty()
+                && !textFieldNombre.getText().isEmpty()
+                && !textFieldTelefono.getText().isEmpty()
+                && dateChooserSalida.getDate() != null
+                && (!textFieldValor.equals("0")
+                && !textFieldValor.equals(""))) {
+            botonGuardar.setEnabled(true);
+        } else {
+            botonGuardar.setEnabled(false);
+        }
+    }
 }
