@@ -387,9 +387,6 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
 
     private void BotonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonLimpiarActionPerformed
         modelo.setRowCount(0);
-        ComboId.setSelectedIndex(0);
-        ComboDni.setSelectedIndex(0);
-        ComboNombre.setSelectedIndex(0);
         limpiarDetalles();
     }//GEN-LAST:event_BotonLimpiarActionPerformed
 
@@ -420,6 +417,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
         if (selectedValue != null) {
         llenarTablaPorDni();
         }
+
         
     }//GEN-LAST:event_ComboDniActionPerformed
 
