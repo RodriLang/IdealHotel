@@ -134,7 +134,7 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
         labelEstado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelEstado.setText("LIBRE");
         labelEstado.setOpaque(true);
-        labelEstado.setPreferredSize(new java.awt.Dimension(45, 40));
+        labelEstado.setPreferredSize(new java.awt.Dimension(45, 50));
         panelEstado.add(labelEstado, java.awt.BorderLayout.CENTER);
 
         panelNorte.add(panelEstado, java.awt.BorderLayout.CENTER);
@@ -160,12 +160,12 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
         panelCentro.setLayout(new java.awt.BorderLayout());
 
         panelEdit.setOpaque(false);
-        panelEdit.setPreferredSize(new java.awt.Dimension(35, 78));
+        panelEdit.setPreferredSize(new java.awt.Dimension(35, 60));
         panelEdit.setLayout(new java.awt.GridLayout(2, 0));
 
         botonEditar.setBackground(new java.awt.Color(42, 179, 203));
         botonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/edit.png"))); // NOI18N
-        botonEditar.setPreferredSize(new java.awt.Dimension(35, 35));
+        botonEditar.setPreferredSize(new java.awt.Dimension(35, 30));
         botonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonEditarActionPerformed(evt);
@@ -175,7 +175,7 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
 
         botonEliminar.setBackground(new java.awt.Color(255, 0, 0));
         botonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/delete.png"))); // NOI18N
-        botonEliminar.setPreferredSize(new java.awt.Dimension(35, 35));
+        botonEliminar.setPreferredSize(new java.awt.Dimension(35, 30));
         botonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonEliminarActionPerformed(evt);
@@ -185,10 +185,12 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
 
         panelCentro.add(panelEdit, java.awt.BorderLayout.EAST);
 
+        panelDatos.setMinimumSize(new java.awt.Dimension(55, 42));
         panelDatos.setOpaque(false);
         panelDatos.setPreferredSize(new java.awt.Dimension(80, 39));
         panelDatos.setLayout(new java.awt.GridLayout(2, 0));
 
+        panelNum.setBorder(null);
         panelNum.setOpaque(false);
         panelNum.setLayout(new java.awt.BorderLayout());
 
@@ -205,24 +207,25 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
 
         panelDatos.add(panelNum);
 
+        panelPIso.setBorder(null);
         panelPIso.setOpaque(false);
         panelPIso.setLayout(new java.awt.BorderLayout());
 
         labelNPiso.setFont(new java.awt.Font("Georgia", 1, 14)); // NOI18N
         labelNPiso.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        labelNPiso.setText("1°");
+        labelNPiso.setText("1");
         labelNPiso.setPreferredSize(new java.awt.Dimension(20, 14));
         panelPIso.add(labelNPiso, java.awt.BorderLayout.WEST);
 
         labelPiso.setFont(new java.awt.Font("Georgia", 1, 14)); // NOI18N
-        labelPiso.setText("  PISO");
+        labelPiso.setText("°  PISO");
         panelPIso.add(labelPiso, java.awt.BorderLayout.CENTER);
 
         panelDatos.add(panelPIso);
 
         panelCentro.add(panelDatos, java.awt.BorderLayout.WEST);
 
-        panelReservas.setMinimumSize(new java.awt.Dimension(80, 36));
+        panelReservas.setMinimumSize(new java.awt.Dimension(90, 36));
         panelReservas.setOpaque(false);
         panelReservas.setPreferredSize(new java.awt.Dimension(70, 35));
         panelReservas.setLayout(new java.awt.GridLayout(1, 0));
@@ -253,7 +256,7 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
             System.out.println("salida " + reserva.getFechaOut());
             ventana.mostrarPanelContenido(new PanelCheckInOut(ventana, panelAdmin, reserva, habData, resData), null);
         } else if (botonCheckInOut.getText().equals("Reservar")) {
-            new CheckInSinReservaView(ventana, panelAdmin, habData, resData, huesData, habitacion);
+            new CheckInSinReservaView(panelAdmin, habData, resData, huesData, habitacion);
         }
 
     }//GEN-LAST:event_botonCheckInOutActionPerformed

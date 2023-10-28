@@ -14,7 +14,7 @@ import java.time.temporal.ChronoUnit;
 import javax.swing.JFrame;
 
 public class CheckInSinReservaView extends javax.swing.JFrame {
-    
+
     private Reserva reserva;
     private Huesped huesped;
     private HabitacionData habData;
@@ -22,24 +22,18 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
     private HuespedData huesData;
     private Habitacion habitacion;
     private PanelAdminHabitaciones panelAdmin;
-    private AdministracionView ventana;
     private int dni;
-    private String nombre;
-    private String domicilio;
-    private String correo;
-    private String celular;
     private LocalDate fechaInn;
     private LocalDate fechaOut;
     private int importe;
     private int diasDisponibles;
-    
-    public CheckInSinReservaView(AdministracionView ventana, PanelAdminHabitaciones panelAdmin,
+
+    public CheckInSinReservaView(PanelAdminHabitaciones panelAdmin,
             HabitacionData habData, ReservaData resData, HuespedData huesData, Habitacion habitacion) {
         this.habitacion = habitacion;
         this.habData = habData;
         this.resData = resData;
         this.huesData = huesData;
-        this.ventana = ventana;
         this.panelAdmin = panelAdmin;
         initComponents();
         this.setVisible(true);
@@ -52,7 +46,6 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
         dateChooserSalida.setMinSelectableDate(Date.valueOf(fechaInn.plusDays(1)));
         dateChooserSalida.setMaxSelectableDate(Date.valueOf(fechaInn.plusDays(diasDisponibles)));
         huesped = new Huesped();
-        // dateChooserSalida.setDate(Date.valueOf(fechaInn.plusDays(1)));
     }
 
     /**
@@ -439,7 +432,7 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
-        
+
         huesped.setAlojado(true);
         huesped.setCelular(textFieldTelefono.getText());
         huesped.setCorreo(textFieldEmail.getText());
@@ -485,13 +478,13 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
     }//GEN-LAST:event_textFieldDniActionPerformed
 
     private void textFieldDniKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldDniKeyReleased
-        
+
         try {
             dni = Integer.valueOf(textFieldDni.getText());
             if (huesData.buscarHuespedDni(dni).getIdHuesped() != 0) {
                 huesped = huesData.buscarHuespedDni(dni);
             }
-            if (huesped != null) {
+            if (huesData.buscarHuespedDni(dni) != null) {
                 cargarDatosHuesped();
             } else {
                 limpiarCampos();
@@ -500,6 +493,14 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
                 dateChooserSalida.setDate(Date.valueOf(fechaOut));
             }
         } catch (NumberFormatException | NullPointerException e) {
+            if (textFieldDni.getText().length() >= 7) {
+                limpiarCampos();
+                textFieldDni.setText(dni + "");
+                textFieldValor.setText(importe + "");
+            }
+            if (fechaOut != null) {
+                dateChooserSalida.setDate(Date.valueOf(fechaOut));
+            }
         }
         verificarCampos();
     }//GEN-LAST:event_textFieldDniKeyReleased
@@ -525,23 +526,18 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
     }//GEN-LAST:event_textFieldFechaInnKeyTyped
 
     private void textFieldNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldNombreKeyReleased
-        
-        nombre = textFieldNombre.getText();
         verificarCampos();
     }//GEN-LAST:event_textFieldNombreKeyReleased
 
     private void textFieldDomicilioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldDomicilioKeyReleased
-        domicilio = textFieldDomicilio.getText();
         verificarCampos();
     }//GEN-LAST:event_textFieldDomicilioKeyReleased
 
     private void textFieldEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldEmailKeyReleased
-        correo = textFieldEmail.getText();
         verificarCampos();
     }//GEN-LAST:event_textFieldEmailKeyReleased
 
     private void textFieldTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldTelefonoKeyReleased
-        celular = textFieldTelefono.getText();
         verificarCampos();
     }//GEN-LAST:event_textFieldTelefonoKeyReleased
 
@@ -576,11 +572,11 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             textFieldDni.setText("");
         }
-        if(textFieldDni.getText().length()>7){
-           textFieldDni.setText(""); 
+        if (textFieldDni.getText().length() > 8) {
+            textFieldDni.setText("");
         }
     }//GEN-LAST:event_textFieldDniFocusLost
-    
+
     private void limpiarCampos() {
         textFieldNombre.setText("");
         textFieldDni.setText("");
@@ -627,7 +623,7 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
         textFieldTelefono.setText(huesped.getCelular());
         textFieldDomicilio.setText(huesped.getDomicilio());
     }
-    
+
     private void verificarDisponibilidad() {
         diasDisponibles = 15;
         for (Reserva reserva : resData.buscarReservaPorHabitacion(habitacion.getIdHabitacion())) {
@@ -638,9 +634,9 @@ public class CheckInSinReservaView extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void verificarCampos() {
-        if (textFieldDni.getText().length() == 8
+        if (textFieldDni.getText().length() >= 7
                 && !textFieldDomicilio.getText().isEmpty()
                 && !textFieldEmail.getText().isEmpty()
                 && !textFieldNombre.getText().isEmpty()
