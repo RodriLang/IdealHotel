@@ -9,15 +9,13 @@ import VistasInfo.Galeria;
 import VistasInfo.SobreNosotros;
 import java.awt.Color;
 import javax.swing.JButton;
-import java.applet.Applet;
-import java.applet.AudioClip;
-import java.net.URL;
 
 public class MenuPrincipal extends javax.swing.JFrame implements AuthenticationListener {
 
     private HabitacionData habData;
     private HuespedData huesData;
     private ReservaData reserData;
+    private boolean loginIn;
 
     public MenuPrincipal(HabitacionData habData, HuespedData huesData, ReservaData reserData) {
         this.habData = habData;
@@ -26,6 +24,7 @@ public class MenuPrincipal extends javax.swing.JFrame implements AuthenticationL
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        this.loginIn = false;
     }
 
     public MenuPrincipal() {
@@ -269,10 +268,15 @@ public class MenuPrincipal extends javax.swing.JFrame implements AuthenticationL
     }//GEN-LAST:event_botonNosotrosActionPerformed
 
     private void botonAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAdminActionPerformed
-        //mostrarVentana(new AdministracionView(habData, huesData, reserData));
-        VentanaLogin login = new VentanaLogin();
-        login.setVisible(true);
-        login.setAuthenticationListener(this); //establece esta clase como el listener de la autenticacion de VentanaLogin
+
+        if (loginIn == false) {
+            VentanaLogin login = new VentanaLogin();
+            login.setVisible(true);
+            login.setAuthenticationListener(this); //establece esta clase como el listener de la autenticacion de VentanaLogin
+            loginIn = true;
+        } else {
+            mostrarVentana(new AdministracionView(habData, huesData, reserData));
+        }
     }//GEN-LAST:event_botonAdminActionPerformed
 
     private void botonGaleriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGaleriaActionPerformed
