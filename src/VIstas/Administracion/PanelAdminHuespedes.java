@@ -28,8 +28,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
     
     public PanelAdminHuespedes() {
         this.huespedData=huespedData;
-        this.huesped=huesped;
-        
+        this.huesped=huesped; 
         initComponents();
         armarCabecera();
         cargarComboId();
@@ -37,6 +36,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
         cargarComboNombre();
         modelo.setRowCount(0);
         this.setVisible(false);
+        TablaHuespedes.getTableHeader().setReorderingAllowed(false);
     }
 
     /**
@@ -233,6 +233,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        TablaHuespedes.getTableHeader().setReorderingAllowed(false);
         TablaHuespedes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TablaHuespedesMouseClicked(evt);
@@ -263,12 +264,27 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
 
         DetNombre.setBackground(new java.awt.Color(27, 118, 134));
         DetNombre.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        DetNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                DetNombreKeyTyped(evt);
+            }
+        });
 
         DetDni.setBackground(new java.awt.Color(27, 118, 134));
         DetDni.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        DetDni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                DetDniKeyTyped(evt);
+            }
+        });
 
         DetTelefono.setBackground(new java.awt.Color(27, 118, 134));
         DetTelefono.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        DetTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                DetTelefonoKeyTyped(evt);
+            }
+        });
 
         DetDomicilio.setBackground(new java.awt.Color(27, 118, 134));
         DetDomicilio.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -452,6 +468,27 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
         ComboDni.setSelectedIndex(0);
         ComboNombre.setSelectedIndex(0);
     }//GEN-LAST:event_ComboIdActionPerformed
+
+    private void DetNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DetNombreKeyTyped
+        char c = evt.getKeyChar();
+        if (Character.isDigit(c)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_DetNombreKeyTyped
+
+    private void DetDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DetDniKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_DetDniKeyTyped
+
+    private void DetTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DetTelefonoKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_DetTelefonoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

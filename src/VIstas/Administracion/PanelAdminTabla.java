@@ -14,14 +14,15 @@ import javax.swing.table.DefaultTableModel;
 import AccesoADatos.HabitacionData;
 import AccesoADatos.HuespedData;
 import AccesoADatos.ReservaData;
+import VIstas.AdministracionView;
 import entidades.Habitacion;
 import entidades.Huesped;
 import entidades.Reserva;
 import java.awt.Color;
 import java.awt.Component;
+import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -37,8 +38,7 @@ public class PanelAdminTabla extends javax.swing.JPanel {
             return false;//ninguna celda es editable
         } 
     };
-    private LocalDate fecha1 = LocalDate.of(2023,11,1);
-    private LocalDate fecha2 = LocalDate.of(2024,03,1);
+    private Date fechaActual= Date.from(AdministracionView.FECHA.atStartOfDay(ZoneId.systemDefault()).toInstant());
     private HabitacionData habitacionData= new HabitacionData();
     private List<LocalDate> fechas=new ArrayList<>();
     
@@ -54,6 +54,7 @@ public class PanelAdminTabla extends javax.swing.JPanel {
         llenarTablaPorPiso();
         TablaHabitaciones.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         TablaHabitaciones.setAutoCreateRowSorter(true);
+        TablaHabitaciones.getTableHeader().setReorderingAllowed(false);
     }
 
     /**
@@ -136,6 +137,7 @@ public class PanelAdminTabla extends javax.swing.JPanel {
         ));
         TablaHabitaciones.setRowHeight(20);
         TablaHabitaciones.setSelectionForeground(new java.awt.Color(204, 204, 255));
+        TablaHabitaciones.getTableHeader().setReorderingAllowed(false);
         TablaHabitaciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TablaHabitacionesMouseClicked(evt);
@@ -365,12 +367,13 @@ public class PanelAdminTabla extends javax.swing.JPanel {
     private void armarCabecera() {
         
        ArrayList<LocalDate> fechas = new ArrayList<>();
-        LocalDate fechaActual =fecha1;
         modelo.addColumn("HAB");
+        LocalDate fechaInicio= Instant.ofEpochMilli(fechaActual.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate fechaFin=fechaInicio.plusDays(120);
         
-        while (!fechaActual.isAfter(fecha2)) {
-            fechas.add(fechaActual);
-            fechaActual = fechaActual.plusDays(1);
+        while (!fechaInicio.isAfter(fechaFin)) {
+            fechas.add(fechaInicio);
+            fechaInicio = fechaInicio.plusDays(1);
         }
        
         DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM");
@@ -411,7 +414,9 @@ public class PanelAdminTabla extends javax.swing.JPanel {
     private void llenarTablaPorPiso(){
         modelo.setRowCount(0);
         List<Integer> habitaciones = habitacionData.listarIDhabitacionesHabilitadasPorPiso((int)ComboPisos.getSelectedItem());
-        List<LocalDate> fechas = reservaData.obtenerFechas(fecha1, fecha2);
+        LocalDate fechaInicio= Instant.ofEpochMilli(fechaActual.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate fechaFin=fechaInicio.plusDays(120);
+        List<LocalDate> fechas = reservaData.obtenerFechas(fechaInicio, fechaFin);
  
         
         int columnas=TablaHabitaciones.getColumnCount();
@@ -443,7 +448,9 @@ public class PanelAdminTabla extends javax.swing.JPanel {
     private void llenarTablaPorTipoHabitacion(){
         modelo.setRowCount(0);
         List<Habitacion> habitaciones = habitacionData.listarHabitacionesPorTipo((TipoHabitacion) ComboTipoHabitaciones.getSelectedItem());
-        List<LocalDate> fechas = reservaData.obtenerFechas(fecha1, fecha2);
+        LocalDate fechaInicio= Instant.ofEpochMilli(fechaActual.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate fechaFin=fechaInicio.plusDays(120);
+        List<LocalDate> fechas = reservaData.obtenerFechas(fechaInicio, fechaFin);
  
         
         int columnas=TablaHabitaciones.getColumnCount();
