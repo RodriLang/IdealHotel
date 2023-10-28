@@ -14,7 +14,6 @@ import javax.swing.table.DefaultTableModel;
 import AccesoADatos.HabitacionData;
 import AccesoADatos.HuespedData;
 import AccesoADatos.ReservaData;
-import VIstas.AdministracionView;
 import entidades.Habitacion;
 import entidades.Huesped;
 import entidades.Reserva;
@@ -38,8 +37,8 @@ public class PanelAdminTabla extends javax.swing.JPanel {
             return false;//ninguna celda es editable
         } 
     };
-    private LocalDate fecha1 = LocalDate.of(2023,12,1);
-    private LocalDate fecha2 = LocalDate.of(2023,12,20);
+    private LocalDate fecha1 = LocalDate.of(2023,11,1);
+    private LocalDate fecha2 = LocalDate.of(2024,03,1);
     private HabitacionData habitacionData= new HabitacionData();
     private List<LocalDate> fechas=new ArrayList<>();
     
@@ -51,10 +50,8 @@ public class PanelAdminTabla extends javax.swing.JPanel {
         this.setVisible(false);
         armarCabecera();
         cargarComboPisos();
-        //System.out.println("armar Cabecera: "+modelo.getColumnCount());
         cargarComboBoxTipoHabitacion();
         llenarTablaPorPiso();
-        //System.out.println("llenar tabla initComponents: "+modelo.getColumnCount());
         TablaHabitaciones.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         TablaHabitaciones.setAutoCreateRowSorter(true);
     }
@@ -83,22 +80,14 @@ public class PanelAdminTabla extends javax.swing.JPanel {
         jLabel = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         DetNombre = new javax.swing.JTextField();
         DetDni = new javax.swing.JTextField();
         DetTelefono = new javax.swing.JTextField();
-        DetTextCheckInn = new javax.swing.JTextField();
-        DetTextCheckOut = new javax.swing.JTextField();
         DetDomicilio = new javax.swing.JTextField();
         DetIdHuesped = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        DetIdReserva = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         DetCorreo = new javax.swing.JTextField();
         DetImporte = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        DetAlojado = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(27, 118, 134));
         setPreferredSize(new java.awt.Dimension(1007, 573));
@@ -107,11 +96,13 @@ public class PanelAdminTabla extends javax.swing.JPanel {
         jPanel5.setPreferredSize(new java.awt.Dimension(1007, 573));
 
         jPanel1.setBackground(new java.awt.Color(27, 118, 134));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Habitaciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 16), new java.awt.Color(51, 51, 255))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "HABITACIONES", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 16))); // NOI18N
 
-        jLabel2.setText("Tipo de Habitación");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setText("TIPO HABITACION");
 
-        jLabel1.setText("Piso");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setText("PISO");
 
         ComboPisos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,70 +172,61 @@ public class PanelAdminTabla extends javax.swing.JPanel {
                         .addComponent(jLabel2)
                         .addComponent(ComboTipoHabitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jPanel3.setBackground(new java.awt.Color(27, 118, 134));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalles", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 16), new java.awt.Color(51, 51, 255))); // NOI18N
         jPanel3.setPreferredSize(new java.awt.Dimension(956, 177));
 
-        jLabel5.setText("E-Mail:");
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel5.setText("E-MAIL:");
 
-        jLabel8.setText("ID Huésped:");
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel8.setText("ID HUESPED:");
 
-        jLabel7.setText("Teléfono:");
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel7.setText("TELEFONO:");
 
-        jLabel.setText("Domicilio");
+        jLabel.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel.setText("DOMICILIO:");
 
-        jLabel6.setText("Dni:");
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel6.setText("DNI:");
 
-        jLabel15.setText("Huésped:");
-
-        jLabel9.setText("Check-Inn:");
-
-        jLabel10.setText("Check-Out:");
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel15.setText("HUESPED:");
 
         DetNombre.setEditable(false);
         DetNombre.setBackground(new java.awt.Color(27, 118, 134));
         DetNombre.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        DetNombre.setForeground(new java.awt.Color(0, 153, 255));
 
         DetDni.setEditable(false);
         DetDni.setBackground(new java.awt.Color(27, 118, 134));
+        DetDni.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         DetTelefono.setEditable(false);
         DetTelefono.setBackground(new java.awt.Color(27, 118, 134));
-
-        DetTextCheckInn.setEditable(false);
-        DetTextCheckInn.setBackground(new java.awt.Color(27, 118, 134));
-
-        DetTextCheckOut.setEditable(false);
-        DetTextCheckOut.setBackground(new java.awt.Color(27, 118, 134));
+        DetTelefono.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         DetDomicilio.setEditable(false);
         DetDomicilio.setBackground(new java.awt.Color(27, 118, 134));
+        DetDomicilio.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         DetIdHuesped.setEditable(false);
         DetIdHuesped.setBackground(new java.awt.Color(27, 118, 134));
+        DetIdHuesped.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
-        jLabel3.setText("ID Reserva:");
-
-        DetIdReserva.setEditable(false);
-        DetIdReserva.setBackground(new java.awt.Color(27, 118, 134));
-
-        jLabel4.setText("Importe:");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel4.setText("IMPORTE:");
 
         DetCorreo.setEditable(false);
         DetCorreo.setBackground(new java.awt.Color(27, 118, 134));
+        DetCorreo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         DetImporte.setEditable(false);
         DetImporte.setBackground(new java.awt.Color(27, 118, 134));
-
-        jLabel11.setText("Alojado:");
-
-        DetAlojado.setEditable(false);
-        DetAlojado.setBackground(new java.awt.Color(27, 118, 134));
+        DetImporte.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -255,54 +237,28 @@ public class PanelAdminTabla extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel)
                     .addComponent(jLabel15)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel5))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(DetDomicilio, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+                    .addComponent(DetNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+                    .addComponent(DetCorreo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(23, 23, 23)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(DetDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(DetNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(39, 39, 39)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(0, 1, Short.MAX_VALUE)
-                                .addComponent(jLabel7)
-                                .addGap(48, 48, 48)))
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(DetIdHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(39, 39, 39)
-                                .addComponent(jLabel3)
-                                .addGap(31, 31, 31)
-                                .addComponent(DetIdReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(DetTelefono)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(DetDni, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                            .addComponent(DetTextCheckInn))
+                        .addComponent(DetIdHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(DetCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addGap(29, 29, 29)
-                                .addComponent(DetTextCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(24, 24, 24)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel11))
-                        .addGap(42, 42, 42)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(DetImporte, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                            .addComponent(DetAlojado))))
-                .addGap(42, 42, 42))
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(DetDni, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(DetTelefono)
+                    .addComponent(DetImporte))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -312,38 +268,20 @@ public class PanelAdminTabla extends javax.swing.JPanel {
                     .addComponent(DetNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(DetIdHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(DetIdReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6)
+                    .addComponent(DetDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel)
                     .addComponent(DetDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(DetTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel6)
-                                .addComponent(DetDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(DetCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel11))
-                                .addGap(2, 2, 2)))
-                        .addComponent(jLabel10))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(DetAlojado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(DetTextCheckInn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(DetTextCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(DetImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(DetCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4)
+                    .addComponent(DetImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -356,15 +294,15 @@ public class PanelAdminTabla extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -401,31 +339,23 @@ public class PanelAdminTabla extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Integer> ComboPisos;
     private javax.swing.JComboBox<TipoHabitacion> ComboTipoHabitaciones;
-    private javax.swing.JTextField DetAlojado;
     private javax.swing.JTextField DetCorreo;
     private javax.swing.JTextField DetDni;
     private javax.swing.JTextField DetDomicilio;
     private javax.swing.JTextField DetIdHuesped;
-    private javax.swing.JTextField DetIdReserva;
     private javax.swing.JTextField DetImporte;
     private javax.swing.JTextField DetNombre;
     private javax.swing.JTextField DetTelefono;
-    private javax.swing.JTextField DetTextCheckInn;
-    private javax.swing.JTextField DetTextCheckOut;
     private javax.swing.JTable TablaHabitaciones;
     private javax.swing.JLabel jLabel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
@@ -433,7 +363,6 @@ public class PanelAdminTabla extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void armarCabecera() {
-            //(List<LocalDate> fechasDeLaTemporada)
         
        ArrayList<LocalDate> fechas = new ArrayList<>();
         LocalDate fechaActual =fecha1;
@@ -453,12 +382,9 @@ public class PanelAdminTabla extends javax.swing.JPanel {
             
         TablaHabitaciones.setModel(modelo);
         for (int column = 1; column < TablaHabitaciones.getColumnCount(); column++) {
-            TablaHabitaciones.getColumnModel().getColumn(column).setCellRenderer(new CustomCellRenderer());
+            TablaHabitaciones.getColumnModel().getColumn(column).setCellRenderer(new CustomCellRenderer());//Colorea las celdas con un criterio según lo que contiene
         }
         
-//        JScrollPane scrollPane = new JScrollPane(TablaHabitaciones);
-//        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-//        this.add(scrollPane);
     }
 
     private void cargarComboPisos() {
@@ -551,6 +477,7 @@ public class PanelAdminTabla extends javax.swing.JPanel {
         limpiarDetalles();
         try{
             int valorCelda=((int)TablaHabitaciones.getValueAt(TablaHabitaciones.getSelectedRow(), TablaHabitaciones.getSelectedColumn()));
+            if(TablaHabitaciones.getSelectedColumn()!=0){
             Reserva reserva=reservaData.buscarReservaId(valorCelda);
             Huesped huesped = huespedData.buscarHuespedId(reserva.getHuesped().getIdHuesped());
             DetNombre.setText(huesped.getNombre());
@@ -559,15 +486,8 @@ public class PanelAdminTabla extends javax.swing.JPanel {
             DetTelefono.setText(huesped.getCelular());
             DetCorreo.setText(huesped.getCorreo());
             DetIdHuesped.setText(String.valueOf(reserva.getHuesped().getIdHuesped()));
-            DetIdReserva.setText(String.valueOf(reserva.getIdReserva()));
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            DetTextCheckInn.setText(reserva.getFechaInn().format(formato));
-            DetTextCheckOut.setText(reserva.getFechaOut().format(formato));
             DetImporte.setText(String.valueOf(reserva.getImporte()));
-            if(huesped.isAlojado()==true){
-                DetAlojado.setText("SI");
-            }else{
-                DetAlojado.setText("NO");
             }
         }catch(NullPointerException ex){}
 
@@ -580,13 +500,9 @@ public class PanelAdminTabla extends javax.swing.JPanel {
         DetTelefono.setText("");
         DetCorreo.setText("");
         DetIdHuesped.setText("");
-        DetIdReserva.setText("");
-        DetTextCheckInn.setText("");
-        DetTextCheckOut.setText("");
         DetImporte.setText("");
-        DetAlojado.setText("");
     }
-    
+    //Colorea las celdas con un criterio según lo que contiene
     class CustomCellRenderer extends DefaultTableCellRenderer {
 
         @Override

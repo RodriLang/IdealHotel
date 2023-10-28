@@ -10,7 +10,6 @@ import entidades.Huesped;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
-import static javax.management.Query.value;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -417,7 +416,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
 
     private void ComboNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboNombreActionPerformed
         limpiarDetalles();
-        if(ComboDni.getSelectedIndex()!=0){
+        if(ComboNombre.getSelectedIndex()!=0){
         String selectedValue=ComboNombre.getSelectedItem().toString();
         if(selectedValue!= null){
             llenarTablaPorNombre(); 
@@ -643,7 +642,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
     }
     
     private void cargarComboId(){
-        ComboId.setRenderer(new DisabledItemRenderer());
+        ComboId.setRenderer(new DisabledItemRenderer());//No permite seleccionar la primera fila donde se indica el datos que contine
         List<Huesped> lista=new ArrayList<>();
         lista=huespedData.listarHuespedes();
         List<String> listaId=new ArrayList<>();
@@ -659,7 +658,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
     }
     
     private void cargarComboDni(){
-       ComboDni.setRenderer(new DisabledItemRenderer());
+       ComboDni.setRenderer(new DisabledItemRenderer());//No permite seleccionar la primera fila donde se indica el datos que contine
        List<Huesped> lista=new ArrayList<>();
        lista=huespedData.listarHuespedes();
        List<String> listaId=new ArrayList<>();
@@ -675,7 +674,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
     }
     
     private void cargarComboNombre(){
-        ComboNombre.setRenderer(new DisabledItemRenderer());
+        ComboNombre.setRenderer(new DisabledItemRenderer());//No permite seleccionar la primera fila donde se indica el datos que contine
         List<Huesped> lista=new ArrayList<>();
         lista=huespedData.listarHuespedes();
         List<String> listaNombres=new ArrayList<>();
@@ -733,7 +732,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
             llenarTablaTodos();
             }    
     }
-    
+    ////No permite seleccionar la primera fila donde se indica el datos que contine
     class DisabledItemRenderer extends DefaultListCellRenderer {
     @Override
     public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
