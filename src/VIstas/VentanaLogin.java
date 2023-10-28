@@ -147,7 +147,7 @@ public class VentanaLogin extends javax.swing.JFrame {
         jPanel1.setBounds(0, 0, 400, 42);
 
         labelUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/user.png"))); // NOI18N
+        labelUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoHotelSinFondo.png"))); // NOI18N
         getContentPane().add(labelUser);
         labelUser.setBounds(0, 40, 400, 220);
 
@@ -191,20 +191,19 @@ public class VentanaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-         passwordField.setEchoChar((char) 0); // Mostrar la contraseña
+        passwordField.setEchoChar((char) 0); // Mostrar la contraseña
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/visibility.png")));
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void botonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIngresarActionPerformed
         char[] password = passwordField.getPassword(); // Obtiene la contraseña del JPasswordField
         String passwordString = new String(password); // Convierte la contraseña a String
-        if(textUser.getText().equals("admin") && passwordString.equals("admin")){
-            if(authenticationListener !=null){
+        if (textUser.getText().equals("admin") && passwordString.equals("admin")) {
+            if (authenticationListener != null) {
                 authenticationListener.onAuthenticationSuccess(); //la autenticacion fue exitosa
                 this.dispose();
-            } 
-        }
-        else{
+            }
+        } else {
             JOptionPane.showMessageDialog(this, "Datos incorrectos");
         }
     }//GEN-LAST:event_botonIngresarActionPerformed
