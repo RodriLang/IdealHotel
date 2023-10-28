@@ -310,15 +310,7 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
 
         if (habilitada) {
             this.setBackground(new Color(35, 149, 169));
-            //Si la habitacion tiene una reserva
             if (reserva.getIdReserva() != 0) {
-                //si la fecha de inicio de la reserva es igual a la fecha de hoy
-//                if (reserva.getFechaInn().equals(AdministracionView.FECHA)||AdministracionView.FECHA.isAfter(reserva.getFechaOut())) {
-//                    habData.liberarHabitacion(idHabitacion);
-//                } else if (AdministracionView.FECHA.isAfter(reserva.getFechaInn()) && AdministracionView.FECHA.isBefore(reserva.getFechaOut())
-//                        ||reserva.getFechaOut().equals(AdministracionView.FECHA)) {
-//                    habData.ocuparHabitacion(idHabitacion);
-//                } 
                 if (ocupada) {
                     if (reserva.getFechaOut().equals(AdministracionView.FECHA)) {
                         botonCheckInOut.setText("Check Out");
@@ -346,7 +338,7 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
                     labelEstado.setText("LIBRE");
                     botonCheckInOut.setText("Reservar");
                     botonCheckInOut.setIcon(imgReserva);
-                    //resData.eliminarReserva(reserva.getIdReserva());
+                    resData.eliminarReserva(reserva.getIdReserva());
                     JOptionPane.showMessageDialog(this, "Se canceló la reserva de la habitación " + idHabitacion);
                 }
             } else {
