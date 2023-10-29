@@ -96,6 +96,10 @@
                           <Component id="jLabel2" min="-2" pref="65" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jdDia" min="-2" pref="140" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                          <Component id="jLabel7" min="-2" pref="100" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jtDNI" min="-2" pref="126" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane2" max="32767" attributes="0"/>
                       <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
@@ -107,13 +111,17 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="jLabel1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="jbox" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="jLabel2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jdDia" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="jdDia" alignment="1" max="32767" attributes="0"/>
+                      <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                          <Component id="jLabel7" alignment="3" max="32767" attributes="0"/>
+                          <Component id="jtDNI" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jScrollPane2" min="-2" pref="241" max="-2" attributes="0"/>
@@ -196,12 +204,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="131" max="-2" attributes="0"/>
                           <Component id="jbModificar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
                           <Component id="jbEliminar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="454" max="32767" attributes="0"/>
+                          <EmptySpace pref="533" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -305,8 +313,14 @@
               </Layout>
               <SubComponents>
                 <Component class="com.toedter.calendar.JDateChooser" name="jdIngreso">
+                  <Events>
+                    <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jdIngresoPropertyChange"/>
+                  </Events>
                 </Component>
                 <Component class="com.toedter.calendar.JDateChooser" name="jdSalida">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jtHabitacion">
                   <Events>
@@ -377,6 +391,16 @@
             </CodeStatement>
           </LayoutCode>
         </Container>
+        <Component class="javax.swing.JLabel" name="jLabel7">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="BUSCAR POR DNI:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jtDNI">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtDNIKeyReleased"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

@@ -4,7 +4,6 @@ import AccesoADatos.HabitacionData;
 import AccesoADatos.HuespedData;
 import AccesoADatos.ReservaData;
 import VIstas.AdministracionView;
-import com.sun.corba.se.impl.oa.toa.TOA;
 import com.toedter.calendar.JTextFieldDateEditor;
 import entidades.Habitacion;
 import entidades.Huesped;
@@ -88,6 +87,8 @@ public class PanelAdminReservas extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jdModi = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jtDNI = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(27, 118, 134));
 
@@ -170,7 +171,7 @@ public class PanelAdminReservas extends javax.swing.JPanel {
                 .addComponent(jbModificar)
                 .addGap(89, 89, 89)
                 .addComponent(jbEliminar)
-                .addContainerGap(454, Short.MAX_VALUE))
+                .addContainerGap(533, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,6 +186,14 @@ public class PanelAdminReservas extends javax.swing.JPanel {
         jPanel2.add(jPanel3);
 
         jPanel4.setOpaque(false);
+
+        jdIngreso.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jdIngresoPropertyChange(evt);
+            }
+        });
+
+        jdSalida.setEnabled(false);
 
         jtHabitacion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -264,6 +273,14 @@ public class PanelAdminReservas extends javax.swing.JPanel {
 
         jPanel2.add(jPanel4);
 
+        jLabel7.setText("BUSCAR POR DNI:");
+
+        jtDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtDNIKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -278,7 +295,11 @@ public class PanelAdminReservas extends javax.swing.JPanel {
                         .addGap(36, 36, 36)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jdDia, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jdDia, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(120, Short.MAX_VALUE))
@@ -286,12 +307,15 @@ public class PanelAdminReservas extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jbox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jdDia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jdDia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -319,7 +343,8 @@ public class PanelAdminReservas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jdDiaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jdDiaPropertyChange
-        if ("date".equals(evt.getPropertyName())) {
+        if (jdDia.getDate()!=null) {
+            jtDNI.setText("");
             cargarDatos();
         }
     }//GEN-LAST:event_jdDiaPropertyChange
@@ -357,8 +382,7 @@ public class PanelAdminReservas extends javax.swing.JPanel {
                resData.modificarReserva(res);
                cargarDatos();
                limpiarDatos();
-               jPanel4.setVisible(false);
-               jPanel3.setVisible(true); 
+               
             }
         }else{
             JOptionPane.showMessageDialog(this, "Faltan campos por completar");
@@ -389,6 +413,30 @@ public class PanelAdminReservas extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jtCantPersonasKeyTyped
 
+    private void jdIngresoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jdIngresoPropertyChange
+        if (jdIngreso.getCalendar()!=null) { 
+        LocalDate fe=jdIngreso.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        fe=fe.plusDays(1);
+        jdSalida.setMinSelectableDate(Date.from(fe.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        jdSalida.setEnabled(true);
+        jdSalida.transferFocus();        
+        }
+    }//GEN-LAST:event_jdIngresoPropertyChange
+
+    private void jtDNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtDNIKeyReleased
+       limpiarTabla();
+       jdDia.setDate(null);      
+        try {
+          for (Reserva res : resData.buscarReservaPorHuesped(huesData.buscarHuespedDni(Integer.valueOf(jtDNI.getText())).getIdHuesped())) {
+           modelo.addRow(new Object []{res.getIdReserva(),res.getHuesped().getIdHuesped(),res.getHabitacion().getIdHabitacion(),res.getFechaInn(),res.getFechaOut()});
+              System.out.println(res);
+          }  
+        } catch (Exception e) {
+            
+        }  
+        
+    }//GEN-LAST:event_jtDNIKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -397,6 +445,7 @@ public class PanelAdminReservas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -410,6 +459,7 @@ public class PanelAdminReservas extends javax.swing.JPanel {
     private javax.swing.JButton jdModi;
     private com.toedter.calendar.JDateChooser jdSalida;
     private javax.swing.JTextField jtCantPersonas;
+    private javax.swing.JTextField jtDNI;
     private javax.swing.JTextField jtHabitacion;
     private javax.swing.JTable jtReservas;
     private javax.swing.JLabel labelTitulo;
@@ -469,6 +519,8 @@ public class PanelAdminReservas extends javax.swing.JPanel {
         for (int i = 0; i < filas; i++) {
             modelo.removeRow(0);
         }
+        jPanel3.setVisible(true);
+        jPanel4.setVisible(false);
     }
     private void limpiarDatos(){
      
