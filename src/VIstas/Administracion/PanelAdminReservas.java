@@ -10,6 +10,7 @@ import entidades.Huesped;
 import entidades.Reserva;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,13 +36,13 @@ public class PanelAdminReservas extends javax.swing.JPanel {
         initComponents();
         this.setVisible(false);
         modeloTabla();
-        Date fechaActual= Date.from(AdministracionView.FECHA.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        Calendar fe=Calendar.getInstance();
+        Date fechaActual = Date.from(AdministracionView.FECHA.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Calendar fe = Calendar.getInstance();
         fe.setTime(fechaActual);
         fe.add(Calendar.DAY_OF_YEAR, 120);
-        Date fechalimite=fe.getTime();
+        Date fechalimite = fe.getTime();
         fe.add(Calendar.DAY_OF_YEAR, 1);
-        Date fechalimite1=fe.getTime();
+        Date fechalimite1 = fe.getTime();
         jdIngreso.setMinSelectableDate(fechaActual);
         jdIngreso.setMaxSelectableDate(fechalimite);
         jdSalida.setMaxSelectableDate(fechalimite1);
@@ -344,7 +345,7 @@ public class PanelAdminReservas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jdDiaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jdDiaPropertyChange
-        if (jdDia.getDate()!=null) {
+        if (jdDia.getDate() != null) {
             jtDNI.setText("");
             cargarDatos();
         }
@@ -355,85 +356,99 @@ public class PanelAdminReservas extends javax.swing.JPanel {
     }//GEN-LAST:event_jboxActionPerformed
 
     private void jtReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtReservasMouseClicked
-        if (jtReservas.getSelectedRow()!=-1) {
-         jbModificar.setEnabled(true);  
-         jbEliminar.setEnabled(true);  
+        if (jtReservas.getSelectedRow() != -1) {
+            jbModificar.setEnabled(true);
+            jbEliminar.setEnabled(true);
         }
     }//GEN-LAST:event_jtReservasMouseClicked
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
-        if (jtReservas.getSelectedRow()!=-1) {
-         jPanel3.setVisible(false);
-        jPanel4.setVisible(true);   
-        }else{
-        JOptionPane.showMessageDialog(this, "Selecione una reserva");
-        }        
+        if (jtReservas.getSelectedRow() != -1) {
+            jPanel3.setVisible(false);
+            jPanel4.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione una reserva");
+        }
     }//GEN-LAST:event_jbModificarActionPerformed
 
     private void jdModiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jdModiActionPerformed
-        if (jdIngreso.getDate()!=null&&jdSalida.getDate()!=null&&jtHabitacion.getText().length()>=1&&jtCantPersonas.getText().length()>=1) {
-         int fila=jtReservas.getSelectedRow();
-         Huesped h=huesData.buscarHuespedId(Integer.valueOf(jtReservas.getValueAt(fila, 1).toString()));
-         Habitacion hab=habData.buscarHabitacion(Integer.valueOf(jtHabitacion.getText()));
-         int numRes=Integer.valueOf(jtReservas.getValueAt(fila, 0).toString());
-         LocalDate ing=jdIngreso.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(); 
-         LocalDate sal=jdSalida.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            if (hab!=null&&h!=null) {
-               Reserva res=new Reserva(numRes, h, hab, fila, ing, sal);
-               resData.modificarReserva(res);
-               cargarDatos();
-               limpiarDatos();
-               
+        if (jdIngreso.getDate() != null && jdSalida.getDate() != null && jtHabitacion.getText().length() >= 1 && jtCantPersonas.getText().length() >= 1) {
+            int fila = jtReservas.getSelectedRow();
+            Huesped h = huesData.buscarHuespedId(Integer.valueOf(jtReservas.getValueAt(fila, 1).toString()));
+            Habitacion hab = habData.buscarHabitacion(Integer.valueOf(jtHabitacion.getText()));
+            int numRes = Integer.valueOf(jtReservas.getValueAt(fila, 0).toString());
+            LocalDate ing = jdIngreso.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate sal = jdSalida.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            boolean ocupada = false;
+
+            Reserva res = new Reserva(numRes, h, hab, fila, ing, sal);
+            if (hab != null && h != null) {
+                int cantDias = (int) ChronoUnit.DAYS.between(ing, sal);
+                for (int i = 0; i < cantDias; i++) {
+                    Reserva reserva = resData.buscarReservasPorIDHabitacionYfecha(ing.plusDays(i), hab.getIdHabitacion());
+                    if (reserva.getIdReserva() != 0) {
+                        if (reserva.getIdReserva() != res.getIdReserva()) {
+                            ocupada = true;
+                        }
+                    }
+                }
+                if (!ocupada) {
+                    resData.modificarReserva(res);
+                    cargarDatos();
+                    limpiarDatos();
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo moficar la reserva.\nLa habitación está ocupada en ese rango de dias");
+                }
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Faltan campos por completar");
         }
     }//GEN-LAST:event_jdModiActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-        if (jtReservas.getSelectedRow()!=-1) {
-        int fila=jtReservas.getSelectedRow();
-        resData.eliminarReserva(Integer.valueOf(jtReservas.getValueAt(fila, 0).toString()));
-        cargarDatos();
-        } else{
-        JOptionPane.showMessageDialog(this, "Selecione una reserva");
-        }  
+        if (jtReservas.getSelectedRow() != -1) {
+            int fila = jtReservas.getSelectedRow();
+            resData.eliminarReserva(Integer.valueOf(jtReservas.getValueAt(fila, 0).toString()));
+            cargarDatos();
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione una reserva");
+        }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jtHabitacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtHabitacionKeyTyped
-        char c=evt.getKeyChar();
-        if (c>'9'||c<'0'||jtHabitacion.getText().length()>5) {
-        evt.consume();
+        char c = evt.getKeyChar();
+        if (c > '9' || c < '0' || jtHabitacion.getText().length() > 5) {
+            evt.consume();
         }
     }//GEN-LAST:event_jtHabitacionKeyTyped
 
     private void jtCantPersonasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtCantPersonasKeyTyped
-        char c=evt.getKeyChar();
-        if (c>'9'||c<'0'||jtCantPersonas.getText().length()>1) {
-        evt.consume();
+        char c = evt.getKeyChar();
+        if (c > '9' || c < '0' || jtCantPersonas.getText().length() > 1) {
+            evt.consume();
         }
     }//GEN-LAST:event_jtCantPersonasKeyTyped
 
     private void jdIngresoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jdIngresoPropertyChange
-        if (jdIngreso.getCalendar()!=null) { 
-        LocalDate fe=jdIngreso.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        fe=fe.plusDays(1);
-        jdSalida.setMinSelectableDate(Date.from(fe.atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        jdSalida.setEnabled(true);
-        jdSalida.transferFocus();        
+        if (jdIngreso.getCalendar() != null) {
+            LocalDate fe = jdIngreso.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            fe = fe.plusDays(1);
+            jdSalida.setMinSelectableDate(Date.from(fe.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            jdSalida.setEnabled(true);
+            jdSalida.transferFocus();
         }
     }//GEN-LAST:event_jdIngresoPropertyChange
 
     private void jtDNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtDNIKeyReleased
-       limpiarTabla();
-       jdDia.setDate(null);      
+        limpiarTabla();
+        jdDia.setDate(null);
         try {
-          for (Reserva res : resData.buscarReservaPorHuesped(huesData.buscarHuespedDni(Integer.valueOf(jtDNI.getText())).getIdHuesped())) {
-           modelo.addRow(new Object []{res.getIdReserva(),res.getHuesped().getIdHuesped(),res.getHabitacion().getIdHabitacion(),res.getFechaInn(),res.getFechaOut()});
-          }  
-        } catch (Exception e) {            
-        }  
-        
+            for (Reserva res : resData.buscarReservaPorHuesped(huesData.buscarHuespedDni(Integer.valueOf(jtDNI.getText())).getIdHuesped())) {
+                modelo.addRow(new Object[]{res.getIdReserva(), res.getHuesped().getIdHuesped(), res.getHabitacion().getIdHabitacion(), res.getFechaInn(), res.getFechaOut()});
+            }
+        } catch (Exception e) {
+        }
+
     }//GEN-LAST:event_jtDNIKeyReleased
 
 
@@ -495,9 +510,9 @@ public class PanelAdminReservas extends javax.swing.JPanel {
                             if (!cargadas.contains(res)) {
                                 modelo.addRow(new Object[]{res.getIdReserva(), res.getHuesped().getIdHuesped(), res.getHabitacion().getIdHabitacion(), res.getFechaInn(), res.getFechaOut()});
                                 cargadas.add(res);
-                            } 
+                            }
                         }
-                    }                   
+                    }
                     break;
                 case 2:
                     for (LocalDate fecha : resData.obtenerFechas(fe, fe3)) {
@@ -521,12 +536,24 @@ public class PanelAdminReservas extends javax.swing.JPanel {
         jPanel3.setVisible(true);
         jPanel4.setVisible(false);
     }
-    private void limpiarDatos(){
-     
-        jdIngreso.removeAll();
-        jdSalida.removeAll();
+
+    private void limpiarDatos() {
+        jdIngreso.setDate(null);
+        jdSalida.setDate(null);
         jtCantPersonas.setText("");
         jtHabitacion.setText("");
-    
+
+    }
+
+    public void buscarPorHabitacion(int idHabitacion) {
+        limpiarTabla();
+        jdDia.setDate(null);
+        jtDNI.setText("");
+        try {
+            for (Reserva res : resData.buscarReservaPorHabitacion(idHabitacion)) {
+                modelo.addRow(new Object[]{res.getIdReserva(), res.getHuesped().getIdHuesped(), res.getHabitacion().getIdHabitacion(), res.getFechaInn(), res.getFechaOut()});
+            }
+        } catch (Exception e) {
+        }
     }
 }

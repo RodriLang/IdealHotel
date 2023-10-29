@@ -9,6 +9,7 @@ import AccesoADatos.HuespedData;
 import entidades.Huesped;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
@@ -676,7 +677,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
     }
 
     private void limpiarDetalles() {
-        
+
         cambiarEstadoCampos(false);
         DetNombre.setText("");
         DetDni.setText("");
@@ -708,12 +709,18 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
         List<Huesped> lista = new ArrayList<>();
         lista = huespedData.listarHuespedes();
         List<String> listaId = new ArrayList<>();
-
+        
         for (Huesped huesped : lista) {
             String idHuesped = ((Integer) huesped.getDni()).toString();
 
             listaId.add(idHuesped);
         }
+        listaId.sort(new Comparator<String>() {
+            @Override
+            public int compare(String t, String t1) {
+                return t.compareTo(t1);
+            }
+        });
         for (String id : listaId) {
             ComboDni.addItem(id);
         }
@@ -729,6 +736,12 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
             String nomnbre = huesped.getNombre();
             listaNombres.add(nomnbre);
         }
+        listaNombres.sort(new Comparator<String>() {
+            @Override
+            public int compare(String t, String t1) {
+                return t.compareTo(t1);
+            }
+        });
         for (String nombre : listaNombres) {
             ComboNombre.addItem(nombre);
         }
