@@ -92,7 +92,7 @@ public class AdministracionView extends javax.swing.JInternalFrame {
         botonCerrar = new javax.swing.JButton();
         labelIcono = new javax.swing.JLabel();
         labelTitulo = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        panelBotones = new javax.swing.JPanel();
         botonHome = new javax.swing.JButton();
         botonHabitaciones = new javax.swing.JButton();
         botonHuespedes = new javax.swing.JButton();
@@ -158,8 +158,8 @@ public class AdministracionView extends javax.swing.JInternalFrame {
                     .addContainerGap()))
         );
 
-        jPanel1.setOpaque(false);
-        jPanel1.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
+        panelBotones.setOpaque(false);
+        panelBotones.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
         botonHome.setBackground(new java.awt.Color(176, 184, 157));
         botonHome.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -172,7 +172,7 @@ public class AdministracionView extends javax.swing.JInternalFrame {
                 botonHomeActionPerformed(evt);
             }
         });
-        jPanel1.add(botonHome);
+        panelBotones.add(botonHome);
 
         botonHabitaciones.setBackground(new java.awt.Color(176, 184, 157));
         botonHabitaciones.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -185,7 +185,7 @@ public class AdministracionView extends javax.swing.JInternalFrame {
                 botonHabitacionesActionPerformed(evt);
             }
         });
-        jPanel1.add(botonHabitaciones);
+        panelBotones.add(botonHabitaciones);
 
         botonHuespedes.setBackground(new java.awt.Color(176, 184, 157));
         botonHuespedes.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -198,7 +198,7 @@ public class AdministracionView extends javax.swing.JInternalFrame {
                 botonHuespedesActionPerformed(evt);
             }
         });
-        jPanel1.add(botonHuespedes);
+        panelBotones.add(botonHuespedes);
 
         botonReservas.setBackground(new java.awt.Color(176, 184, 157));
         botonReservas.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -211,7 +211,7 @@ public class AdministracionView extends javax.swing.JInternalFrame {
                 botonReservasActionPerformed(evt);
             }
         });
-        jPanel1.add(botonReservas);
+        panelBotones.add(botonReservas);
 
         jPanel2.setOpaque(false);
         jPanel2.setLayout(new java.awt.BorderLayout());
@@ -242,7 +242,7 @@ public class AdministracionView extends javax.swing.JInternalFrame {
         });
         jPanel2.add(jButton1, java.awt.BorderLayout.LINE_END);
 
-        jPanel1.add(jPanel2);
+        panelBotones.add(jPanel2);
 
         javax.swing.GroupLayout panelGeneralLayout = new javax.swing.GroupLayout(panelGeneral);
         panelGeneral.setLayout(panelGeneralLayout);
@@ -251,16 +251,15 @@ public class AdministracionView extends javax.swing.JInternalFrame {
             .addComponent(panelContenido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panelGeneralLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 975, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         panelGeneralLayout.setVerticalGroup(
             panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGeneralLayout.createSequentialGroup()
                 .addComponent(panelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -354,10 +353,10 @@ public class AdministracionView extends javax.swing.JInternalFrame {
     private javax.swing.JButton botonReservas;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel labelIcono;
     private javax.swing.JLabel labelTitulo;
+    private javax.swing.JPanel panelBotones;
     private javax.swing.JPanel panelContenido;
     private javax.swing.JPanel panelGeneral;
     private javax.swing.JPanel panelTitulo;

@@ -54,9 +54,8 @@
               <Component id="panelContenido" alignment="1" max="32767" attributes="0"/>
               <Component id="panelTitulo" alignment="0" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                  <Component id="jPanel1" min="-2" pref="975" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="panelBotones" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -65,7 +64,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="panelTitulo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jPanel1" max="32767" attributes="0"/>
+                  <Component id="panelBotones" max="32767" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="panelContenido" min="-2" pref="583" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -188,7 +187,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanel1">
+        <Container class="javax.swing.JPanel" name="panelBotones">
           <Properties>
             <Property name="opaque" type="boolean" value="false"/>
           </Properties>
