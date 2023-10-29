@@ -11,6 +11,7 @@ public class VentanaLogin extends javax.swing.JFrame {
     private int y;
     //el siguiente objeto notificara si la autenticacion fue exitosa
     private AuthenticationListener authenticationListener;
+    private boolean passwordVisible = false;
 
     public void setAuthenticationListener(AuthenticationListener listener) {
         this.authenticationListener = listener;
@@ -94,6 +95,11 @@ public class VentanaLogin extends javax.swing.JFrame {
         textUser.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textUser.setText("User");
         textUser.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        textUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textUserMouseClicked(evt);
+            }
+        });
         getContentPane().add(textUser);
         textUser.setBounds(30, 270, 330, 40);
 
@@ -156,6 +162,11 @@ public class VentanaLogin extends javax.swing.JFrame {
         passwordField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         passwordField.setText("Password");
         passwordField.setBorder(null);
+        passwordField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                passwordFieldMouseClicked(evt);
+            }
+        });
         getContentPane().add(passwordField);
         passwordField.setBounds(30, 330, 330, 40);
 
@@ -191,8 +202,14 @@ public class VentanaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        passwordField.setEchoChar((char) 0); // Mostrar la contraseña
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/visibility.png")));
+        if (passwordVisible) {
+            passwordField.setEchoChar((char) 0); // Mostrar la contraseña
+            jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/visibility.png")));
+        } else {
+            passwordField.setEchoChar('*');
+            jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/visibility_off.png")));
+        }
+         passwordVisible = !passwordVisible; // Alternar el estado
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void botonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIngresarActionPerformed
@@ -207,6 +224,14 @@ public class VentanaLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Datos incorrectos");
         }
     }//GEN-LAST:event_botonIngresarActionPerformed
+
+    private void textUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textUserMouseClicked
+        textUser.setText("");
+    }//GEN-LAST:event_textUserMouseClicked
+
+    private void passwordFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordFieldMouseClicked
+        passwordField.setText("");
+    }//GEN-LAST:event_passwordFieldMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
