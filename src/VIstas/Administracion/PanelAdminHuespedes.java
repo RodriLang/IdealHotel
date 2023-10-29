@@ -547,7 +547,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
             fila[1]=huesped.getNombre();
             fila[2]=huesped.getDni();
             fila[3]=huesped.getDomicilio();
-            fila[4]=huesped.getDni();
+            fila[4]=huesped.getCorreo();
             fila[5]=huesped.getCelular();
             if(huesped.isAlojado()==true){
                 fila[6]="SI";
@@ -569,7 +569,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
             fila[1]=huesped.getNombre();
             fila[2]=huesped.getDni();
             fila[3]=huesped.getDomicilio();
-            fila[4]=huesped.getDni();
+            fila[4]=huesped.getCorreo();
             fila[5]=huesped.getCelular();
             if(huesped.isAlojado()==true){
                 fila[6]="SI";
@@ -589,7 +589,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
             fila[1]=huesped.getNombre();
             fila[2]=huesped.getDni();
             fila[3]=huesped.getDomicilio();
-            fila[4]=huesped.getDni();
+            fila[4]=huesped.getCorreo();
             fila[5]=huesped.getCelular();
             if(huesped.isAlojado()==true){
                 fila[6]="SI";
@@ -609,7 +609,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
             fila[1]=huesped.getNombre();
             fila[2]=huesped.getDni();
             fila[3]=huesped.getDomicilio();
-            fila[4]=huesped.getDni();
+            fila[4]=huesped.getCorreo();
             fila[5]=huesped.getCelular();
             if(huesped.isAlojado()==true){
                 fila[6]="SI";
@@ -632,7 +632,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
             fila[1]=huesped.getNombre();
             fila[2]=huesped.getDni();
             fila[3]=huesped.getDomicilio();
-            fila[4]=huesped.getDni();
+            fila[4]=huesped.getCorreo();
             fila[5]=huesped.getCelular();
             if(huesped.isAlojado()==true){
                 fila[6]="SI";
