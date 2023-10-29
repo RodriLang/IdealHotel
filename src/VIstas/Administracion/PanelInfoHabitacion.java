@@ -262,12 +262,46 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
     }//GEN-LAST:event_botonCheckInOutActionPerformed
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
-        if (JOptionPane.showConfirmDialog(this, "¿Está seguro que desea deshabilitar la habitación?",
+        if (resData.buscarReservaPorHabitacion(idHabitacion).size() > 0) {
+            int opcion = JOptionPane.showConfirmDialog(this, "La habitación contiene reservas,\n ¿quiere modificarlas antes de deshabilitarla?");
+            switch (opcion) {
+                case 0:
+                    ventana.mostrarPanelContenido(panelAdminReservas, ventana.getBotonReservas());
+                    panelAdminReservas.buscarPorHabitacion(idHabitacion);
+                    break;
+                case 1:
+                    if (JOptionPane.showConfirmDialog(this, "¿Está seguro que desea deshabilitar la habitación\neliminando sus reservas?",
+                            "Borrar habitación", JOptionPane.CANCEL_OPTION, JOptionPane.WARNING_MESSAGE) == 0) {
+                        for (Reserva reserva : resData.buscarReservaPorHabitacion(idHabitacion)) {
+                            resData.eliminarReserva(reserva.getIdReserva());
+                        }
+                    }
+                    habData.dehabilitarHabitacion(idHabitacion);
+                    botonEliminar.setEnabled(false);
+                    botonCheckInOut.setEnabled(false);
+                    this.setBackground(Color.gray);
+                    labelEstado.setText("DESHABILITADA");
+                    this.revalidate();
+                    this.repaint();
+                    break;
+                default:
+                   
+                }
+
+//            if(JOptionPane.showInputDialog(this,  "La habitación contiene reservas,\n modifiquelas antes de deshabilitarla",
+//                    "No puede deshabilitar la habitación", JOptionPane.INFORMATION_MESSAGE, 
+//                    null,new String[] {"Modificar reservas"}, 1 ).equals(JOptionPane.INITIAL_SELECTION_VALUE_PROPERTY)){
+//                ventana.mostrarPanelContenido(panelAdminReservas, ventana.getBotonReservas());
+//                panelAdminReservas.buscarPorHabitacion(idHabitacion);
+//                
+//            }
+            //(this, "La habitación contiene reservas,\n modifiquelas antes de deshabilitarla");
+        } else if (JOptionPane.showConfirmDialog(this, "¿Está seguro que desea deshabilitar la habitación?",
                 "Borrar habitación", JOptionPane.CANCEL_OPTION, JOptionPane.WARNING_MESSAGE) == 0) {
             habData.dehabilitarHabitacion(idHabitacion);
             botonEditar.setEnabled(false);
             botonEliminar.setEnabled(false);
-//            botonCheckInOut.setEnabled(false);
+            botonCheckInOut.setEnabled(false);
             this.setBackground(Color.gray);
             labelEstado.setText("DESHABILITADA");
             this.revalidate();
@@ -356,8 +390,9 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
         }
         labelNPiso.setText(piso + "");
         labelTipoHab.setText(tipoHabitacion.name());
-        botonEditar.setEnabled(habilitada);
+        botonEditar.setEnabled(true);
         botonEliminar.setEnabled(habilitada);
+        botonCheckInOut.setEnabled(habilitada);
     }
 
     private boolean verificarEstadoHabitacion() {

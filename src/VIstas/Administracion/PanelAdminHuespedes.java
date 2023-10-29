@@ -15,20 +15,19 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 public class PanelAdminHuespedes extends javax.swing.JPanel {
 
-    private DefaultTableModel modelo=new DefaultTableModel(){
-        public boolean isCellEditable(int f, int c){
+    private DefaultTableModel modelo = new DefaultTableModel() {
+        public boolean isCellEditable(int f, int c) {
             return false;//ninguna celda es editable
-        } 
+        }
     };
-    private HuespedData huespedData=new HuespedData();
-    private Huesped huesped=new Huesped();
-    
+    private HuespedData huespedData = new HuespedData();
+    private Huesped huesped = new Huesped();
+
     public PanelAdminHuespedes() {
-        this.huespedData=huespedData;
-        this.huesped=huesped; 
+        this.huespedData = huespedData;
+        this.huesped = huesped;
         initComponents();
         armarCabecera();
         cargarComboId();
@@ -262,6 +261,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel15.setText("Nombre:");
 
+        DetNombre.setEditable(false);
         DetNombre.setBackground(new java.awt.Color(27, 118, 134));
         DetNombre.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         DetNombre.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -270,6 +270,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
             }
         });
 
+        DetDni.setEditable(false);
         DetDni.setBackground(new java.awt.Color(27, 118, 134));
         DetDni.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         DetDni.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -278,6 +279,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
             }
         });
 
+        DetTelefono.setEditable(false);
         DetTelefono.setBackground(new java.awt.Color(27, 118, 134));
         DetTelefono.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         DetTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -286,6 +288,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
             }
         });
 
+        DetDomicilio.setEditable(false);
         DetDomicilio.setBackground(new java.awt.Color(27, 118, 134));
         DetDomicilio.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
@@ -296,6 +299,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setText("Alojado:");
 
+        DetCorreo.setEditable(false);
         DetCorreo.setBackground(new java.awt.Color(27, 118, 134));
         DetCorreo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
@@ -425,18 +429,18 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
         ComboId.setSelectedIndex(0);
         ComboNombre.setSelectedIndex(0);
     }//GEN-LAST:event_BotonEstadoTodosActionPerformed
-        
+
     private void BotonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonModificarActionPerformed
         huespedData.modificarHuesped(modificarHuesped());
     }//GEN-LAST:event_BotonModificarActionPerformed
 
     private void ComboNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboNombreActionPerformed
         limpiarDetalles();
-        if(ComboNombre.getSelectedIndex()!=0){
-        String selectedValue=ComboNombre.getSelectedItem().toString();
-        if(selectedValue!= null){
-            llenarTablaPorNombre(); 
-        }
+        if (ComboNombre.getSelectedIndex() != 0) {
+            String selectedValue = ComboNombre.getSelectedItem().toString();
+            if (selectedValue != null) {
+                llenarTablaPorNombre();
+            }
         }
         ComboId.setSelectedIndex(0);
         ComboDni.setSelectedIndex(0);
@@ -444,11 +448,11 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
 
     private void ComboDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboDniActionPerformed
         limpiarDetalles();
-        if(ComboDni.getSelectedIndex()!=0){
-        String selectedValue = ComboDni.getSelectedItem().toString();
-        if (selectedValue != null) {
-        llenarTablaPorDni();
-        }
+        if (ComboDni.getSelectedIndex() != 0) {
+            String selectedValue = ComboDni.getSelectedItem().toString();
+            if (selectedValue != null) {
+                llenarTablaPorDni();
+            }
         }
         ComboId.setSelectedIndex(0);
         ComboNombre.setSelectedIndex(0);
@@ -456,14 +460,16 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
 
     private void TablaHuespedesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaHuespedesMouseClicked
         mostrarDetalles();
+        cambiarEstadoCampos(true);
     }//GEN-LAST:event_TablaHuespedesMouseClicked
 
     private void ComboIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboIdActionPerformed
         limpiarDetalles();
-        if(ComboId.getSelectedIndex()!=0){
-        String selectedValue = ComboId.getSelectedItem().toString();
-        if (selectedValue != null) {
-        llenarTablaPorId();}
+        if (ComboId.getSelectedIndex() != 0) {
+            String selectedValue = ComboId.getSelectedItem().toString();
+            if (selectedValue != null) {
+                llenarTablaPorId();
+            }
         }
         ComboDni.setSelectedIndex(0);
         ComboNombre.setSelectedIndex(0);
@@ -523,7 +529,7 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
     private javax.swing.JPanel panelOpciones;
     // End of variables declaration//GEN-END:variables
 
-    private void armarCabecera(){
+    private void armarCabecera() {
         modelo.addColumn("ID");
         modelo.addColumn("NOMBRE");
         modelo.addColumn("DNI");
@@ -532,126 +538,127 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
         modelo.addColumn("TELEFONO");
         modelo.addColumn("ALOJADO");
         TablaHuespedes.setModel(modelo);
-        
-    }
-    
-    
-    private void llenarTablaTodos(){
-        modelo.setRowCount(0);
-        List<Huesped> lista=new ArrayList<>();
-        lista=huespedData.listarHuespedes();
-        
-            for(Huesped huesped: lista) {
-            Object[] fila= new Object[7];
-            fila[0]=huesped.getIdHuesped();
-            fila[1]=huesped.getNombre();
-            fila[2]=huesped.getDni();
-            fila[3]=huesped.getDomicilio();
-            fila[4]=huesped.getCorreo();
-            fila[5]=huesped.getCelular();
-            if(huesped.isAlojado()==true){
-                fila[6]="SI";
-            }else{
-                fila[6]="NO";
-            }
-            modelo.addRow(fila);
-            }
-    }
-            
-    private void llenarTablaAlojados(){
-        modelo.setRowCount(0);
-        List<Huesped> lista=new ArrayList<>();
-        lista=huespedData.listarHuespedesAlojados();
-        
-            for(Huesped huesped: lista) {
-            Object[] fila= new Object[7];
-            fila[0]=huesped.getIdHuesped();
-            fila[1]=huesped.getNombre();
-            fila[2]=huesped.getDni();
-            fila[3]=huesped.getDomicilio();
-            fila[4]=huesped.getCorreo();
-            fila[5]=huesped.getCelular();
-            if(huesped.isAlojado()==true){
-                fila[6]="SI";
-            }else{
-                fila[6]="NO";
-            }
-            modelo.addRow(fila);
-            }  
-    }
-    
-    private void llenarTablaPorId(){
-        modelo.setRowCount(0);
-        huesped=huespedData.buscarHuespedId(Integer.parseInt(ComboId.getSelectedItem().toString()));
 
-            Object[] fila= new Object[7];
-            fila[0]=huesped.getIdHuesped();
-            fila[1]=huesped.getNombre();
-            fila[2]=huesped.getDni();
-            fila[3]=huesped.getDomicilio();
-            fila[4]=huesped.getCorreo();
-            fila[5]=huesped.getCelular();
-            if(huesped.isAlojado()==true){
-                fila[6]="SI";
-            }else{
-                fila[6]="NO";
-            }
-            modelo.addRow(fila);
-        
     }
-    private void llenarTablaPorDni(){
-        modelo.setRowCount(0);
-        try{
-            huesped=huespedData.buscarHuespedDni(Integer.parseInt(ComboDni.getSelectedItem().toString()));
 
-            Object[] fila= new Object[7];
-            fila[0]=huesped.getIdHuesped();
-            fila[1]=huesped.getNombre();
-            fila[2]=huesped.getDni();
-            fila[3]=huesped.getDomicilio();
-            fila[4]=huesped.getCorreo();
-            fila[5]=huesped.getCelular();
-            if(huesped.isAlojado()==true){
-                fila[6]="SI";
-            }else{
-                fila[6]="NO";
-            }
-            modelo.addRow(fila);
-        }catch(NullPointerException ex){}
-    }
-    
-    private void llenarTablaPorNombre(){
+    private void llenarTablaTodos() {
         modelo.setRowCount(0);
-        List<Huesped> lista=new ArrayList<>();
-        lista=huespedData.listarHuespedes();
-        String nombreSelect=ComboNombre.getSelectedItem().toString();
-            for(Huesped huesped: lista) {
-            if(huesped.getNombre().equals(nombreSelect)){
-            Object[] fila= new Object[7];
-            fila[0]=huesped.getIdHuesped();
-            fila[1]=huesped.getNombre();
-            fila[2]=huesped.getDni();
-            fila[3]=huesped.getDomicilio();
-            fila[4]=huesped.getCorreo();
-            fila[5]=huesped.getCelular();
-            if(huesped.isAlojado()==true){
-                fila[6]="SI";
-            }else{
-                fila[6]="NO";
+        List<Huesped> lista = new ArrayList<>();
+        lista = huespedData.listarHuespedes();
+
+        for (Huesped huesped : lista) {
+            Object[] fila = new Object[7];
+            fila[0] = huesped.getIdHuesped();
+            fila[1] = huesped.getNombre();
+            fila[2] = huesped.getDni();
+            fila[3] = huesped.getDomicilio();
+            fila[4] = huesped.getCorreo();
+            fila[5] = huesped.getCelular();
+            if (huesped.isAlojado() == true) {
+                fila[6] = "SI";
+            } else {
+                fila[6] = "NO";
             }
             modelo.addRow(fila);
-            }
-            }    
+        }
     }
-    
-    private void mostrarDetalles(){
+
+    private void llenarTablaAlojados() {
+        modelo.setRowCount(0);
+        List<Huesped> lista = new ArrayList<>();
+        lista = huespedData.listarHuespedesAlojados();
+
+        for (Huesped huesped : lista) {
+            Object[] fila = new Object[7];
+            fila[0] = huesped.getIdHuesped();
+            fila[1] = huesped.getNombre();
+            fila[2] = huesped.getDni();
+            fila[3] = huesped.getDomicilio();
+            fila[4] = huesped.getCorreo();
+            fila[5] = huesped.getCelular();
+            if (huesped.isAlojado() == true) {
+                fila[6] = "SI";
+            } else {
+                fila[6] = "NO";
+            }
+            modelo.addRow(fila);
+        }
+    }
+
+    private void llenarTablaPorId() {
+        modelo.setRowCount(0);
+        huesped = huespedData.buscarHuespedId(Integer.parseInt(ComboId.getSelectedItem().toString()));
+
+        Object[] fila = new Object[7];
+        fila[0] = huesped.getIdHuesped();
+        fila[1] = huesped.getNombre();
+        fila[2] = huesped.getDni();
+        fila[3] = huesped.getDomicilio();
+        fila[4] = huesped.getCorreo();
+        fila[5] = huesped.getCelular();
+        if (huesped.isAlojado() == true) {
+            fila[6] = "SI";
+        } else {
+            fila[6] = "NO";
+        }
+        modelo.addRow(fila);
+
+    }
+
+    private void llenarTablaPorDni() {
+        modelo.setRowCount(0);
+        try {
+            huesped = huespedData.buscarHuespedDni(Integer.parseInt(ComboDni.getSelectedItem().toString()));
+
+            Object[] fila = new Object[7];
+            fila[0] = huesped.getIdHuesped();
+            fila[1] = huesped.getNombre();
+            fila[2] = huesped.getDni();
+            fila[3] = huesped.getDomicilio();
+            fila[4] = huesped.getCorreo();
+            fila[5] = huesped.getCelular();
+            if (huesped.isAlojado() == true) {
+                fila[6] = "SI";
+            } else {
+                fila[6] = "NO";
+            }
+            modelo.addRow(fila);
+        } catch (NullPointerException ex) {
+        }
+    }
+
+    private void llenarTablaPorNombre() {
+        modelo.setRowCount(0);
+        List<Huesped> lista = new ArrayList<>();
+        lista = huespedData.listarHuespedes();
+        String nombreSelect = ComboNombre.getSelectedItem().toString();
+        for (Huesped huesped : lista) {
+            if (huesped.getNombre().equals(nombreSelect)) {
+                Object[] fila = new Object[7];
+                fila[0] = huesped.getIdHuesped();
+                fila[1] = huesped.getNombre();
+                fila[2] = huesped.getDni();
+                fila[3] = huesped.getDomicilio();
+                fila[4] = huesped.getCorreo();
+                fila[5] = huesped.getCelular();
+                if (huesped.isAlojado() == true) {
+                    fila[6] = "SI";
+                } else {
+                    fila[6] = "NO";
+                }
+                modelo.addRow(fila);
+            }
+        }
+    }
+
+    private void mostrarDetalles() {
         limpiarDetalles();
-        
-        int fila=TablaHuespedes.getSelectedRow();
-            
-        if (fila!=-1) {
-            int id=(Integer)TablaHuespedes.getValueAt(fila, 0);
-            
+
+        int fila = TablaHuespedes.getSelectedRow();
+
+        if (fila != -1) {
+            int id = (Integer) TablaHuespedes.getValueAt(fila, 0);
+
             huesped = huespedData.buscarHuespedId(id);
             DetNombre.setText(huesped.getNombre());
             DetDni.setText(String.valueOf(huesped.getDni()));
@@ -659,16 +666,18 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
             DetTelefono.setText(huesped.getCelular());
             DetCorreo.setText(huesped.getCorreo());
             DetIdHuesped.setText(String.valueOf(huesped.getIdHuesped()));
-            
-            if(huesped.isAlojado()==true){
+
+            if (huesped.isAlojado() == true) {
                 DetAlojado.setText("SI");
-            }else{
+            } else {
                 DetAlojado.setText("NO");
             }
         }
     }
-    
-    private void limpiarDetalles(){
+
+    private void limpiarDetalles() {
+        
+        cambiarEstadoCampos(false);
         DetNombre.setText("");
         DetDni.setText("");
         DetDomicilio.setText("");
@@ -677,57 +686,57 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
         DetIdHuesped.setText("");
         DetAlojado.setText("");
     }
-    
-    private void cargarComboId(){
+
+    private void cargarComboId() {
         ComboId.setRenderer(new DisabledItemRenderer());//No permite seleccionar la primera fila donde se indica el datos que contine
-        List<Huesped> lista=new ArrayList<>();
-        lista=huespedData.listarHuespedes();
-        List<String> listaId=new ArrayList<>();
+        List<Huesped> lista = new ArrayList<>();
+        lista = huespedData.listarHuespedes();
+        List<String> listaId = new ArrayList<>();
 
-            for (Huesped huesped : lista) {
-            String idHuesped=((Integer)huesped.getIdHuesped()).toString();
-            
-                listaId.add(idHuesped);
-            }
-            for (String id: listaId){
-                ComboId.addItem(id);
-            }
-    }
-    
-    private void cargarComboDni(){
-       ComboDni.setRenderer(new DisabledItemRenderer());//No permite seleccionar la primera fila donde se indica el datos que contine
-       List<Huesped> lista=new ArrayList<>();
-       lista=huespedData.listarHuespedes();
-       List<String> listaId=new ArrayList<>();
+        for (Huesped huesped : lista) {
+            String idHuesped = ((Integer) huesped.getIdHuesped()).toString();
 
-            for (Huesped huesped : lista) {
-            String idHuesped=((Integer)huesped.getDni()).toString();
-            
-                listaId.add(idHuesped);
-            }
-            for (String id: listaId){
-                ComboDni.addItem(id);
-            }
+            listaId.add(idHuesped);
+        }
+        for (String id : listaId) {
+            ComboId.addItem(id);
+        }
     }
-    
-    private void cargarComboNombre(){
+
+    private void cargarComboDni() {
+        ComboDni.setRenderer(new DisabledItemRenderer());//No permite seleccionar la primera fila donde se indica el datos que contine
+        List<Huesped> lista = new ArrayList<>();
+        lista = huespedData.listarHuespedes();
+        List<String> listaId = new ArrayList<>();
+
+        for (Huesped huesped : lista) {
+            String idHuesped = ((Integer) huesped.getDni()).toString();
+
+            listaId.add(idHuesped);
+        }
+        for (String id : listaId) {
+            ComboDni.addItem(id);
+        }
+    }
+
+    private void cargarComboNombre() {
         ComboNombre.setRenderer(new DisabledItemRenderer());//No permite seleccionar la primera fila donde se indica el datos que contine
-        List<Huesped> lista=new ArrayList<>();
-        lista=huespedData.listarHuespedes();
-        List<String> listaNombres=new ArrayList<>();
+        List<Huesped> lista = new ArrayList<>();
+        lista = huespedData.listarHuespedes();
+        List<String> listaNombres = new ArrayList<>();
 
-            for (Huesped huesped : lista) {
-            String nomnbre=huesped.getNombre();
-                listaNombres.add(nomnbre);
-            }
-            for (String nombre:listaNombres){
-                ComboNombre.addItem(nombre);
-            }
+        for (Huesped huesped : lista) {
+            String nomnbre = huesped.getNombre();
+            listaNombres.add(nomnbre);
+        }
+        for (String nombre : listaNombres) {
+            ComboNombre.addItem(nombre);
+        }
     }
-    
-    private Huesped modificarHuesped(){
-        int fila=TablaHuespedes.getSelectedRow();
-            
+
+    private Huesped modificarHuesped() {
+        int fila = TablaHuespedes.getSelectedRow();
+
         if (fila != -1) {
             int id = (Integer) TablaHuespedes.getValueAt(fila, 0);
             huesped.setIdHuesped(id);
@@ -752,32 +761,44 @@ public class PanelAdminHuespedes extends javax.swing.JPanel {
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Ingrese sólo números en el campo 'TELEFONO'" + ex.getMessage());
         }
-        
+
         String domicilio = DetDomicilio.getText();
         String correo = DetCorreo.getText();
         huesped.setDomicilio(domicilio);
         huesped.setCorreo(correo);
-        
+
         return huesped;
     }
-    
-    private void usarBotones(){
-            
-            if(BotonEstadoAlojados.isSelected()){
+
+    private void usarBotones() {
+
+        if (BotonEstadoAlojados.isSelected()) {
             llenarTablaAlojados();
-            }else if(BotonEstadoTodos.isSelected()){
+        } else if (BotonEstadoTodos.isSelected()) {
             llenarTablaTodos();
-            }    
+        }
     }
+
     ////No permite seleccionar la primera fila donde se indica el datos que contine
     class DisabledItemRenderer extends DefaultListCellRenderer {
-    @Override
-    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-        if (index == 0) {
-            setEnabled(false);
+
+        @Override
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            if (index == 0) {
+                setEnabled(false);
+            }
+            return this;
         }
-        return this;
     }
+
+    private void cambiarEstadoCampos(boolean estado) {
+        DetAlojado.setEditable(estado);
+        DetCorreo.setEditable(estado);
+        DetDni.setEditable(estado);
+        DetDomicilio.setEditable(estado);
+        DetIdHuesped.setEditable(estado);
+        DetNombre.setEditable(estado);
+        DetTelefono.setEditable(estado);
     }
 }

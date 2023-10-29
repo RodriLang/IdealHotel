@@ -282,6 +282,7 @@ public class AdministracionView extends javax.swing.JInternalFrame {
 
     private void botonHabitacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonHabitacionesActionPerformed
         mostrarPanelContenido(panelHabitaciones, botonHabitaciones);
+        panelHabitaciones.filtrarHabitaciones();
     }//GEN-LAST:event_botonHabitacionesActionPerformed
 
     private void botonHuespedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonHuespedesActionPerformed
