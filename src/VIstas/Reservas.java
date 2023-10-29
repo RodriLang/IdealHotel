@@ -488,7 +488,8 @@ private ReservaData resData=new ReservaData(huesData, habData);
             jdIngreso.removeAll();
             jdSalida.removeAll();
             jtHabitaciones.removeAll();
-            JOptionPane.showMessageDialog(jpDatos, "Reserva guardada. Su numero de habitación es "+ hab.getIdHabitacion());
+            JOptionPane.showMessageDialog(jpDatos, "Reserva guardada. Su numero de habitación es "+ hab.getIdHabitacion() + ", quedo reservada "
+                    + "para el día "+res.getFechaInn()+" hasta el "+res.getFechaOut()+" para " +res.getCantPax()+ " personas por un total de $" + res.getImporte());
         }else{         
             JOptionPane.showMessageDialog(jpDatos, "Faltan datos por completar");
         }
