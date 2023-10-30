@@ -728,6 +728,7 @@ public class PanelCheckInOut extends javax.swing.JPanel {
         if (AdministracionView.FECHA.isBefore(reserva.getFechaOut())
                 && reserva.getHabitacion().isOcupada()) {
             labelChekIn.setText("CHECK OUT ANTICIPADO");
+            textFieldFechaOut.setText(AdministracionView.FECHA.toString());
         } else if (reserva.getFechaInn().equals(AdministracionView.FECHA)
                 || (reserva.getFechaInn().plusDays(1).equals(AdministracionView.FECHA)
                 && !reserva.getHabitacion().isOcupada())) {
