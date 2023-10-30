@@ -6,6 +6,7 @@
 package VIstas.Administracion;
 
 import AccesoADatos.HabitacionData;
+import AccesoADatos.HuespedData;
 import AccesoADatos.ReservaData;
 import VIstas.AdministracionView;
 import entidades.Habitacion;
@@ -24,17 +25,19 @@ public class PanelCheckInOut extends javax.swing.JPanel {
     private ReservaData resData;
     private Habitacion habitacion;
     private Huesped huesped;
+    private HuespedData huesData;
 
     private PanelAdminHabitaciones panelAdmin;
     private AdministracionView ventana;
 
     public PanelCheckInOut(AdministracionView ventana, PanelAdminHabitaciones panelAdmin,
-            Reserva reserva, HabitacionData habData, ReservaData resData) {
+            Reserva reserva, HabitacionData habData, ReservaData resData, HuespedData huesData) {
         this.reserva = reserva;
         this.habData = habData;
         this.resData = resData;
         this.ventana = ventana;
         this.panelAdmin = panelAdmin;
+        this.huesData = huesData;
         initComponents();
         this.setVisible(false);
         cargarComboNumeros();
@@ -608,6 +611,7 @@ public class PanelCheckInOut extends javax.swing.JPanel {
             habData.liberarHabitacion(habitacion.getIdHabitacion());
             reserva.getHuesped().setAlojado(false);
         }
+        huesData.modificarHuesped(huesped);
         resData.modificarReserva(reserva);
         limpiarCampos();
         cargarComboNumeros();
@@ -721,8 +725,8 @@ public class PanelCheckInOut extends javax.swing.JPanel {
 
     private void cargarDatosReserva() {
         comboBoxNumeroReserva.setSelectedItem("" + reserva.getIdReserva());
-        if (AdministracionView.FECHA.isBefore(reserva.getFechaOut()) &&
-                reserva.getHabitacion().isOcupada()) {
+        if (AdministracionView.FECHA.isBefore(reserva.getFechaOut())
+                && reserva.getHabitacion().isOcupada()) {
             labelChekIn.setText("CHECK OUT ANTICIPADO");
         } else if (reserva.getFechaInn().equals(AdministracionView.FECHA)
                 || (reserva.getFechaInn().plusDays(1).equals(AdministracionView.FECHA)

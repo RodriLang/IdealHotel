@@ -249,12 +249,12 @@ public class PanelInfoHabitacion extends javax.swing.JPanel {
 
     private void botonCheckInOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCheckInOutActionPerformed
         if (botonCheckInOut.getText().startsWith("Check")) {
-            ventana.mostrarPanelContenido(new PanelCheckInOut(ventana, panelAdmin, reserva, habData, resData), null);
+            ventana.mostrarPanelContenido(new PanelCheckInOut(ventana, panelAdmin, reserva, habData, resData, huesData), null);
         } else if (botonCheckInOut.getText().startsWith("Out")) {
             reserva.setFechaOut(AdministracionView.FECHA);
             reserva.calcularImporte();
             System.out.println("salida " + reserva.getFechaOut());
-            ventana.mostrarPanelContenido(new PanelCheckInOut(ventana, panelAdmin, reserva, habData, resData), null);
+            ventana.mostrarPanelContenido(new PanelCheckInOut(ventana, panelAdmin, reserva, habData, resData, huesData), null);
         } else if (botonCheckInOut.getText().equals("Reservar")) {
             new CheckInSinReservaView(panelAdmin, habData, resData, huesData, habitacion);
         }
